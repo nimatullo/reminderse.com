@@ -1,4 +1,4 @@
-# Reminderse Microservice Rewrite
+# Reminderse API
 
 
 ## User Model
