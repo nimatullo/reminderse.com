@@ -23,8 +23,9 @@
 | Get Texts (all)     | /api/text/list             | GET         |
 | Edit Link           | /api/link/edit/            | PUT         |
 | Edit Text           | /api/text/edit/            | PUT         |
-| Get Link (specific) | /api/link/view/<link_id>   | GET         |
-| Get Text (specific) | /api/text/view/<text_id>   | GET         |
-| Delete Link         | /api/link/delete/<link_id> | DELETE      |
-| Delete Text         | /api/text/delete/<text_id> | DELETE      |
+| Get Link (specific) | /api/link/<link_id>        | GET         |
+| Get Text (specific) | /api/text/<text_id>        | GET         |
+| Delete Link         | /api/link/<link_id>        | DELETE      |
+| Delete Text         | /api/text/<text_id>        | DELETE      |
 | Search              | /api/search/<query>        | GET         |
+

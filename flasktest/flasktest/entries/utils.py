@@ -124,14 +124,15 @@ def generate_text_dict(db_text):
             date_diff = 'Today'
         elif date_diff == 1:
             date_diff = 'Tomorrow'
-        elements['url'] = url_for('entries.view', id=text.id)
-        elements.append(date_diff)
-        elements.append(text.id)
+        elements['entry_title'] = text.entry_title
+        elements['text_content'] = text.text_content
+        elements['days'] = date_diff
+        elements['id'] = text.id
         category = Category.query.filter_by(id=text.category_id).first()
         if category == None:
-            elements.append('')
+            elements['category'] = None
         else:
-            elements.append(category.title)
-        texts[text.entry_title] = elements
+            elements['category'] = category.title
+        texts.append(elements)
 
     return texts 

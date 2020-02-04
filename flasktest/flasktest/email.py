@@ -8,7 +8,7 @@ from flasktest.models import Users, Links, Text
 from datetime import date, timedelta
 
 
-serverId = os.environ['MAIL_SERVER_ID']
+serverId = int(os.environ['MAIL_SERVER_ID'])
 injectionApiKey = os.environ['MAIL_API_KEY']
 
 client = SocketLabsClient(serverId, injectionApiKey);
@@ -17,6 +17,7 @@ message = BasicMessage()
 
 
 def send(email, html_mid):
+    print(f's.id: {serverId}, injAPI: {injectionApiKey}')
     message.subject = "Confirmation Email"
     message.html_body = f""" <html xmlns="https://www.w3.org/1999/xhtml">
 
