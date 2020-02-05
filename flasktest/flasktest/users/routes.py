@@ -52,7 +52,11 @@ def send_email_confirmation(email):
 @users.route('/api/login', methods=["POST"])
 def login():
     if current_user.is_authenticated:
-        return make_response(jsonify({"message": "Already Logged In."}), 400)
+        return make_response(jsonify({
+            'message': f'Already signed in',
+            'username': current_user.username,
+            'id': current_user.id
+            }), 200)
 
     email = request.json.get('email')
     password = request.json.get('password')
@@ -60,6 +64,7 @@ def login():
     user = Users.query.filter_by(email=email.lower().rstrip()).first()
     if user and bcrypt.check_password_hash(user.password, password):
         print(f'{user.username} logged in.')
+        login_user(user)
         return jsonify({
             'message': f'Welcome {user.username}',
             'username': user.username,
