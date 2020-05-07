@@ -1,0 +1,59 @@
+.card {
+  display: inline-block;
+  border: 1px solid #f0f0ef;
+  border-radius: 6px;
+  border-collapse: collapse;
+  transition: 0.3s all;
+}
+
+.card a {
+  display: grid;
+  grid-template-rows: 2fr 1fr;
+  text-decoration: none;
+  color: #000;
+}
+
+.card .imgArea {
+  display: flex;
+  padding: 1em;
+  justify-content: center;
+}
+
+.card .cardInfo {
+  background-color: #f7f7f7;
+  text-align: center;
+  padding: 1em;
+}
+
+.cardInfo .entryTitle {
+  margin: 0.5em;
+}
+
+.entryTitle {
+  font-size: 1.1em;
+  font-weight: bold;
+}
+
+.card:hover {
+  border: 1px solid #dadad9;
+}
+
+.card .cardInfo .date {
+  margin: 0.5em;
+  font-size: 0.8rem;
+}
+
+.long {
+  max-width: 35%;
+  padding: 1em;
+}
+
+.long .cardContent {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.long > * {
+  margin: 0.5em 0;
+}

@@ -1,0 +1,58 @@
+.textField {
+  color: #fff;
+  display: inline-block;
+  height: 30px;
+  padding: 0.375rem 0.75rem;
+  border: none;
+  border-radius: 0.25rem;
+  font-size: 1rem;
+  background-color: rgba(255, 255, 255, 0.3);
+  transition: 0.3s background-color ease-in-out, 0.3s box-shadow ease-in-out;
+}
+
+.textField::placeholder {
+  color: #ffffff;
+}
+
+.textField:hover {
+  background-color: rgba(255, 255, 255, 0.45);
+  box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.05);
+}
+
+.textField:focus {
+  outline: none;
+  color: #000;
+  background-color: #ffffff;
+  box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.2);
+}
+
+.textFieldContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.textFieldContainer label {
+  color: #ffffff;
+  padding-bottom: 0.5em;
+}
+
+button.button {
+  font-weight: bold;
+  height: 40px;
+  font-size: 1rem;
+  padding: 0.375rem 0.75rem;
+  width: 100%;
+  max-width: 250px;
+  background-color: #ffffff;
+  border: none;
+  border-radius: 0.25rem;
+  box-shadow: 0 0px 8px rgba(0, 0, 0, 0.035), 0 0px 10px rgba(0, 0, 0, 0.07);
+  transition: 0.3s background-color ease-in-out, 0.3s box-shadow ease-in-out;
+}
+
+button.button:hover {
+  cursor: pointer;
+  background-color: rgba(255, 255, 255, 0.7);
+  box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.05);
+}
