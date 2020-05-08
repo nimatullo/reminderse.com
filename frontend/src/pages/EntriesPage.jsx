@@ -15,22 +15,30 @@ const EntriesPage = () => {
       })
     );
   }, []);
-  return (
-    <main style={{ padding: "1em" }}>
-      <h1>Links</h1>
-      <div className="grid">
-        {links.map((link) => (
-          <LinkCard key={link.id} data={link} />
-        ))}
+  if (links.length > 0 && texts.length > 0) {
+    return (
+      <div>
+        <h1>Links</h1>
+        <div className="grid">
+          {links.length > 0
+            ? links.map((link) => <LinkCard key={link.id} data={link} />)
+            : null}
+        </div>
+        <h1>Texts</h1>
+        <div className="list">
+          {texts.length > 0
+            ? texts.map((text) => <TextCard key={text.id} data={text} />)
+            : null}
+        </div>
       </div>
-      <h1>Texts</h1>
-      <div className="list">
-        {texts.map((text) => (
-          <TextCard key={text.id} data={text} />
-        ))}
+    );
+  } else {
+    return (
+      <div>
+        <h1>Loading...</h1>
       </div>
-    </main>
-  );
+    );
+  }
 };
 
 export default EntriesPage;

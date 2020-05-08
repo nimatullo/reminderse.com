@@ -11,15 +11,23 @@ export default (props) => {
           <h3 className="sidebar-title">Reminderse</h3>
           <p>Hello mmvvpp123!</p>
         </div>
-        <Link className="menu-item" to="/">
-          <FaHome /> <span>Home</span>
-        </Link>
-        <Link className="menu-item" to="/entries">
-          <FaThList /> <span>Entries</span>
-        </Link>
-        <Link className="menu-item" to="/add">
-          <FaPlusCircle /> <span>Add Entry</span>
-        </Link>
+        <ul>
+          <li>
+            <Link className="menu-item" to="/">
+              <FaHome /> <span>Home</span>
+            </Link>
+          </li>
+          <li>
+            <Link className="menu-item" to="/entries">
+              <FaThList /> <span>Entries</span>
+            </Link>
+          </li>
+          <li>
+            <Link className="menu-item" to="/add">
+              <FaPlusCircle /> <span>Add Entry</span>
+            </Link>
+          </li>
+        </ul>
       </div>
     </>
   );
