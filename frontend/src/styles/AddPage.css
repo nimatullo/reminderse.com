@@ -1,0 +1,22 @@
+.add-page {
+  background-color: var(--secondary-color);
+  padding: 2em;
+  border-radius: 6px;
+  height: 100%;
+  margin: 1em;
+}
+
+.add-page {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+.add-page div {
+  margin: 1em;
+}
+
+.add-page h1 {
+  color: #fff;
+}

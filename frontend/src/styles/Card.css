@@ -1,6 +1,6 @@
 .card {
   display: inline-block;
-  border: 1px solid #f0f0ef;
+  border: 1px solid var(--border-color);
   border-radius: 6px;
   border-collapse: collapse;
   transition: 0.3s all;

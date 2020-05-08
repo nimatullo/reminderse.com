@@ -1,7 +1,23 @@
 @import url("https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap");
 
+*,
+html,
+body {
+  margin: 0;
+}
+
+:root {
+  --border-color: #f0f0ef;
+  --primary-color: #50287d;
+  --secondary-color: #e8525f;
+}
+
 * {
   font-family: "Montserrat", sans-serif;
+}
+
+#page-wrap {
+  height: 100vh;
 }
 
 .secondary {
@@ -25,4 +41,86 @@
   display: flex;
   justify-content: space-evenly;
   flex-direction: column;
+}
+
+.menu-item {
+  display: flex !important;
+  justify-content: start;
+  align-items: center;
+}
+
+.menu-item > span {
+  margin-left: 10px;
+}
+
+.menu-item:hover {
+  background-color: var(--secondary-color);
+}
+
+.intro {
+  color: var(--secondary-color) !important;
+}
+
+.intro h3 {
+  text-transform: uppercase;
+}
+
+.bm-item {
+  outline: none;
+  text-decoration: none;
+  color: #fff;
+  transition: all 0.2s;
+  padding: 1em;
+}
+
+.bm-burger-button {
+  position: absolute;
+  width: 36px;
+  height: 30px;
+  right: 36px;
+  top: 36px;
+}
+
+.bm-burger-bars {
+  background: var(--primary-color);
+}
+
+.bm-cross-button {
+  height: 24px;
+  width: 24px;
+}
+
+.bm-cross {
+  background: #fff;
+}
+
+.bm-menu {
+  margin-top: 1em;
+  padding: 1.5em 0;
+  font-size: 1.15em;
+}
+
+.bm-menu-wrap {
+  position: relative;
+  background-color: var(--primary-color);
+}
+
+.bm-morph-shape {
+  fill: #373a47;
+}
+
+.bm-item-list {
+  color: #fff;
+}
+
+.bm-overlay {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.container {
+  margin: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
