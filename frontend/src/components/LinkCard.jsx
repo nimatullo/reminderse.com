@@ -9,7 +9,7 @@ const LinkCard = ({ data }) => {
           <img
             width={200}
             src={`https://logo.clearbit.com/${data.url}`}
-            alt={data.entry_title}
+            alt={data.entry_title.charAt(0)}
           />
         </div>
         <div className="cardInfo">
@@ -18,7 +18,9 @@ const LinkCard = ({ data }) => {
           {data.days < 0 ? (
             <div className="secondary date">Paused</div>
           ) : (
-            <div className="secondary date">{data.days}</div>
+            <div className="secondary date">
+              Next email goes out in {data.days} days
+            </div>
           )}
         </div>
       </a>

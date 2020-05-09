@@ -19,8 +19,15 @@
   justify-content: center;
 }
 
+.card .imgArea img {
+  line-height: 200%;
+  text-align: center;
+  font-size: 5em;
+  color: var(--secondary-color);
+}
+
 .card .cardInfo {
-  background-color: #f7f7f7;
+  background-color: var(--background-grey);
   text-align: center;
   padding: 1em;
 }
@@ -43,16 +50,18 @@
   font-size: 0.8rem;
 }
 
-.long {
-  max-width: 35%;
-  padding: 1em;
+.card.text {
+  height: 100%;
+  min-height: 300px;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
 }
 
-.long .cardContent {
-  text-overflow: ellipsis;
-  overflow: hidden;
+.card.text > * {
+  margin: 1em;
 }
 
-.long > * {
-  margin: 0.5em 0;
+.card.text .entryTitle {
+  text-align: center;
 }

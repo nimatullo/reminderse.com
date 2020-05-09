@@ -8,13 +8,15 @@ const TextCard = ({ data }) => {
   const content = <div>{data.text_content}</div>;
   return (
     <>
-      <div className="card long" onClick={toggle}>
+      <div className="card text" onClick={toggle}>
         <div className="entryTitle">{data.entry_title}</div>
         <div className="cardContent">{data.text_content}</div>
         {data.days < 0 ? (
           <div className="secondary date">Paused</div>
         ) : (
-          <div className="secondary date">{data.days}</div>
+          <div className="secondary date">
+            Next email goes out in {data.days} days
+          </div>
         )}
       </div>
       <Dialog

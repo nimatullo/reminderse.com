@@ -25,7 +25,7 @@ const EntriesPage = () => {
             : null}
         </div>
         <h1>Texts</h1>
-        <div className="list">
+        <div className="grid">
           {texts.length > 0
             ? texts.map((text) => <TextCard key={text.id} data={text} />)
             : null}

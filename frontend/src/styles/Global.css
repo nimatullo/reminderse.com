@@ -14,6 +14,7 @@ a {
   --border-color: #f0f0ef;
   --primary-color: #50287d;
   --secondary-color: #e8525f;
+  --background-grey: #f7f7f7;
 }
 
 * {
@@ -22,11 +23,12 @@ a {
 
 #App {
   display: grid;
-  grid-template-columns: 1fr 5fr;
+  grid-template-columns: 1fr 9fr;
 }
 
 #page-wrap {
   height: 100vh;
+  margin: 2em;
 }
 
 .secondary {
@@ -35,13 +37,14 @@ a {
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  column-gap: 1em;
+  row-gap: 1em;
 }
 
 .list {
   display: flex;
   flex-direction: column;
-  flex-wrap: wrap;
   height: 50vh;
 }
 
@@ -110,7 +113,14 @@ a {
 .container {
   margin: 0;
   width: 100%;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+@media only screen and (max-width: 1200px) {
+  #App {
+    display: block;
+  }
 }
