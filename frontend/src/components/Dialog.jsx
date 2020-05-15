@@ -7,6 +7,7 @@ const Modal = ({ open, hide, content, headerTitle }) =>
         <>
           <div className="dialog-overlay" />
           <div className="dialog-wrapper" role="dialog">
+            <div onClick={hide} className="content" />
             <div className="dialog">
               <div className="dialog-header">
                 <div>{headerTitle}</div>

@@ -5,8 +5,6 @@ import NewText from "../components/NewText";
 import Button from "../components/Button";
 
 const AddPage = () => {
-  const [content, setContent] = useState("");
-
   const [isUrlTabActive, setIsUrlTabActive] = useState(true);
 
   return (

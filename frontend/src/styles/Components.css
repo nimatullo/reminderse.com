@@ -71,7 +71,7 @@ button.button.active {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 1000;
+  z-index: 1;
   width: 100vw;
   height: 100vh;
   background-color: #000;
@@ -82,7 +82,7 @@ button.button.active {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 1010;
+  z-index: 2;
   width: 100%;
   height: 100%;
   overflow-x: hidden;
@@ -91,7 +91,7 @@ button.button.active {
 }
 
 .dialog {
-  z-index: 100;
+  z-index: 4;
   background-color: white;
   position: relative;
   margin: 1.75rem auto;
@@ -117,4 +117,11 @@ button.button.active {
   opacity: 0.3;
   cursor: pointer;
   border: none;
+}
+
+.content {
+  z-index: 3;
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
 }
