@@ -1,7 +1,11 @@
 import React from "react";
-const Button = ({ label, color, onClick }) => {
+const Button = ({ label, color, onClick, className }) => {
   return (
-    <button onClick={onClick} style={{ color: { color } }} className="button">
+    <button
+      onClick={onClick}
+      style={{ color: { color } }}
+      className={`button ${className}`}
+    >
       {label}
     </button>
   );

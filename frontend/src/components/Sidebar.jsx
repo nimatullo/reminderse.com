@@ -1,32 +1,64 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { FaHome, FaPlusCircle, FaThList } from "react-icons/fa";
+import { MdAccountCircle, MdSettings } from "react-icons/md";
 
 export default (props) => {
   return (
     <>
       <div className="sidebar">
-        <div className="intro">
-          <h3 className="sidebar-title">Reminderse</h3>
-          <p>Hello mmvvpp123!</p>
+        <div className="account">
+          <NavLink
+            className="menu-item"
+            exact
+            to="/account"
+            activeClassName="menu-item-active"
+          >
+            <MdAccountCircle className="menu-item-icon" />
+          </NavLink>
         </div>
         <ul>
           <li>
-            <Link className="menu-item" to="/">
-              <FaHome /> <span>Home</span>
-            </Link>
+            <NavLink
+              exact
+              activeClassName="menu-item-active"
+              className="menu-item"
+              to="/"
+            >
+              <FaHome className="menu-item-icon" />
+            </NavLink>
           </li>
           <li>
-            <Link className="menu-item" to="/entries">
-              <FaThList /> <span>Entries</span>
-            </Link>
+            <NavLink
+              exact
+              activeClassName="menu-item-active"
+              className="menu-item"
+              to="/entries"
+            >
+              <FaThList className="menu-item-icon" />
+            </NavLink>
           </li>
           <li>
-            <Link className="menu-item" to="/add">
-              <FaPlusCircle /> <span>Add Entry</span>
-            </Link>
+            <NavLink
+              exact
+              activeClassName="menu-item-active"
+              className="menu-item"
+              to="/settings"
+            >
+              <MdSettings className="menu-item-icon" />
+            </NavLink>
           </li>
         </ul>
+        <div className="cta">
+          <NavLink
+            exact
+            activeClassName="menu-item-active"
+            className="menu-item"
+            to="/add"
+          >
+            <FaPlusCircle className="menu-item-icon" />
+          </NavLink>
+        </div>
       </div>
     </>
   );

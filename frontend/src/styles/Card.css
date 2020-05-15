@@ -14,15 +14,31 @@
 }
 
 .card .imgArea {
-  display: flex;
-  padding: 1em;
-  justify-content: center;
+  display: grid;
+  place-content: center;
+  width: 100%;
+  height: 100%;
+  background-size: auto;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .card .imgArea img {
-  line-height: 200%;
+  position: relative;
+}
+
+.card .imgArea img[alt]:after {
+  display: block;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
   text-align: center;
-  font-size: 5em;
+  content: attr(alt);
+  font-size: 5rem;
+  line-height: 2rem;
+  font-weight: bold;
   color: var(--secondary-color);
 }
 
@@ -51,8 +67,6 @@
 }
 
 .card.text {
-  height: 100%;
-  min-height: 300px;
   display: flex;
   justify-content: space-between;
   flex-direction: column;
