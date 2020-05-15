@@ -13,7 +13,7 @@ function App() {
 
   const sideBar = () => {
     if (showSideBar) {
-      return <Sidebar />;
+      return <Sidebar handleClick={setShowSideBar} />;
     } else {
       return null;
     }
@@ -23,13 +23,24 @@ function App() {
     <div id="App">
       <Router>
         <MediaQuery minWidth={1200}>
-          <Sidebar pageWrapId={"page-wrap"} outerContainerId={"App"} />
+          <Sidebar
+            handleClick={setShowSideBar}
+            pageWrapId={"page-wrap"}
+            outerContainerId={"App"}
+          />
         </MediaQuery>
         <MediaQuery maxWidth={1200}>
           {sideBar()}
-          <button onClick={() => setShowSideBar(true)}>
-            <GiHamburgerMenu />
-          </button>
+          <div className="hamburgerButton">
+            <button
+              style={{
+                display: showSideBar ? "none" : "block",
+              }}
+              onClick={() => setShowSideBar(true)}
+            >
+              <GiHamburgerMenu />
+            </button>
+          </div>
         </MediaQuery>
         <div id="page-wrap">
           <Switch>

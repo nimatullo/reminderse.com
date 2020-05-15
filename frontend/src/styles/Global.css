@@ -68,69 +68,6 @@ a {
   padding: 15px;
 }
 
-.sidebar {
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  background-color: var(--primary-color);
-  height: 100vh;
-  /* padding-top: 1em;
-  padding-bottom: 1em; */
-}
-
-.sidebar ul {
-  padding: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  height: 90%;
-}
-
-.sidebar ul li {
-  list-style: none;
-  transition: 0.3s all;
-}
-
-.sidebar .menu-item > * {
-  display: block;
-  color: #fff;
-}
-
-.menu-item {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 15px;
-}
-
-.menu-item .menu-item-icon {
-  background-color: #441f6d;
-  border-radius: 50%;
-  padding: 1em;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.3s;
-}
-
-.menu-item > span {
-  margin-left: 10px;
-}
-
-.menu-item-active .menu-item-icon {
-  background-color: var(--secondary-color);
-}
-
-.sidebar .menu-item-icon:hover {
-  background-color: var(--secondary-color);
-}
-
-.sidebar .cta .menu-item-icon {
-  padding: 1.2rem;
-  font-size: 1.2rem;
-}
-
 .container {
   margin: 0;
   width: 100%;
@@ -139,6 +76,18 @@ a {
   justify-content: center;
   flex-direction: column;
   align-items: center;
+}
+
+.hamburgerButton {
+  display: flex;
+  justify-content: flex-end;
+  padding: 15px;
+}
+
+.hamburgerButton button {
+  background-color: transparent;
+  border: none;
+  font-size: 30px;
 }
 
 @media only screen and (max-width: 1200px) {
