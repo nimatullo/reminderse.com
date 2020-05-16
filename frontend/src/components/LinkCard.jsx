@@ -1,5 +1,6 @@
 import React from "react";
 import "../styles/Card.css";
+import DropdownMenu from "./DropdownMenu";
 
 const LinkCard = ({ data }) => {
   return (
@@ -24,6 +25,7 @@ const LinkCard = ({ data }) => {
           )}
         </div>
       </a>
+      <DropdownMenu url={data.url} id={data.id} />
     </div>
   );
 };

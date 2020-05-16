@@ -8,9 +8,11 @@ import uuid
 
 entries = Blueprint('entries', __name__)
 
+
 @entries.route("/")
 def main():
     return render_template("index.html")
+
 
 @entries.route("/api/link/add", methods=["POST"])
 @login_required
@@ -26,6 +28,7 @@ def add_link():
     else:
         return make_response(jsonify({"message": "Request body must be JSON"}), 400)
 
+
 @entries.route("/api/text/add", methods=["POST"])
 @login_required
 def add_text():
@@ -37,17 +40,20 @@ def add_text():
 
     return jsonify({'message': "Entry made."}), 201
 
+
 @entries.route('/api/link/list', methods=['GET'])
 @login_required
 def all_links():
     entries = get_all_links(current_user.id)
     return jsonify(entries), 200
 
+
 @entries.route('/api/text/list', methods=['GET'])
 @login_required
 def all_texts():
     entries = get_all_texts(current_user.id)
     return jsonify(entries), 200
+
 
 @entries.route("/api/link/<link_id>", methods=["PUT"])
 @login_required
@@ -61,17 +67,19 @@ def edit_link_api(link_id):
         category = request.json.get('category')
         days = request.json.get('days')
 
-        link.entry_title=entry_title
+        link.entry_title = entry_title
         link.url = url
         if (category == ""):
             link.category_id = None
         elif(category):
             category_validation = category_exists(category)
-            link.category_id=category_validation.id
+            link.category_id = category_validation.id
         if (days):
-            link.date_of_next_send = link.date_of_next_send + timedelta(days=int(days))
+            link.date_of_next_send = link.date_of_next_send + \
+                timedelta(days=int(days))
         db.session.commit()
-        return jsonify({"message" : "Changes saved."}), 200
+        return jsonify({"message": "Changes saved."}), 200
+
 
 @entries.route("/api/text/<text_id>", methods=["PUT"])
 @login_required
@@ -85,27 +93,30 @@ def edit_text_api(text_id):
         category = request.json.get('category')
         days = request.json.get('days')
 
-        text.entry_title=entry_title
+        text.entry_title = entry_title
         text.text_content = text_content
         if (category == ""):
             text.category_id = None
         elif(category):
             category_validation = category_exists(category)
-            text.category_id=category_validation.id
+            text.category_id = category_validation.id
         if (days):
-            text.date_of_next_send = text.date_of_next_send + timedelta(days=int(days))
+            text.date_of_next_send = text.date_of_next_send + \
+                timedelta(days=int(days))
         db.session.commit()
-        return jsonify({"message" : "Changes saved."}), 200
+        return jsonify({"message": "Changes saved."}), 200
+
 
 @entries.route('/api/link/<link_id>', methods=['GET'])
 @login_required
 def get_link(link_id):
-    link = Links.query.filter_by(user_id=current_user.id).filter_by(id=link_id).first()
+    link = Links.query.filter_by(
+        user_id=current_user.id).filter_by(id=link_id).first()
 
     if not link:
         return make_response(jsonify({"message": "Link cannot be found."}), 404)
     else:
-        category = Category.query.filter_by(id=link.category_id).first().title
+        category = Category.query.filter_by(id=link.category_id).first()
         if category:
             category = category.title
         else:
@@ -117,10 +128,12 @@ def get_link(link_id):
             "category": category
         }), 200)
 
+
 @entries.route('/api/text/<text_id>', methods=['GET'])
 @login_required
 def get_text(text_id):
-    text = Text.query.filter_by(user_id=current_user.id).filter_by(id=text_id).first()
+    text = Text.query.filter_by(
+        user_id=current_user.id).filter_by(id=text_id).first()
 
     if not text:
         return make_response(jsonify({"message": "Text cannot be found."}), 404)
@@ -137,29 +150,34 @@ def get_text(text_id):
             "category": category
         }), 200)
 
+
 @entries.route('/api/link/<link_id>', methods=['DELETE'])
 @login_required
 def delete_link(link_id):
-    link = Links.query.filter_by(user_id=current_user.id).filter_by(id=link_id).first()
+    link = Links.query.filter_by(
+        user_id=current_user.id).filter_by(id=link_id).first()
 
     if not link:
         return make_response(jsonify({"message": "Link does not exists"}), 404)
     else:
         db.session.delete(link)
         db.session.commit()
-        return make_response(jsonify({"message":"Link deleted"}), 200)
+        return make_response(jsonify({"message": "Link deleted"}), 200)
+
 
 @entries.route('/api/text/<text_id>', methods=['DELETE'])
 @login_required
 def delete_text(text_id):
-    text = Text.query.filter_by(user_id=current_user.id).filter_by(id=text_id).first()
+    text = Text.query.filter_by(
+        user_id=current_user.id).filter_by(id=text_id).first()
 
     if not text:
         return make_response(jsonify({"message": "Text does not exists"}), 404)
     else:
         db.session.delete(text)
         db.session.commit()
-        return make_response(jsonify({"message":"Text deleted"}), 200)
+        return make_response(jsonify({"message": "Text deleted"}), 200)
+
 
 @entries.route('/api/search/', methods=["GET"])
 @login_required
@@ -171,10 +189,12 @@ def search():
     else:
         category_id = str(uuid.uuid4())
 
-    text = (Text.query.filter_by(user_id=current_user.id).filter_by(entry_title=query)).union(Text.query.filter_by(user_id=current_user.id).filter_by(category_id=category_id))
+    text = (Text.query.filter_by(user_id=current_user.id).filter_by(entry_title=query)).union(
+        Text.query.filter_by(user_id=current_user.id).filter_by(category_id=category_id))
     texts = generate_text_dict(text)
 
-    link = (Links.query.filter_by(user_id=current_user.id).filter_by(entry_title=query)).union(Links.query.filter_by(user_id=current_user.id).filter_by(category_id=category_id))
+    link = (Links.query.filter_by(user_id=current_user.id).filter_by(entry_title=query)).union(
+        Links.query.filter_by(user_id=current_user.id).filter_by(category_id=category_id))
     links = generate_links_dict(link)
 
     entries = [links, texts]

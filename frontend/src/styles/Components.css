@@ -11,7 +11,7 @@
 }
 
 .textField::placeholder {
-  color: #ffffff;
+  color: #f9abab;
 }
 
 .textField:hover {
@@ -124,4 +124,61 @@ button.button.active {
   position: absolute;
   width: 100vw;
   height: 100vh;
+}
+
+.dropDownMenu {
+  position: absolute;
+  bottom: 1em;
+  right: 1em;
+}
+
+.dropDownMenu > button {
+  background-color: transparent;
+  border: none;
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+  padding: 5px;
+  border-radius: 50%;
+  outline: none;
+}
+
+.dropDownMenu > button:hover {
+  background-color: var(--border-color);
+  cursor: pointer;
+}
+
+.menu {
+  right: 0;
+  z-index: 2;
+  position: absolute;
+  background-color: #fff;
+  border: 1px solid var(--border-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 1em;
+  border-radius: 8px;
+  box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.2);
+  width: 8em;
+}
+
+.menu button {
+  width: 100%;
+  background-color: transparent;
+  border: none;
+  font-size: 1em;
+  padding: 10px;
+}
+
+.menu button:hover {
+  cursor: pointer;
+  background-color: var(--border-color);
+}
+
+.menu button .button-content {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
 }

@@ -19,8 +19,8 @@
   align-items: center;
 }
 
-.add-page div {
-  margin: 1em;
+.add-page .textFieldContainer {
+  margin: 1em 0;
 }
 
 .add-page h1 {

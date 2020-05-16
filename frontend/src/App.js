@@ -5,6 +5,7 @@ import LoginPage from "./pages/LoginPage";
 import EntriesPage from "./pages/EntriesPage";
 import Sidebar from "./components/Sidebar";
 import AddPage from "./pages/AddPage";
+import EditPage from "./pages/EditPage";
 import MediaQuery from "react-responsive";
 import { GiHamburgerMenu } from "react-icons/gi";
 
@@ -47,6 +48,7 @@ function App() {
             <Route exact path="/login" component={LoginPage} />
             <Route exact path="/entries" component={EntriesPage} />
             <Route exact path="/add" component={AddPage} />
+            <Route exact path="/edit/:id" component={EditPage} />
           </Switch>
         </div>
       </Router>
