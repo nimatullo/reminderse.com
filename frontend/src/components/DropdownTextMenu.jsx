@@ -1,10 +1,14 @@
 import React, { Component } from "react";
+import { FaPause } from "react-icons/fa";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { MdDelete, MdEdit } from "react-icons/md";
 import { IoMdOpen } from "react-icons/io";
 import { withRouter } from "react-router-dom";
+import Axios from "axios";
+import EntryContext from "../context/EntryContext";
 
-class DropdownMenu extends Component {
+class DropdownTextMenu extends Component {
+  static contextType = EntryContext;
   constructor(props) {
     super();
 
@@ -14,6 +18,7 @@ class DropdownMenu extends Component {
 
     this.showMenu = this.showMenu.bind(this);
     this.closeMenu = this.closeMenu.bind(this);
+    this.pauseEntry = this.pauseEntry.bind(this);
   }
 
   showMenu(event) {
@@ -34,6 +39,13 @@ class DropdownMenu extends Component {
     }
   }
 
+  pauseEntry() {
+    Axios.put(`/api/text/${this.context.id}/pause`).then((res) => {
+      this.setState({ showMenu: false });
+      this.context.pauseEntry();
+    });
+  }
+
   render() {
     return (
       <div className="dropDownMenu">
@@ -48,14 +60,16 @@ class DropdownMenu extends Component {
               this.dropdownMenu = element;
             }}
           >
-            <button onClick={() => window.open(this.props.url, "_blank")}>
+            <button onClick={() => this.pauseEntry()}>
               <div className="button-content">
-                <IoMdOpen />
-                <span>Open</span>
+                <FaPause />
+                <span>Pause</span>
               </div>
             </button>
             <button
-              onClick={() => this.props.history.push(`/edit/${this.props.id}`)}
+              onClick={() =>
+                this.props.history.push(`/edit/text/${this.context.id}`)
+              }
             >
               <div className="button-content">
                 <MdEdit />
@@ -75,4 +89,4 @@ class DropdownMenu extends Component {
   }
 }
 
-export default withRouter(DropdownMenu);
+export default withRouter(DropdownTextMenu);

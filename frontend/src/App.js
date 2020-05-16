@@ -5,9 +5,10 @@ import LoginPage from "./pages/LoginPage";
 import EntriesPage from "./pages/EntriesPage";
 import Sidebar from "./components/Sidebar";
 import AddPage from "./pages/AddPage";
-import EditPage from "./pages/EditPage";
 import MediaQuery from "react-responsive";
 import { GiHamburgerMenu } from "react-icons/gi";
+import EditLinkPage from "./pages/EditLinkPage";
+import EditTextPage from "./pages/EditTextPage";
 
 function App() {
   const [showSideBar, setShowSideBar] = useState(false);
@@ -48,7 +49,8 @@ function App() {
             <Route exact path="/login" component={LoginPage} />
             <Route exact path="/entries" component={EntriesPage} />
             <Route exact path="/add" component={AddPage} />
-            <Route exact path="/edit/:id" component={EditPage} />
+            <Route exact path="/edit/link/:id" component={EditLinkPage} />
+            <Route exact path="/edit/text/:id" component={EditTextPage} />
           </Switch>
         </div>
       </Router>

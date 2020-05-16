@@ -8,25 +8,27 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "../styles/Components.css";
 
-class EditPage extends Component {
+class EditLinkPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
       title: "",
       url: "",
       category: "",
+      date: new Date(),
     };
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentDidMount() {
-    Axios.get(`/api/link/${this.props.match.params.id}`).then((res) =>
+    Axios.get(`/api/link/${this.props.match.params.id}`).then((res) => {
       this.setState({
         title: res.data.entry_title,
         url: res.data.url,
         category: res.data.category,
-      })
-    );
+        date: new Date(res.data.date),
+      });
+    });
   }
 
   handleSubmit() {
@@ -34,6 +36,7 @@ class EditPage extends Component {
       entry_title: this.state.title,
       url: this.state.url,
       category: this.state.category,
+      date: this.state.date,
     };
     Axios.put(`/api/link/${this.props.match.params.id}`, data).then((res) =>
       this.props.history.push("/entries")
@@ -62,11 +65,15 @@ class EditPage extends Component {
               onChange={(e) => this.setState({ category: e.target.value })}
             />
             <div className="textFieldContainer">
-              <label>Next Email Date</label>
-
+              <label>
+                <b>Next Email Date</b>
+              </label>
               <DatePicker
                 className="textField"
                 placeholderText="Date of next send"
+                selected={this.state.date}
+                onChange={(date) => this.setState({ date: date })}
+                minDate={new Date()}
               />
             </div>
           </div>
@@ -77,4 +84,4 @@ class EditPage extends Component {
   }
 }
 
-export default withRouter(EditPage);
+export default withRouter(EditLinkPage);

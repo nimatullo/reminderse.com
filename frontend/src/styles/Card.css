@@ -73,8 +73,20 @@
   flex-direction: column;
 }
 
+.card.text .clickableArea {
+  cursor: pointer;
+  display: grid;
+  grid-template-rows: 1fr 2fr;
+  justify-content: center;
+  height: 100%;
+}
+
 .card.text > * {
   margin: 1em;
+}
+
+.card.text > *:last-child {
+  margin: 0;
 }
 
 .card.text .entryTitle {

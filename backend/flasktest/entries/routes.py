@@ -1,7 +1,7 @@
 from flask import url_for, Blueprint, request, jsonify, make_response, render_template
 from flasktest import db
 from flasktest.models import Users, Links, Category, Text
-from datetime import timedelta
+from datetime import timedelta, date
 from flasktest.entries.utils import add_link_to_db, add_text_to_db, category_exists, get_all_links, get_all_texts, generate_links_dict, generate_text_dict
 from flask_login import current_user, login_required
 import uuid
@@ -65,7 +65,7 @@ def edit_link_api(link_id):
         entry_title = request.json.get('entry_title')
         url = request.json.get('url')
         category = request.json.get('category')
-        days = request.json.get('days')
+        date = request.json.get('date')
 
         link.entry_title = entry_title
         link.url = url
@@ -74,9 +74,8 @@ def edit_link_api(link_id):
         elif(category):
             category_validation = category_exists(category)
             link.category_id = category_validation.id
-        if (days):
-            link.date_of_next_send = link.date_of_next_send + \
-                timedelta(days=int(days))
+        if (date):
+            link.date_of_next_send = date
         db.session.commit()
         return jsonify({"message": "Changes saved."}), 200
 
@@ -91,7 +90,7 @@ def edit_text_api(text_id):
         entry_title = request.json.get('entry_title')
         text_content = request.json.get('text_content')
         category = request.json.get('category')
-        days = request.json.get('days')
+        date = request.json.get('date')
 
         text.entry_title = entry_title
         text.text_content = text_content
@@ -100,9 +99,8 @@ def edit_text_api(text_id):
         elif(category):
             category_validation = category_exists(category)
             text.category_id = category_validation.id
-        if (days):
-            text.date_of_next_send = text.date_of_next_send + \
-                timedelta(days=int(days))
+        if (date):
+            text.date_of_next_send = date
         db.session.commit()
         return jsonify({"message": "Changes saved."}), 200
 
@@ -125,7 +123,8 @@ def get_link(link_id):
             "id": link.id,
             "entry_title": link.entry_title,
             "url": link.url,
-            "category": category
+            "category": category,
+            "date": link.date_of_next_send
         }), 200)
 
 
@@ -147,8 +146,39 @@ def get_text(text_id):
             "id": text.id,
             "entry_title": text.entry_title,
             "text_content": text.text_content,
-            "category": category
+            "category": category,
+            "date": text.date_of_next_send
         }), 200)
+
+
+@entries.route('/api/link/<link_id>/pause', methods=["PUT"])
+@login_required
+def pause_link(link_id):
+    link = Links.query.filter_by(
+        user_id=current_user.id).filter_by(id=link_id).first()
+
+    if not link:
+        return make_response(jsonify({"message": "Link does not exist"}), 404)
+    else:
+        paused_date = date.today() - timedelta(days=1)
+        link.date_of_next_send = paused_date
+        db.session.commit()
+        return make_response(jsonify({"message": "Link paused"}), 200)
+
+
+@entries.route('/api/text/<text_id>/pause', methods=["PUT"])
+@login_required
+def pause_text(text_id):
+    text = Text.query.filter_by(
+        user_id=current_user.id).filter_by(id=text_id).first()
+
+    if not text:
+        return make_response(jsonify({"message": "Text does not exist"}), 404)
+    else:
+        paused_date = date.today() - timedelta(days=1)
+        text.date_of_next_send = paused_date
+        db.session.commit()
+        return make_response(jsonify({"message": "Text paused"}), 200)
 
 
 @entries.route('/api/link/<link_id>', methods=['DELETE'])

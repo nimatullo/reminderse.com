@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import "../styles/Card.css";
-import DropdownMenu from "./DropdownMenu";
+import DropdownLinkMenu from "./DropdownLinkMenu";
+import EntryContext from "../context/EntryContext";
 
-const LinkCard = ({ data }) => {
+const LinkCard = () => {
+  const data = useContext(EntryContext);
   return (
     <div className="card">
       <a href={data.url} target="_blank">
@@ -20,12 +22,13 @@ const LinkCard = ({ data }) => {
             <div className="secondary date">Paused</div>
           ) : (
             <div className="secondary date">
-              Next email goes out in {data.days} days
+              Next email goes out{" "}
+              {data.days === "Tomorrow" ? "Tomorrow" : `in ${data.days} days`}
             </div>
           )}
         </div>
       </a>
-      <DropdownMenu url={data.url} id={data.id} />
+      <DropdownLinkMenu />
     </div>
   );
 };

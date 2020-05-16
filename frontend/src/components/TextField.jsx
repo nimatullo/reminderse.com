@@ -4,7 +4,11 @@ import "../styles/Components.css";
 const TextField = ({ placeholder, label, type, value, onChange }) => {
   return (
     <div className="textFieldContainer">
-      {label && <label>{label}</label>}
+      {label && (
+        <label>
+          <b>{label}</b>
+        </label>
+      )}
       <input
         value={value}
         type={type}
