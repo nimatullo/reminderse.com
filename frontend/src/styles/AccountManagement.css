@@ -1,0 +1,50 @@
+.add-page p {
+  color: #fff;
+  margin-top: 1em;
+}
+
+.optional-link {
+  color: var(--primary-color);
+  transition: all 0.3s;
+}
+
+.optional-link:hover {
+  text-decoration: underline;
+}
+
+.tip {
+  width: 100%;
+  padding-left: 1em;
+  align-items: center;
+}
+
+.tip small {
+  color: var(--border-color);
+  text-align: left;
+}
+
+.tip.error small {
+  transition: all 0.2s;
+}
+
+.tip.error .password-length {
+  -webkit-animation: flash linear 1s normal;
+  animation: flash linear 1s normal;
+}
+
+@-webkit-keyframes flash {
+  0% {
+    color: red;
+  }
+  100% {
+    color: var(--border-color);
+  }
+}
+@keyframes flash {
+  0% {
+    color: red;
+  }
+  100% {
+    color: var(--border-color);
+  }
+}

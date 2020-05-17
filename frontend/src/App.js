@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./styles/Global.css";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import LoginPage from "./pages/LoginPage";
+import RegisterPage from "./pages/RegisterPage";
 import EntriesPage from "./pages/EntriesPage";
 import Sidebar from "./components/Sidebar";
 import AddPage from "./pages/AddPage";
@@ -47,6 +48,7 @@ function App() {
         <div id="page-wrap">
           <Switch>
             <Route exact path="/login" component={LoginPage} />
+            <Route exact path="/register" component={RegisterPage} />
             <Route exact path="/entries" component={EntriesPage} />
             <Route exact path="/add" component={AddPage} />
             <Route exact path="/edit/link/:id" component={EditLinkPage} />

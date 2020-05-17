@@ -11,7 +11,7 @@
 }
 
 .textField::placeholder {
-  color: #3e3c3c;
+  color: #efefef;
 }
 
 .textField:hover {

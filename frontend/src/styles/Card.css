@@ -81,6 +81,10 @@
   height: 100%;
 }
 
+.card .cardContent {
+  font-family: "Open Sans", sans-serif;
+}
+
 .card.text > * {
   margin: 1em;
 }
