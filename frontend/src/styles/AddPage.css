@@ -32,9 +32,51 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   column-gap: 1em;
+  position: relative;
 }
 
 .page-tabs button:hover {
   background-color: #ce4652;
   color: #fff;
+}
+
+.email-msg {
+  border: 1px solid #696969;
+  padding: 1em;
+  max-width: 662px;
+  text-align: center;
+  border-radius: 8px;
+  background-color: #efefef;
+}
+
+.email-msg .msg-actions {
+  margin-top: 0.5em;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 10px;
+  place-items: center;
+}
+
+.email-msg button.resend-email {
+  background-color: var(--primary-color);
+  color: #fff;
+  transition: all 0.2s;
+}
+
+.email-msg button.resend-email:hover {
+  opacity: 0.9;
+}
+
+.notif {
+  top: 1em;
+  position: absolute;
+  background-color: #d4edda;
+  border-radius: 8px;
+  padding: 1em;
+}
+
+.notif p {
+  color: #165825;
+  padding: 0;
+  margin: 0;
 }

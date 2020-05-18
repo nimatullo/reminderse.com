@@ -10,9 +10,21 @@ import MediaQuery from "react-responsive";
 import { GiHamburgerMenu } from "react-icons/gi";
 import EditLinkPage from "./pages/EditLinkPage";
 import EditTextPage from "./pages/EditTextPage";
+import SettingsPage from "./pages/SettingsPage";
+import LogoutPage from "./pages/LogoutPage";
+import PrivateRoute from "./auth/PrivateRoute";
+import { AuthContext } from "./context/Auth";
 
 function App() {
   const [showSideBar, setShowSideBar] = useState(false);
+
+  const existingUser = JSON.parse(localStorage.getItem("user"));
+  const [currentUser, setCurrentUser] = useState(existingUser);
+
+  const setUser = (data) => {
+    localStorage.setItem("user", JSON.stringify(data));
+    setCurrentUser(data);
+  };
 
   const sideBar = () => {
     if (showSideBar) {
@@ -24,38 +36,50 @@ function App() {
 
   return (
     <div id="App">
-      <Router>
-        <MediaQuery minWidth={1200}>
-          <Sidebar
-            handleClick={setShowSideBar}
-            pageWrapId={"page-wrap"}
-            outerContainerId={"App"}
-          />
-        </MediaQuery>
-        <MediaQuery maxWidth={1200}>
-          {sideBar()}
-          <div className="hamburgerButton">
-            <button
-              style={{
-                display: showSideBar ? "none" : "block",
-              }}
-              onClick={() => setShowSideBar(true)}
-            >
-              <GiHamburgerMenu />
-            </button>
+      <AuthContext.Provider value={{ currentUser, setCurrentUser: setUser }}>
+        <Router>
+          <MediaQuery minWidth={1200}>
+            <Sidebar
+              handleClick={setShowSideBar}
+              pageWrapId={"page-wrap"}
+              outerContainerId={"App"}
+            />
+          </MediaQuery>
+          <MediaQuery maxWidth={1200}>
+            {sideBar()}
+            <div className="hamburgerButton">
+              <button
+                style={{
+                  display: showSideBar ? "none" : "block",
+                }}
+                onClick={() => setShowSideBar(true)}
+              >
+                <GiHamburgerMenu />
+              </button>
+            </div>
+          </MediaQuery>
+          <div id="page-wrap">
+            <Switch>
+              <Route exact path="/login" component={LoginPage} />
+              <Route exact path="/register" component={RegisterPage} />
+              <PrivateRoute exact path="/settings" component={SettingsPage} />
+              <PrivateRoute exact path="/entries" component={EntriesPage} />
+              <PrivateRoute exact path="/add" component={AddPage} />
+              <PrivateRoute
+                exact
+                path="/edit/link/:id"
+                component={EditLinkPage}
+              />
+              <PrivateRoute
+                exact
+                path="/edit/text/:id"
+                component={EditTextPage}
+              />
+              <PrivateRoute exact path="/logout" component={LogoutPage} />
+            </Switch>
           </div>
-        </MediaQuery>
-        <div id="page-wrap">
-          <Switch>
-            <Route exact path="/login" component={LoginPage} />
-            <Route exact path="/register" component={RegisterPage} />
-            <Route exact path="/entries" component={EntriesPage} />
-            <Route exact path="/add" component={AddPage} />
-            <Route exact path="/edit/link/:id" component={EditLinkPage} />
-            <Route exact path="/edit/text/:id" component={EditTextPage} />
-          </Switch>
-        </div>
-      </Router>
+        </Router>
+      </AuthContext.Provider>
     </div>
   );
 }

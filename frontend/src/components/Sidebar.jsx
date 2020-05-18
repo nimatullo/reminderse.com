@@ -1,9 +1,11 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { FaHome, FaPlusCircle, FaThList, FaWindowClose } from "react-icons/fa";
-import { MdAccountCircle, MdSettings } from "react-icons/md";
+import { MdSettings } from "react-icons/md";
+import { RiLogoutBoxLine } from "react-icons/ri";
 import MediaQuery from "react-responsive";
 import "../styles/Sidebar.css";
+import ReactTooltip from "react-tooltip";
 
 export default ({ handleClick }) => {
   return (
@@ -16,17 +18,6 @@ export default ({ handleClick }) => {
             </button>
           </div>
         </MediaQuery>
-        <div className="account">
-          <NavLink
-            className="menu-item"
-            exact
-            to="/account"
-            activeClassName="menu-item-active"
-          >
-            <MdAccountCircle className="menu-item-icon" />{" "}
-            <span className="mobile-nav">My Account</span>
-          </NavLink>
-        </div>
         <ul>
           <li>
             <NavLink
@@ -34,8 +25,9 @@ export default ({ handleClick }) => {
               activeClassName="menu-item-active"
               className="menu-item"
               to="/"
+              onClick={() => handleClick(false)}
             >
-              <FaHome className="menu-item-icon" />
+              <FaHome className="menu-item-icon" data-tip="Home" />
               <span className="mobile-nav">Home</span>
             </NavLink>
           </li>
@@ -45,8 +37,9 @@ export default ({ handleClick }) => {
               activeClassName="menu-item-active"
               className="menu-item"
               to="/entries"
+              onClick={() => handleClick(false)}
             >
-              <FaThList className="menu-item-icon" />
+              <FaThList data-tip="Entries" className="menu-item-icon" />
               <span className="mobile-nav">Entries</span>
             </NavLink>
           </li>
@@ -56,24 +49,34 @@ export default ({ handleClick }) => {
               activeClassName="menu-item-active"
               className="menu-item"
               to="/settings"
+              onClick={() => handleClick(false)}
             >
-              <MdSettings className="menu-item-icon" />
+              <MdSettings data-tip="Settings" className="menu-item-icon" />
               <span className="mobile-nav">Settings</span>
             </NavLink>
           </li>
         </ul>
-        <div className="cta">
-          <NavLink
-            exact
-            activeClassName="menu-item-active"
-            className="menu-item"
-            to="/add"
-          >
-            <FaPlusCircle className="menu-item-icon" />
-            <span className="mobile-nav">Add Entry</span>
-          </NavLink>
-        </div>
+        <NavLink
+          exact
+          activeClassName="menu-item-active"
+          className="menu-item"
+          to="/add"
+          onClick={() => handleClick(false)}
+        >
+          <FaPlusCircle data-tip="Add Entry" className="menu-item-icon" />
+          <span className="mobile-nav">Add Entry</span>
+        </NavLink>
+        <NavLink
+          onClick={() => handleClick(false)}
+          exact
+          className="menu-item"
+          to="/logout"
+        >
+          <RiLogoutBoxLine data-tip="Log Out" className="menu-item-icon" />
+          <span className="mobile-nav">Log Out</span>
+        </NavLink>
       </div>
+      <ReactTooltip place={"right"} delayShow={500} offset={{ right: 25 }} />
     </>
   );
 };

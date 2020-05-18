@@ -7,6 +7,7 @@ const NewUrl = () => {
   const [title, setTitle] = useState("");
   const [url, setUrl] = useState("");
   const [category, setCategory] = useState();
+  const [showAddedConfirmation, setShowAddedConfirmation] = useState(false);
   useEffect(() => {
     navigator.clipboard.readText().then((text) => {
       if (validURL(text)) {
@@ -26,10 +27,23 @@ const NewUrl = () => {
       url: url,
       category: category,
     };
-    Axios.post("/api/link/add", data).then((res) => console.log(res));
+    Axios.post("/api/link/add", data).then((res) => {
+      setTitle("");
+      setUrl("");
+      setCategory("");
+    });
+    setShowAddedConfirmation(true);
+    setTimeout(() => {
+      setShowAddedConfirmation(false);
+    }, 2000);
   }
   return (
     <>
+      {showAddedConfirmation ? (
+        <div className="notif">
+          <p>Entry added.</p>
+        </div>
+      ) : null}
       <h1>Add Link</h1>
       <TextField
         label="Entry Title"

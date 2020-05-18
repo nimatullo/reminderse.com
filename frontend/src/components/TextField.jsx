@@ -3,7 +3,7 @@ import "../styles/Components.css";
 
 const TextField = ({ placeholder, label, type, value, onChange }) => {
   return (
-    <div className="textFieldContainer">
+    <div className="textFieldContainer custom">
       {label && (
         <label>
           <b>{label}</b>

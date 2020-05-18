@@ -18,7 +18,7 @@ a {
 }
 
 * {
-  font-family: "Jost", sans-serif;
+  font-family: "Open Sans", sans-serif;
 }
 
 #App {
@@ -28,6 +28,10 @@ a {
 
 #page-wrap {
   margin: 2em;
+}
+
+#page-wrap > div > h1 {
+  margin-top: 1em;
 }
 
 .secondary {

@@ -1,20 +1,31 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import TextField from "../components/TextField";
 import Button from "../components/Button";
 import axios from "axios";
 import "../styles/AccountManagement.css";
+import { useAuth } from "../context/Auth";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { setCurrentUser } = useAuth();
+  const history = useHistory();
 
   function handleSubmit() {
     const data = {
       email: email,
       password: password,
     };
-    axios.post("/api/login", data).then((res) => console.log(res.data));
+    axios.post("/api/login", data).then((res) => {
+      const loggedInUser = {
+        username: res.data.username,
+        id: res.data.id,
+        isLoggedIn: true,
+      };
+      setCurrentUser(loggedInUser);
+      history.push("/entries");
+    });
   }
 
   return (

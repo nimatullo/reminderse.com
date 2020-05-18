@@ -7,6 +7,7 @@ from flask_login import login_user, current_user, logout_user, login_required
 
 users = Blueprint('users', __name__)
 
+
 @users.route('/api/register', methods=['POST'])
 def post():
     if current_user.is_authenticated:
@@ -17,17 +18,19 @@ def post():
     password = request.json.get('password')
 
     if Users.query.filter_by(username=username).first():
-        return make_response(jsonify({"message":"Username exists"}), 400)
+        return make_response(jsonify({"message": "Username exists"}), 400)
     elif Users.query.filter_by(email=email).first():
-        return make_response(jsonify({"message":"Email already in use"}), 400)
+        return make_response(jsonify({"message": "Email already in use"}), 400)
 
     hashed_password = bcrypt.generate_password_hash(password).decode('utf8')
-    user = Users(username=username.lower().rstrip(), email=email.lower(), password=hashed_password)
+    user = Users(username=username.lower().rstrip(),
+                 email=email.lower(), password=hashed_password)
     send_email_confirmation(user.email)
     db.session.add(user)
     db.session.commit()
 
     return jsonify({'message': f'Thank you for signing up {user.username}!'}), 201
+
 
 @users.route('/confirm_email_token/<token>')
 def confirm_email_token(token):
@@ -36,11 +39,10 @@ def confirm_email_token(token):
         user = Users.query.filter_by(email=email).first()
         user.email_confirmed = True
         db.session.commit()
-        flash('Email Confirmed!', 'success')
-        return redirect(url_for('main.home'))
+        return make_response(jsonify({"message": "Email confirmed"}))
     except:
-        flash('Email token expired. Please send a new confirmation.')
-        return redirect(url_for('main.home'))
+        return make_response(jsonify({"message": "failed"}), 401)
+
 
 def send_email_confirmation(email):
     token = ts.dumps(email, salt='email-confirm-key')
@@ -49,6 +51,17 @@ def send_email_confirmation(email):
                 '''.format(url_for('users.confirm_email_token', token=token, _external=True))
     send(email, html_mid)
 
+
+@users.route('/api/send-email-confirmation')
+@login_required
+def request_confirmation_email():
+    if current_user.email_confirmed:
+        return make_response({"message": "Email already confirmed"}, 400)
+    else:
+        send_email_confirmation(current_user.email)
+        return make_response({"message": "Email sent successfully"}, 200)
+
+
 @users.route('/api/login', methods=["POST"])
 def login():
     if current_user.is_authenticated:
@@ -56,11 +69,11 @@ def login():
             'message': f'Already signed in',
             'username': current_user.username,
             'id': current_user.id
-            }), 200)
+        }), 200)
 
     email = request.json.get('email')
     password = request.json.get('password')
-    
+
     user = Users.query.filter_by(email=email.lower().rstrip()).first()
     if user and bcrypt.check_password_hash(user.password, password):
         print(f'{user.username} logged in.')
@@ -69,15 +82,23 @@ def login():
             'message': f'Welcome {user.username}',
             'username': user.username,
             'id': user.id
-            }), 200
+        }), 200
     else:
         return jsonify({'message': 'Authentification Failed'}), 401
 
-@users.route('/api/logout')
+
+@users.route('/api/logout', methods=["PUT"])
 @login_required
 def logoutmyhouse():
     logout_user()
     return jsonify({"message": "Logged out. Come again."}), 200
+
+
+@users.route('/api/confirmed', methods=["GET"])
+@login_required
+def isConfirmed():
+    return make_response(jsonify({"user": current_user.username, "isConfirmed": current_user.email_confirmed}))
+
 
 @users.route('/api/change', methods=['POST'])
 @login_required
@@ -89,7 +110,7 @@ def change_settings():
     user = Users.query.filter_by(username=username).first()
 
     if(user and not current_user.username == username):
-        return jsonify({"message":"Username is taken."}), 400
+        return jsonify({"message": "Username is taken."}), 400
     else:
         current_user.username = username
 
@@ -101,24 +122,58 @@ def change_settings():
 
     return jsonify({"message": "Changes saved."}), 200
 
-@users.route('/api/change+password', methods=['POST'])
+
+@users.route('/api/change/username', methods=['PUT'])
+@login_required
+def change_username():
+    new_username = request.json.get("username")
+
+    # Check if username is already taken
+    user = Users.query.filter_by(username=new_username).first()
+
+    if(user and not current_user.username == new_username):
+        return jsonify({"message": "Username is taken."}), 400
+    else:
+        current_user.username = new_username
+    db.session.commit()
+
+    return make_response(jsonify({"message": "Username changed"}), 200)
+
+
+@users.route("/api/change/email", methods=['PUT'])
+@login_required
+def change_email():
+    new_email = request.json.get("email")
+
+    if not current_user.email == new_email:
+        current_user.email == new_email
+        current_user.email_confirmed = False
+
+    db.session.commit()
+
+    return make_response(jsonify({"message": "Email changed"}))
+
+
+@users.route('/api/change/password', methods=['PUT'])
 @login_required
 def change_pass():
     current_password = request.json.get("current_password")
     new_password = request.json.get("new_password")
 
     if bcrypt.check_password_hash(current_user.password, current_password):
-        hashed_password = bcrypt.generate_password_hash(new_password).decode('utf8')
+        hashed_password = bcrypt.generate_password_hash(
+            new_password).decode('utf8')
         current_user.password = hashed_password
         db.session.commit()
     else:
         return jsonify({
-            "message":"Invalid credentials"
+            "message": "Invalid credentials"
         }), 401
 
     return jsonify({
-        "message":"Changes saved."
+        "message": "Changes saved."
     }), 200
+
 
 @users.route("/api/unsubscribe", methods=["DELETE"])
 @login_required
@@ -133,16 +188,17 @@ def unsub():
     db.session.delete(Users.query.filter_by(id=current_user.id).first())
     db.session.commit()
     logout_user()
-    
+
     return jsonify({
         "message": "User deleted."
     }), 200
+
 
 @users.route("/api/current+user", methods=["GET"])
 @login_required
 def who_is_logged_in():
     return jsonify({
-        "id":current_user.id,
-        "username":current_user.username,
-        "email":current_user.email
+        "id": current_user.id,
+        "username": current_user.username,
+        "email": current_user.email
     }), 200

@@ -3,6 +3,7 @@ import Axios from "axios";
 import LinkCard from "../components/LinkCard";
 import TextCard from "../components/TextCard";
 import { EntryProvider } from "../context/EntryContext";
+import { Link } from "react-router-dom";
 
 const EntriesPage = () => {
   const [links, setLinks] = useState([]);
@@ -44,7 +45,10 @@ const EntriesPage = () => {
   } else {
     return (
       <div>
-        <h1>Loading...</h1>
+        <h1>
+          You currently don't have any entries. To add an entry,{" "}
+          <Link to="/add">click here</Link> or use the sidebar.
+        </h1>
       </div>
     );
   }

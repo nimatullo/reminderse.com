@@ -8,16 +8,30 @@ const NewText = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [category, setCategory] = useState("");
+  const [showAddedConfirmation, setShowAddedConfirmation] = useState(false);
   function handleSubmit() {
     const data = {
       entry_title: title,
       text_content: content,
       category: category,
     };
-    Axios.post("/api/text/add", data).then((res) => console.log(res));
+    Axios.post("/api/text/add", data).then((res) => {
+      setTitle("");
+      setContent("");
+      setCategory("");
+    });
+    setShowAddedConfirmation(true);
+    setTimeout(() => {
+      setShowAddedConfirmation(false);
+    }, 2000);
   }
   return (
     <>
+      {showAddedConfirmation ? (
+        <div className="notif">
+          <p>Entry added.</p>
+        </div>
+      ) : null}
       <h1>Add Text</h1>
       <TextField
         label="Entry Title"
