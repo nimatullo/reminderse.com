@@ -11,6 +11,7 @@ app = Flask(__name__)
 app.config.from_object(Config)
 
 db = SQLAlchemy(app)
+db.create_all()
 bcrypt = Bcrypt(app)
 login_manager = LoginManager(app)
 mail = Mail(app)

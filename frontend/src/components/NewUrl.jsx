@@ -9,11 +9,18 @@ const NewUrl = () => {
   const [category, setCategory] = useState();
   const [showAddedConfirmation, setShowAddedConfirmation] = useState(false);
   useEffect(() => {
-    navigator.clipboard.readText().then((text) => {
-      if (validURL(text)) {
-        setUrl(text);
-      }
-    });
+    if (navigator.clipboard.readText) {
+      navigator.clipboard
+        .readText()
+        .then((text) => {
+          if (validURL(text)) {
+            setUrl(text);
+          }
+        })
+        .catch((err) => {
+          console.error("Failed to paste: ", err);
+        });
+    }
   }, []);
 
   function validURL(s) {

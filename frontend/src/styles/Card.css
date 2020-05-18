@@ -75,14 +75,12 @@
 
 .card.text .clickableArea {
   cursor: pointer;
-  display: grid;
-  grid-template-rows: 1fr 2fr;
   justify-content: center;
   height: 100%;
 }
 
 .card .cardContent {
-  font-family: "Open Sans", sans-serif;
+  margin-top: 16px;
 }
 
 .card.text > * {

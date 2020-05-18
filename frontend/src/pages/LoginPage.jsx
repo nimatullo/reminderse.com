@@ -11,27 +11,36 @@ const LoginPage = () => {
   const [password, setPassword] = useState("");
   const { setCurrentUser } = useAuth();
   const history = useHistory();
+  const [invalidCreds, setInvalidCreds] = useState(false);
 
   function handleSubmit() {
     const data = {
       email: email,
       password: password,
     };
-    axios.post("/api/login", data).then((res) => {
-      const loggedInUser = {
-        username: res.data.username,
-        id: res.data.id,
-        isLoggedIn: true,
-      };
-      setCurrentUser(loggedInUser);
-      history.push("/entries");
-    });
+    axios
+      .post("/api/login", data)
+      .then((res) => {
+        const loggedInUser = {
+          username: res.data.username,
+          id: res.data.id,
+          isLoggedIn: true,
+        };
+        setCurrentUser(loggedInUser);
+        history.push("/entries");
+      })
+      .catch((err) => {
+        if (err.response.status === 401) {
+          setInvalidCreds(true);
+        }
+      });
   }
 
   return (
     <div className="container">
       <div className="add-page">
         <h1>Reminderse Login</h1>
+        {invalidCreds ? <p>Incorrect email or password.</p> : null}
         <TextField
           value={email}
           onChange={(e) => setEmail(e.target.value)}

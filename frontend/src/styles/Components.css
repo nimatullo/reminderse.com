@@ -107,9 +107,12 @@ button.button.active {
   justify-content: space-between;
   font-weight: bold;
   margin-bottom: 1em;
+  position: relative;
 }
 
 .dialog-close-button {
+  right: 0;
+  position: absolute;
   font-size: 1.4rem;
   font-weight: 700;
   line-height: 1;
@@ -117,6 +120,7 @@ button.button.active {
   opacity: 0.3;
   cursor: pointer;
   border: none;
+  border-radius: 50%;
 }
 
 .content {

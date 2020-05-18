@@ -6,6 +6,8 @@ import { IoMdOpen } from "react-icons/io";
 import { withRouter } from "react-router-dom";
 import Axios from "axios";
 import EntryContext from "../context/EntryContext";
+import Dialog from "../components/Dialog";
+import Button from "../components/Button";
 
 class DropdownTextMenu extends Component {
   static contextType = EntryContext;
@@ -14,6 +16,7 @@ class DropdownTextMenu extends Component {
 
     this.state = {
       showMenu: false,
+      showDeleteConfirmation: false,
     };
 
     this.showMenu = this.showMenu.bind(this);
@@ -76,11 +79,35 @@ class DropdownTextMenu extends Component {
                 <span>Edit</span>
               </div>
             </button>
-            <button>
+            <button
+              onClick={() => this.setState({ showDeleteConfirmation: true })}
+            >
               <div className="button-content">
                 <MdDelete />
                 <span>Delete</span>
               </div>
+              <Dialog
+                open={this.state.showDeleteConfirmation}
+                headerTitle="Are you sure you want to delete this entry?"
+                content={
+                  <div className="unsubscribe-dialog">
+                    <Button
+                      className="negative-button"
+                      label="Delete"
+                      onClick={() => {
+                        Axios.delete(`/api/text/${this.context.id}`);
+                        window.location.reload(false);
+                      }}
+                    />
+                    <Button
+                      label="Cancel"
+                      onClick={() =>
+                        this.setState({ showDeleteConfirmation: false })
+                      }
+                    />
+                  </div>
+                }
+              />
             </button>
           </div>
         ) : null}

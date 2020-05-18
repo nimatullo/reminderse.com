@@ -42,6 +42,36 @@ const EntriesPage = () => {
         </div>
       </div>
     );
+  } else if (links.length > 0) {
+    return (
+      <>
+        <h1>Links</h1>
+        <div className="grid">
+          {links.length > 0
+            ? links.map((link) => (
+                <EntryProvider value={link}>
+                  <LinkCard />
+                </EntryProvider>
+              ))
+            : null}
+        </div>
+      </>
+    );
+  } else if (texts.length > 0) {
+    return (
+      <>
+        <h1>Texts</h1>
+        <div className="grid">
+          {texts.length > 0
+            ? texts.map((text) => (
+                <EntryProvider value={text}>
+                  <TextCard />
+                </EntryProvider>
+              ))
+            : null}
+        </div>
+      </>
+    );
   } else {
     return (
       <div>
