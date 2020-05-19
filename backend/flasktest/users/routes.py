@@ -52,7 +52,7 @@ def send_email_confirmation(email):
     send(email, html_mid)
 
 
-@users.route('/api/send-email-confirmation')
+@users.route('/api/send-email-confirmation', methods=["GET"])
 @login_required
 def request_confirmation_email():
     if current_user.email_confirmed:
