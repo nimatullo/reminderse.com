@@ -36,7 +36,6 @@ const SettingsPage = () => {
     };
 
     Axios.put(`/api/change/email`, data).then((res) => {
-      console.log(res);
       setEmail(newEmail);
       setEmailEdit(false);
     });
@@ -48,7 +47,6 @@ const SettingsPage = () => {
     };
 
     Axios.put(`/api/change/username`, data).then((res) => {
-      console.log(res);
       setUsername(newUsername);
       setUsernameEdit(false);
     });
@@ -75,7 +73,6 @@ const SettingsPage = () => {
     Axios.put(`/api/change/password`, data)
       .then((res) => {
         if (res.status === 200) {
-          console.log(res);
           setPassword(newPassword);
           setPasswordEdit(false);
         }
@@ -83,8 +80,6 @@ const SettingsPage = () => {
       .catch((err) => {
         if (err.response.status === 401) {
           setPasswordError("Wrong credentials");
-        } else {
-          console.log(err.response);
         }
       });
   }
