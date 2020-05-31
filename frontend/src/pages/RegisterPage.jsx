@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import TextField from "../components/TextField";
 import Button from "../components/Button";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import "../styles/AccountManagement.css";
 import { RiInformationLine } from "react-icons/ri";
 import Axios from "axios";
+import { API_ROOT_URL } from "../constants";
+
 
 const Register = () => {
   const [username, setUsername] = useState("");
@@ -14,6 +16,7 @@ const Register = () => {
   const [showPasswordLengthError, setPasswordLengthError] = useState(false);
   const [showPasswordMatchError, setPasswordMatchError] = useState(false);
   const [isValidEmail, setIsValidEmail] = useState(true);
+  const history = useHistory();
 
   function isFormValid() {
     let validForm = true;
@@ -29,7 +32,7 @@ const Register = () => {
     } else {
       setPasswordLengthError(true);
     }
-    if (password != passwordConfirm) {
+    if (password !== passwordConfirm) {
       validForm = false;
       setPasswordMatchError(true);
     } else {
@@ -40,16 +43,16 @@ const Register = () => {
 
   function handleSubmit() {
     if (isFormValid()) {
-      Axios.post(`/api/register`, {
+      Axios.post(`${API_ROOT_URL}/api/register`, {
         username: username,
         email: email,
         password: password,
-      });
+      }).then(history.push("/login"));
     }
   }
 
   function isEmail(email) {
-    return /[\w\d\.-]+@[\w\d\.-]+\.[\w\d\.-]+/.test(email);
+    return /[\w\d.-]+@[\w\d.-]+\.[\w\d.-]+/.test(email);
   }
 
   return (
@@ -83,7 +86,7 @@ const Register = () => {
         />
         <div className={`tip ${showPasswordLengthError ? "error" : null}`}>
           <small className="password-length">
-            <RiInformationLine /> Password must be atleast 8 characters.
+            <RiInformationLine /> Password must be at least 8 characters.
           </small>
           <br />
           {showPasswordMatchError && <small>Passwords must match.</small>}

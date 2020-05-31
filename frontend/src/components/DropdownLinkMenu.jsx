@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { FaPause } from "react-icons/fa";
+import { FaPause, FaPlay } from "react-icons/fa";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { MdDelete, MdEdit } from "react-icons/md";
 import { IoMdOpen } from "react-icons/io";
@@ -7,6 +7,7 @@ import { withRouter } from "react-router-dom";
 import Axios from "axios";
 import EntryContext from "../context/EntryContext";
 import Dialog from "../components/Dialog";
+import { API_ROOT_URL } from "../constants";
 import Button from "../components/Button";
 
 class DropdownLinkMenu extends Component {
@@ -22,6 +23,7 @@ class DropdownLinkMenu extends Component {
     this.showMenu = this.showMenu.bind(this);
     this.closeMenu = this.closeMenu.bind(this);
     this.pauseEntry = this.pauseEntry.bind(this);
+    this.resumeEntry = this.resumeEntry.bind(this);
   }
 
   showMenu(event) {
@@ -43,10 +45,19 @@ class DropdownLinkMenu extends Component {
   }
 
   pauseEntry() {
-    Axios.put(`/api/link/${this.context.id}/pause`).then((res) => {
-      this.setState({ showMenu: false });
-      this.context.pauseEntry();
-    });
+    Axios.put(`${API_ROOT_URL}/api/link/${this.context.id}/pause`).then(
+      (res) => {
+        this.setState({ showMenu: false });
+        this.context.pauseEntry();
+      }
+    );
+  }
+
+  resumeEntry() {
+    Axios.put(`${API_ROOT_URL}/api/link/${this.context.id}/resume`, {}).then((res) => {
+      this.setState({ showMenu: false })
+      this.context.resumeEntry();
+    })
   }
 
   render() {
@@ -69,12 +80,24 @@ class DropdownLinkMenu extends Component {
                 <span>Open</span>
               </div>
             </button>
-            <button onClick={() => this.pauseEntry()}>
-              <div className="button-content">
-                <FaPause />
-                <span>Pause</span>
-              </div>
-            </button>
+            {this.context.days < 0 ? (
+
+              <button onClick={() => this.resumeEntry()}>
+                <div className="button-content">
+                  <FaPlay />
+                  <span>Resume</span>
+                </div>
+              </button>
+            ) :
+              (
+                <button onClick={() => this.pauseEntry()}>
+                  <div className="button-content">
+                    <FaPause />
+                    <span>Pause</span>
+                  </div>
+                </button>
+              )
+            }
             <button
               onClick={() =>
                 this.props.history.push(`/edit/link/${this.context.id}`)
@@ -101,7 +124,8 @@ class DropdownLinkMenu extends Component {
                       className="negative-button"
                       label="Delete"
                       onClick={() => {
-                        Axios.delete(`/api/link/${this.context.id}`);
+                        Axios.delete(
+                          `${API_ROOT_URL}/api/link/${this.context.id}`);
                         window.location.reload(false);
                       }}
                     />

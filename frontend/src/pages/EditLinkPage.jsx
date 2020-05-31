@@ -7,6 +7,8 @@ import "../styles/EditPage.css";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "../styles/Components.css";
+import { API_ROOT_URL } from "../constants";
+
 
 class EditLinkPage extends Component {
   constructor(props) {
@@ -21,14 +23,16 @@ class EditLinkPage extends Component {
   }
 
   componentDidMount() {
-    Axios.get(`/api/link/${this.props.match.params.id}`).then((res) => {
-      this.setState({
-        title: res.data.entry_title,
-        url: res.data.url,
-        category: res.data.category,
-        date: new Date(res.data.date),
-      });
-    });
+    Axios.get(`${API_ROOT_URL}/api/link/${this.props.match.params.id}`, { withCredentials: true }).then(
+      (res) => {
+        this.setState({
+          title: res.data.entry_title,
+          url: res.data.url,
+          category: res.data.category,
+          date: new Date(res.data.date),
+        });
+      }
+    );
   }
 
   handleSubmit() {
@@ -38,9 +42,10 @@ class EditLinkPage extends Component {
       category: this.state.category,
       date: this.state.date,
     };
-    Axios.put(`/api/link/${this.props.match.params.id}`, data).then((res) =>
-      this.props.history.push("/entries")
-    );
+    Axios.put(
+      `${API_ROOT_URL}/api/link/${this.props.match.params.id}`,
+      data, { withCredentials: true }
+    ).then((res) => this.props.history.push("/entries"));
   }
 
   render() {

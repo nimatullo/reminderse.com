@@ -14,6 +14,8 @@ import SettingsPage from "./pages/SettingsPage";
 import LogoutPage from "./pages/LogoutPage";
 import PrivateRoute from "./auth/PrivateRoute";
 import { AuthContext } from "./context/Auth";
+import Axios from "axios";
+import Cookies from "js-cookie";
 
 function App() {
   const [showSideBar, setShowSideBar] = useState(false);
@@ -25,6 +27,10 @@ function App() {
     localStorage.setItem("user", JSON.stringify(data));
     setCurrentUser(data);
   };
+
+
+  Axios.defaults.headers.common["X-CSRF-TOKEN"] = Cookies.get("csrf_access_token")
+  Axios.defaults.withCredentials = true
 
   const sideBar = () => {
     if (showSideBar) {

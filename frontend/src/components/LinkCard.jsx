@@ -11,7 +11,7 @@ const LinkCard = () => {
   }
   return (
     <div className="card">
-      <a href={data.url} target="_blank">
+      <a href={data.url} target="_blank" rel="noopener noreferrer">
         <div className="imgArea">
           <img
             width={200}
@@ -21,15 +21,15 @@ const LinkCard = () => {
         </div>
         <div className="cardInfo">
           <div className="entryTitle">{data.entry_title}</div>
-          <div className="secondary">{data.category}</div>
+          <div className="secondary">{data.category ? data.category : <p> </p>}</div>
           {data.days < 0 ? (
             <div className="secondary date">Paused</div>
           ) : (
-            <div className="secondary date">
-              Next email goes out{" "}
-              {data.days === "Tomorrow" ? "Tomorrow" : `in ${data.days} days`}
-            </div>
-          )}
+              <div className="secondary date">
+                Next email goes out{" "}
+                {data.days === "Tomorrow" ? "Tomorrow" : `in ${data.days} days`}
+              </div>
+            )}
         </div>
       </a>
       <DropdownLinkMenu />

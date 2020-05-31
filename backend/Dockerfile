@@ -6,6 +6,4 @@ WORKDIR /app
 
 RUN pip install -r requirements.txt
 
-ENTRYPOINT ["python"]
-
-CMD ["run.py"]
+CMD ["gunicorn", "-b", "0.0.0.0:5000", "-w", "4", "wsgi:app"]

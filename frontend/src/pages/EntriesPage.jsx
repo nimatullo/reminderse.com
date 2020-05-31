@@ -4,13 +4,16 @@ import LinkCard from "../components/LinkCard";
 import TextCard from "../components/TextCard";
 import { EntryProvider } from "../context/EntryContext";
 import { Link } from "react-router-dom";
+import { API_ROOT_URL } from "../constants";
+
+
 
 const EntriesPage = () => {
   const [links, setLinks] = useState([]);
   const [texts, setTexts] = useState([]);
 
   useEffect(() => {
-    Axios.all([Axios.get("/api/link/list"), Axios.get("/api/text/list")]).then(
+    Axios.all([Axios.get(`${API_ROOT_URL}/api/link/list`), Axios.get(`${API_ROOT_URL}/api/text/list`)]).then(
       Axios.spread((links, texts) => {
         setLinks(links.data);
         setTexts(texts.data);
@@ -24,20 +27,20 @@ const EntriesPage = () => {
         <div className="grid">
           {links.length > 0
             ? links.map((link) => (
-                <EntryProvider value={link}>
-                  <LinkCard />
-                </EntryProvider>
-              ))
+              <EntryProvider value={link}>
+                <LinkCard />
+              </EntryProvider>
+            ))
             : null}
         </div>
         <h1>Texts</h1>
         <div className="grid">
           {texts.length > 0
             ? texts.map((text) => (
-                <EntryProvider value={text}>
-                  <TextCard />
-                </EntryProvider>
-              ))
+              <EntryProvider value={text}>
+                <TextCard />
+              </EntryProvider>
+            ))
             : null}
         </div>
       </div>
@@ -49,10 +52,10 @@ const EntriesPage = () => {
         <div className="grid">
           {links.length > 0
             ? links.map((link) => (
-                <EntryProvider value={link}>
-                  <LinkCard />
-                </EntryProvider>
-              ))
+              <EntryProvider key={link.id} value={link}>
+                <LinkCard />
+              </EntryProvider>
+            ))
             : null}
         </div>
       </>
@@ -64,10 +67,10 @@ const EntriesPage = () => {
         <div className="grid">
           {texts.length > 0
             ? texts.map((text) => (
-                <EntryProvider value={text}>
-                  <TextCard />
-                </EntryProvider>
-              ))
+              <EntryProvider key={text.id} value={text}>
+                <TextCard />
+              </EntryProvider>
+            ))
             : null}
         </div>
       </>

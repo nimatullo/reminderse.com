@@ -1,32 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import TextField from "../components/TextField";
 import Button from "../components/Button";
 import Axios from "axios";
+import { API_ROOT_URL } from "../constants";
 
 const NewUrl = () => {
   const [title, setTitle] = useState("");
   const [url, setUrl] = useState("");
   const [category, setCategory] = useState();
   const [showAddedConfirmation, setShowAddedConfirmation] = useState(false);
-  useEffect(() => {
-    if (navigator.clipboard.readText) {
-      navigator.clipboard
-        .readText()
-        .then((text) => {
-          if (validURL(text)) {
-            setUrl(text);
-          }
-        })
-        .catch((err) => {
-          console.error("Failed to paste: ", err);
-        });
-    }
-  }, []);
-
-  function validURL(s) {
-    var regexp = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
-    return regexp.test(s);
-  }
 
   function handleSubmit() {
     const data = {
@@ -34,7 +16,7 @@ const NewUrl = () => {
       url: url,
       category: category,
     };
-    Axios.post("/api/link/add", data).then((res) => {
+    Axios.post(`${API_ROOT_URL}/api/link/add`, data, { withCredentials: true }).then((res) => {
       setTitle("");
       setUrl("");
       setCategory("");

@@ -1,21 +1,27 @@
 from flask import url_for, request
 from flasktest import db
 from flasktest.models import Links, Category, Text
+from flasktest.users.utils import current_user
 from datetime import date, timedelta
-from flask_login import current_user
+from flask_jwt_extended import get_jwt_identity
+
 
 def add_link_to_db(entry_title, url, category):
     '''
     If category is not empty, create entry with category already added.
     '''
+    CURRENT_USER = current_user(get_jwt_identity())
     url_validation = check_for_http(url)
     if(category):
         category_id = category_exists(category)
-        link = Links(entry_title=entry_title, url=url_validation, users=current_user, category_id=category_id.id)
+        link = Links(entry_title=entry_title, url=url_validation,
+                     users=CURRENT_USER, category_id=category_id.id)
     else:
-        link = Links(entry_title=entry_title, url=url_validation, users=current_user)
+        link = Links(entry_title=entry_title,
+                     url=url_validation, users=CURRENT_USER)
     db.session.add(link)
     db.session.commit()
+
 
 def check_for_http(link):
     '''
@@ -27,17 +33,22 @@ def check_for_http(link):
     else:
         return "http://" + link
 
+
 def add_text_to_db(entry_title, text_content, category):
+    CURRENT_USER = current_user(get_jwt_identity())
     '''
     If category is not empty, create entry with category already added.
     '''
     if(category):
         category_validation = category_exists(category)
-        text = Text(entry_title=entry_title, text_content=text_content, users=current_user, category_id=category_validation.id)
+        text = Text(entry_title=entry_title, text_content=text_content,
+                    users=CURRENT_USER, category_id=category_validation.id)
     else:
-        text = Text(entry_title=entry_title, text_content=text_content, users=current_user)
+        text = Text(entry_title=entry_title,
+                    text_content=text_content, users=CURRENT_USER)
     db.session.add(text)
     db.session.commit()
+
 
 def category_exists(title):
     '''
@@ -50,23 +61,28 @@ def category_exists(title):
         db.session.commit()
     return category
 
+
 def home_page_links(user_id):
     '''
     Gets links for dashboard. These are entries that will be sent within 3 days.
     '''
     today = date.today()
-    list_of_links = Links.query.filter_by(user_id=user_id).filter(Links.date_of_next_send <= (today + timedelta(days=3)))
+    list_of_links = Links.query.filter_by(user_id=user_id).filter(
+        Links.date_of_next_send <= (today + timedelta(days=3)))
 
     return generate_links_dict(list_of_links)
+
 
 def home_page_text(user_id):
     '''
     Gets text entries for dashboard. These are entries that will be sent within 3 days.
     '''
     today = date.today()
-    list_of_text = Text.query.filter_by(user_id=user_id).filter(Text.date_of_next_send <= (today + timedelta(days=3)))
+    list_of_text = Text.query.filter_by(user_id=user_id).filter(
+        Text.date_of_next_send <= (today + timedelta(days=3)))
 
     return generate_text_dict(list_of_text)
+
 
 def get_all_links(user_id):
     '''
@@ -76,6 +92,7 @@ def get_all_links(user_id):
 
     return generate_links_dict(list_of_links)
 
+
 def get_all_texts(user_id):
     '''
     Returns all text entries.
@@ -83,7 +100,7 @@ def get_all_texts(user_id):
     list_of_text = Text.query.filter_by(user_id=user_id)
 
     return generate_text_dict(list_of_text)
-    
+
 
 def generate_links_dict(db_links):
     '''
@@ -109,7 +126,8 @@ def generate_links_dict(db_links):
             elements['category'] = category.title
         urls.append(elements)
 
-    return urls  
+    return urls
+
 
 def generate_text_dict(db_text):
     '''
@@ -135,4 +153,4 @@ def generate_text_dict(db_text):
             elements['category'] = category.title
         texts.append(elements)
 
-    return texts 
+    return texts

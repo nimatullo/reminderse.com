@@ -4,13 +4,15 @@ import NewUrl from "../components/NewUrl";
 import NewText from "../components/NewText";
 import Button from "../components/Button";
 import Axios from "axios";
+import { API_ROOT_URL } from "../constants";
+
 
 const AddPage = () => {
   const [isUrlTabActive, setIsUrlTabActive] = useState(true);
   const [isEmailConfirmed, setIsEmailConfirmed] = useState(true);
 
   useEffect(() => {
-    Axios.get("/api/confirmed").then((res) =>
+    Axios.get(`${API_ROOT_URL}/api/confirmed`, { withCredentials: true }).then((res) =>
       setIsEmailConfirmed(res.data.isConfirmed)
     );
   }, []);
@@ -28,7 +30,7 @@ const AddPage = () => {
               className="resend-email"
               label="Resend confirmation email"
               onClick={() => {
-                Axios.get("/api/send-email-confirmation");
+                Axios.get(`${API_ROOT_URL}/api/send-email-confirmation`, { withCredentials: true });
               }}
             />
             <Button label="Close" onClick={() => setIsEmailConfirmed(true)} />

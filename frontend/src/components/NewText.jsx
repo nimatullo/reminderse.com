@@ -3,6 +3,7 @@ import TextArea from "./TextArea";
 import TextField from "./TextField";
 import Button from "./Button";
 import Axios from "axios";
+import { API_ROOT_URL } from "../constants";
 
 const NewText = () => {
   const [title, setTitle] = useState("");
@@ -15,7 +16,7 @@ const NewText = () => {
       text_content: content,
       category: category,
     };
-    Axios.post("/api/text/add", data).then((res) => {
+    Axios.post(`${API_ROOT_URL}/api/text/add`, data, { withCredentials: true }).then((res) => {
       setTitle("");
       setContent("");
       setCategory("");

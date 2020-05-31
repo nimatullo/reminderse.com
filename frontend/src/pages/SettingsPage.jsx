@@ -5,6 +5,9 @@ import Button from "../components/Button";
 import "../styles/SettingsPage.css";
 import Dialog from "../components/Dialog";
 import { useHistory } from "react-router-dom";
+import { API_ROOT_URL } from "../constants";
+
+
 
 const SettingsPage = () => {
   const [username, setUsername] = useState("");
@@ -18,13 +21,12 @@ const SettingsPage = () => {
   const [emailEdit, setEmailEdit] = useState(false);
   const [passwordEdit, setPasswordEdit] = useState(false);
   const [passwordError, setPasswordError] = useState("");
-  const [unsubConfirmation, setUnsubscribeConfirmation] = useState(false);
   const [open, setOpen] = useState(false);
 
   const history = useHistory();
 
   useEffect(() => {
-    Axios.get(`/api/current+user`).then((res) => {
+    Axios.get(`${API_ROOT_URL}/api/current+user`, { withCredentials: true }).then((res) => {
       setUsername(res.data.username);
       setEmail(res.data.email);
     });
@@ -35,7 +37,7 @@ const SettingsPage = () => {
       email: newEmail,
     };
 
-    Axios.put(`/api/change/email`, data).then((res) => {
+    Axios.put(`${API_ROOT_URL}/api/change/email`, data, { withCredentials: true }).then((res) => {
       setEmail(newEmail);
       setEmailEdit(false);
     });
@@ -46,14 +48,14 @@ const SettingsPage = () => {
       username: newUsername,
     };
 
-    Axios.put(`/api/change/username`, data).then((res) => {
+    Axios.put(`${API_ROOT_URL}/api/change/username`, data, { withCredentials: true }).then((res) => {
       setUsername(newUsername);
       setUsernameEdit(false);
     });
   }
 
   function unsubscribe() {
-    Axios.delete("/api/unsubscribe");
+    Axios.delete(`${API_ROOT_URL}/api/unsubscribe`, { withCredentials: true });
     history.push("/logout");
   }
 
@@ -61,7 +63,7 @@ const SettingsPage = () => {
     if (newPassword.length < 8) {
       setPasswordError("Password must have atleast 8 characters.");
       return;
-    } else if (newPassword != passwordConfirmation) {
+    } else if (newPassword !== passwordConfirmation) {
       setPasswordError("Passwords don't match.");
       return;
     }
@@ -70,7 +72,7 @@ const SettingsPage = () => {
       new_password: newPassword,
     };
 
-    Axios.put(`/api/change/password`, data)
+    Axios.put(`${API_ROOT_URL}/api/change/password`, data, { withCredentials: true })
       .then((res) => {
         if (res.status === 200) {
           setPassword(newPassword);
@@ -110,16 +112,16 @@ const SettingsPage = () => {
                 />
               </div>
             ) : (
-              <>
-                <div className="username-info">
-                  <small>Username</small>
-                  <p>{username}</p>
-                </div>
-                <div className="edit">
-                  <span onClick={() => setUsernameEdit(true)}>Edit</span>
-                </div>
-              </>
-            )}
+                <>
+                  <div className="username-info">
+                    <small>Username</small>
+                    <p>{username}</p>
+                  </div>
+                  <div className="edit">
+                    <span onClick={() => setUsernameEdit(true)}>Edit</span>
+                  </div>
+                </>
+              )}
           </div>
           <div className="row">
             {emailEdit ? (
@@ -139,16 +141,16 @@ const SettingsPage = () => {
                 />
               </div>
             ) : (
-              <>
-                <div className="email-info">
-                  <small>Email</small>
-                  <p>{email}</p>
-                </div>
-                <div className="edit">
-                  <span onClick={() => setEmailEdit(true)}>Edit</span>
-                </div>
-              </>
-            )}
+                <>
+                  <div className="email-info">
+                    <small>Email</small>
+                    <p>{email}</p>
+                  </div>
+                  <div className="edit">
+                    <span onClick={() => setEmailEdit(true)}>Edit</span>
+                  </div>
+                </>
+              )}
           </div>
           <div className="row">
             {passwordEdit ? (
@@ -185,15 +187,15 @@ const SettingsPage = () => {
                 />
               </div>
             ) : (
-              <div className="password-info">
-                <small>Password</small>
-                <div>
-                  <span onClick={() => setPasswordEdit(true)}>
-                    Change Password
+                <div className="password-info">
+                  <small>Password</small>
+                  <div>
+                    <span onClick={() => setPasswordEdit(true)}>
+                      Change Password
                   </span>
+                  </div>
                 </div>
-              </div>
-            )}
+              )}
           </div>
           <div className="row">
             <div className="password-info">

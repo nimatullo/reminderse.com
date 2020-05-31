@@ -8,6 +8,8 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "../styles/Components.css";
 import TextArea from "../components/TextArea";
+import { API_ROOT_URL } from "../constants";
+
 
 class EditTextPage extends Component {
   constructor(props) {
@@ -22,14 +24,16 @@ class EditTextPage extends Component {
   }
 
   componentDidMount() {
-    Axios.get(`/api/text/${this.props.match.params.id}`).then((res) => {
-      this.setState({
-        title: res.data.entry_title,
-        content: res.data.text_content,
-        category: res.data.category,
-        date: new Date(res.data.date),
-      });
-    });
+    Axios.get(`${API_ROOT_URL}/api/text/${this.props.match.params.id}`, { withCredentials: true }).then(
+      (res) => {
+        this.setState({
+          title: res.data.entry_title,
+          content: res.data.text_content,
+          category: res.data.category,
+          date: new Date(res.data.date),
+        });
+      }
+    );
   }
 
   handleSubmit() {
@@ -39,9 +43,11 @@ class EditTextPage extends Component {
       category: this.state.category,
       date: this.state.date,
     };
-    Axios.put(`/api/text/${this.props.match.params.id}`, data).then((res) =>
-      this.props.history.push("/entries")
-    );
+    Axios.put(
+      `${API_ROOT_URL}/api/text/${this.props.match.params.id}`,
+      data,
+      { withCredentials: true }
+    ).then((res) => this.props.history.push("/entries"));
   }
 
   render() {

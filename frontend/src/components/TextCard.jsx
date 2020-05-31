@@ -7,6 +7,8 @@ import EntryContext from "../context/EntryContext";
 import Button from "../components/Button";
 import { useHistory } from "react-router-dom";
 import Axios from "axios";
+import { API_ROOT_URL } from "../constants";
+
 
 const TextCard = () => {
   const data = useContext(EntryContext);
@@ -36,11 +38,11 @@ const TextCard = () => {
         {data.days < 0 ? (
           <div className="secondary date">Paused</div>
         ) : (
-          <div className="secondary date">
-            Next email goes out{" "}
-            {data.days === "Tomorrow" ? "tomorrow" : `in ${data.days} days`}
-          </div>
-        )}
+            <div className="secondary date">
+              Next email goes out{" "}
+              {data.days === "Tomorrow" ? "tomorrow" : `in ${data.days} days`}
+            </div>
+          )}
         <DropdownTextMenu />
       </div>
       <Dialog
@@ -53,11 +55,11 @@ const TextCard = () => {
             {data.days < 0 ? (
               <div className="secondary date">Paused</div>
             ) : (
-              <div className="secondary date">
-                Next email goes out{" "}
-                {data.days === "Tomorrow" ? "tomorrow" : `in ${data.days} days`}
-              </div>
-            )}
+                <div className="secondary date">
+                  Next email goes out{" "}
+                  {data.days === "Tomorrow" ? "tomorrow" : `in ${data.days} days`}
+                </div>
+              )}
             <br />
             <div className="unsubscribe-dialog">
               <Button
@@ -66,7 +68,7 @@ const TextCard = () => {
               />
               <Button
                 onClick={() => {
-                  Axios.delete(`/api/text/${data.id}`);
+                  Axios.delete(`${API_ROOT_URL}/api/text/${data.id}`, { withCredentials: true });
                   window.location.reload(false);
                 }}
                 className="negative-button"

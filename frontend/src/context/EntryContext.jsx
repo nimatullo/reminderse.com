@@ -15,6 +15,9 @@ class EntryProvider extends Component {
     pauseEntry: () => {
       this.setState({ days: -1 });
     },
+    resumeEntry: () => {
+      this.setState({ days: 3 });
+    },
   };
 
   render() {

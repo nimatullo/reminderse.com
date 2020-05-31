@@ -5,6 +5,9 @@ import Button from "../components/Button";
 import axios from "axios";
 import "../styles/AccountManagement.css";
 import { useAuth } from "../context/Auth";
+import { API_ROOT_URL } from "../constants";
+
+
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
@@ -19,7 +22,7 @@ const LoginPage = () => {
       password: password,
     };
     axios
-      .post("/api/login", data)
+      .post(`${API_ROOT_URL}/api/login`, data, { withCredentials: true })
       .then((res) => {
         const loggedInUser = {
           username: res.data.username,
@@ -30,8 +33,13 @@ const LoginPage = () => {
         history.push("/entries");
       })
       .catch((err) => {
-        if (err.response.status === 401) {
-          setInvalidCreds(true);
+        if (err.response) {
+          if (err.response.status === 401) {
+            setInvalidCreds(true);
+          }
+        }
+        else {
+          console.log(err);
         }
       });
   }
