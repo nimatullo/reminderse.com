@@ -1,0 +1,271 @@
+* {
+    scroll-behavior: smooth;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-right: auto;
+    margin-left: auto;
+    padding: 30px 15px 23px;
+    width: 85%;
+}
+
+nav .brand {
+    width: 200px;
+    margin-right: auto;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    align-items: center;
+}
+
+nav ul li {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+nav ul li a {
+    color: #50287D;
+}
+
+nav ul li a:hover {
+    text-decoration: underline;
+}
+
+nav .brand img {
+    width: 200px;
+}
+
+.home {
+    position: relative;
+    height: 100%;
+}
+
+.home main {
+    display: flex;
+    justify-content: center;
+    padding: 1em;
+    position: relative;
+    height: 90vh;
+}
+
+.home main .frontpage {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+.home main .frontpage img {
+    width: 100%;
+    max-width: 992px;
+}
+
+.home main .frontpage .text {
+    padding: 1em;
+}
+
+.home main .frontpage .text h1 {
+    color: var(--secondary-color);
+}
+
+.home main .frontpage .text h3 {
+    color: #010101;
+}
+
+.buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1em;
+    padding: 1em;
+}
+
+.buttons button {
+    border-radius: 6px;
+    padding: 12px;
+    border: none;
+    font-size: 1.2rem;
+    color: white;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    transition: all ease 0.2s;
+}
+
+.home svg, .home .blob2 {
+    width: 500px;
+}
+
+.home svg {
+    position: absolute;
+    left: 50%;
+}
+
+.home svg.blob1 {
+    position: absolute;
+    top: -25%;
+    z-index: -1;
+    transform: rotate(45deg);
+}
+
+.home svg.blob2 {
+    position: absolute;
+    top: 0;
+    left: -5%;
+}
+
+.home main .buttons #join {
+    background-color: var(--secondary-color);
+}
+
+.home main .buttons #login {
+    color: #010101;
+    background-color: #fff;
+    border: 1px solid #efefef;
+}
+
+.home main .buttons button:hover {
+    cursor: pointer;
+    transition: all ease 0.2s;
+}
+
+.home main .buttons #join:hover {
+    box-shadow: 0px 15px 20px rgba(229, 46, 46, 0.4);
+}
+
+.home main .buttons #login:hover {
+    box-shadow: 0px 15px 20px rgba(179, 179, 179, 0.4);
+}
+
+.about {
+    background-color: var(--primary-color);
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    padding: 1em;
+}
+
+.about>header {
+    text-align: center;
+}
+
+.about>header>h2 {
+    margin-bottom: 1em;
+    color: white;
+}
+
+.box {
+    background-color: var(--secondary-color);
+    padding: 1em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    border-radius: 6px;
+    max-width: 400px;
+    width: 100%;
+    height: 200px;
+    margin: 1em;
+}
+
+.boxes {
+    width: 50%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    color: white;
+}
+
+footer {
+    padding: 1em;
+    background-color: rgb(67, 32, 106);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+footer a {
+    color: rgb(197, 146, 255);
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+footer ul {
+    list-style: none;
+}
+
+footer .links {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: baseline;
+}
+
+footer .links h2 {
+    margin-top: 1em;
+}
+
+@media only screen and (max-width: 1200px) {
+    nav {
+        max-width: 992px;
+    }
+    .home svg.blob2 {
+        display: none;
+    }
+    .brand-link img {
+        max-width: 200px;
+    }
+    .home main .frontpage {
+        flex-direction: column-reverse;
+    }
+    .buttons {
+        grid-template-columns: none;
+        grid-template-rows: 1fr 1fr;
+        grid-auto-flow: row;
+    }
+    .text {
+        font-size: 0.8rem;
+    }
+    .boxes {
+        flex-direction: column;
+    }
+}
+
+@media only screen and (max-width: 992px) {
+    nav {
+        max-width: 800px;
+    }
+}
+
+@media only screen and (max-width: 758px) {
+    nav {
+        max-width: 720px;
+    }
+    nav ul {
+        display: none;
+    }
+    footer .links {
+        flex-direction: column;
+    }
+    .home svg.blob1 {
+        left: -80%;
+    }
+    footer .text {
+        margin: 1em;
+    }
+}
+
+@media only screen and (max-width: 576px) {
+    nav {
+        max-width: 540px;
+    }
+}

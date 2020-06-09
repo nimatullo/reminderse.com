@@ -20,16 +20,14 @@ export default ({ handleClick }) => {
         </MediaQuery>
         <ul>
           <li>
-            <NavLink
-              exact
-              activeClassName="menu-item-active"
+            <a
               className="menu-item"
-              to="/"
+              href="/"
               onClick={() => handleClick(false)}
             >
               <FaHome className="menu-item-icon" data-tip="Home" />
               <span className="mobile-nav">Home</span>
-            </NavLink>
+            </a>
           </li>
           <li>
             <NavLink

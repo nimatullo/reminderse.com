@@ -6,6 +6,7 @@ import axios from "axios";
 import "../styles/AccountManagement.css";
 import { useAuth } from "../context/Auth";
 import { API_ROOT_URL } from "../constants";
+import Sidebar from "../components/Sidebar";
 
 
 
