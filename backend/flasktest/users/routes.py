@@ -61,10 +61,10 @@ def send_email_confirmation(email):
 @jwt_required
 def request_confirmation_email():
     CURRENT_USER = current_user(get_jwt_identity())
-    if uuu
+    if CURRENT_USER.email_confirmed:
         return make_response({"message": "Email already confirmed"}, 400)
     else:
-        send_email_confirmation(current_user.email)
+        send_email_confirmation(CURRENT_USER.email)
         return make_response({"message": "Email sent successfully"}, 200)
 
 
@@ -73,7 +73,8 @@ def request_confirmation_email():
 def refresh():
     CURRENT_USER = current_user(get_jwt_identity())
     expires = datetime.timedelta(days=7)
-    access_token = create_access_token(identity=CURRENT_USER, expires_delta=expires)
+    access_token = create_access_token(
+        identity=CURRENT_USER, expires_delta=expires)
     resp = jsonify({'refresh': True})
     set_access_cookies(resp, access_token)
     return resp, 200
@@ -95,7 +96,8 @@ def login():
     user = Users.query.filter_by(email=email.lower().rstrip()).first()
     if user and bcrypt.check_password_hash(user.password, password):
         expires = datetime.timedelta(days=7)
-        access_token = create_access_token(identity=user.id, expires_delta=expires)
+        access_token = create_access_token(
+            identity=user.id, expires_delta=expires)
         refresh_token = create_refresh_token(identity=user.id)
         response = jsonify({
             'message': f'Welcome {user.username}',

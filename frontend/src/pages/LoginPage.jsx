@@ -13,9 +13,12 @@ import Sidebar from "../components/Sidebar";
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { setCurrentUser } = useAuth();
+  const { currentUser, setCurrentUser } = useAuth();
   const history = useHistory();
   const [invalidCreds, setInvalidCreds] = useState(false);
+  if (currentUser.isLoggedIn) {
+    history.push("/entries")
+  }
 
   function handleSubmit() {
     const data = {
@@ -44,6 +47,7 @@ const LoginPage = () => {
         }
       });
   }
+
 
   return (
     <div className="container">

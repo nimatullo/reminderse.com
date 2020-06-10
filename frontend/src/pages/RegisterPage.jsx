@@ -6,6 +6,7 @@ import "../styles/AccountManagement.css";
 import { RiInformationLine } from "react-icons/ri";
 import Axios from "axios";
 import { API_ROOT_URL } from "../constants";
+import { useAuth } from "../context/Auth";
 
 
 const Register = () => {
@@ -16,7 +17,12 @@ const Register = () => {
   const [showPasswordLengthError, setPasswordLengthError] = useState(false);
   const [showPasswordMatchError, setPasswordMatchError] = useState(false);
   const [isValidEmail, setIsValidEmail] = useState(true);
+  const { currentUser } = useAuth();
   const history = useHistory();
+
+  if (currentUser.isLoggedIn) {
+    history.push("/entries")
+  }
 
   function isFormValid() {
     let validForm = true;

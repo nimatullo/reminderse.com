@@ -1,6 +1,6 @@
 import React from "react";
 import "../styles/Homepage.css";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import frontpage from "../styles/vectors/frontpage.svg";
 import logo from "../styles/vectors/logo.svg";
 import add from "../styles/vectors/add.png";
@@ -8,6 +8,7 @@ import mailbox from "../styles/vectors/mail.png";
 
 const Homepage = () => {
     const currentYear = new Date().getFullYear();
+    const history = useHistory();
     return (
         <div className="home" id="home">
             <svg className="blob1" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
@@ -36,8 +37,8 @@ const Homepage = () => {
                             <h3>Reminderse reminds you about the links, articles and other media that you’ve consumed surfing the internet.</h3>
                         </div>
                         <div className="buttons">
-                            <button id="join">JOIN NOW</button>
-                            <button id="login">LOG IN</button>
+                            <button id="join" onClick={() => history.push("/register")}>JOIN NOW</button>
+                            <button id="login" onClick={() => history.push("/login")}>LOG IN</button>
                         </div>
                     </div>
                     <img src={frontpage} alt="Reminderse" />
@@ -49,7 +50,7 @@ const Homepage = () => {
                 </header>
                 <div className="boxes">
                     <div className="add-entry box">
-                        <h2>Make an entry</h2>
+                        <h2>Make An Entry</h2>
                         <img src={add} alt="Add An Entry." />
                     </div>
                     <div className="reminded box">

@@ -16,10 +16,11 @@ import Axios from "axios";
 import Cookies from "js-cookie";
 import Homepage from "../pages/Homepage";
 import "../styles/Global.css";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, useHistory } from "react-router-dom";
 
 const Navigation = () => {
     const [showSideBar, setShowSideBar] = useState(false);
+    const history = useHistory();
 
     const existingUser = JSON.parse(localStorage.getItem("user"));
     const [currentUser, setCurrentUser] = useState(existingUser);
@@ -40,6 +41,7 @@ const Navigation = () => {
             return null;
         }
     };
+
     return (
         <div className="content">
             <AuthContext.Provider value={{ currentUser, setCurrentUser: setUser }}>

@@ -238,6 +238,9 @@ footer .links h2 {
     .boxes {
         flex-direction: column;
     }
+    .content {
+        display: block;
+    }
 }
 
 @media only screen and (max-width: 992px) {
