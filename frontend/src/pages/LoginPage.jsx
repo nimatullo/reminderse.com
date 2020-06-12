@@ -16,8 +16,11 @@ const LoginPage = () => {
   const { currentUser, setCurrentUser } = useAuth();
   const history = useHistory();
   const [invalidCreds, setInvalidCreds] = useState(false);
-  if (currentUser.isLoggedIn) {
-    history.push("/entries")
+
+  if (currentUser) {
+    if (currentUser.isLoggedIn) {
+      history.push("/entries")
+    }
   }
 
   function handleSubmit() {
@@ -47,7 +50,6 @@ const LoginPage = () => {
         }
       });
   }
-
 
   return (
     <div className="container">

@@ -23,11 +23,11 @@ const EntriesPage = () => {
           setTexts(texts.data);
         })
       );
-      setLoading(false);
     }
     catch (e) {
       console.log(e);
     }
+    setLoading(false);
   }
 
   useEffect(() => {

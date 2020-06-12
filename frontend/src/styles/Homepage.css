@@ -41,6 +41,7 @@ nav .brand img {
 }
 
 .home {
+    overflow-x: hidden;
     position: relative;
     height: 100%;
 }
@@ -260,6 +261,7 @@ footer .links h2 {
         flex-direction: column;
     }
     .home svg.blob1 {
+        top: -35%;
         left: -80%;
     }
     footer .text {

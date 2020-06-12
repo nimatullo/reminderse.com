@@ -20,8 +20,10 @@ const Register = () => {
   const { currentUser } = useAuth();
   const history = useHistory();
 
-  if (currentUser.isLoggedIn) {
-    history.push("/entries")
+  if (currentUser) {
+    if (currentUser.isLoggedIn) {
+      history.push("/entries")
+    }
   }
 
   function isFormValid() {
