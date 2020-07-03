@@ -15,7 +15,7 @@ const LinkCard = () => {
         <div className="imgArea">
           <img
             width={200}
-            src={`http://logo.clearbit.com/${stripUrl(data.url)}`}
+            src={`https://logo.clearbit.com/${stripUrl(data.url)}`}
             alt={data.entry_title.charAt(0)}
           />
         </div>

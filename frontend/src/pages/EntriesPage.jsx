@@ -3,7 +3,7 @@ import Axios from "axios";
 import LinkCard from "../components/LinkCard";
 import TextCard from "../components/TextCard";
 import { EntryProvider } from "../context/EntryContext";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { API_ROOT_URL } from "../constants";
 import PulseLoader from "react-spinners/PulseLoader";
 
@@ -11,6 +11,7 @@ import PulseLoader from "react-spinners/PulseLoader";
 const EntriesPage = () => {
   const [links, setLinks] = useState([]);
   const [texts, setTexts] = useState([]);
+  const history = useHistory();
 
   const [loading, setLoading] = useState(false);
 
@@ -26,6 +27,9 @@ const EntriesPage = () => {
     }
     catch (e) {
       console.log(e);
+      if (e.response.status == 401) {
+        history.push("/logout");
+      }
     }
     setLoading(false);
   }
