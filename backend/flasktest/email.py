@@ -11,7 +11,7 @@ from datetime import date, timedelta
 serverId = int(os.environ['MAIL_SERVER_ID'])
 injectionApiKey = os.environ['MAIL_API_KEY']
 
-client = SocketLabsClient(serverId, injectionApiKey);
+client = SocketLabsClient(serverId, injectionApiKey)
 
 message = BasicMessage()
 

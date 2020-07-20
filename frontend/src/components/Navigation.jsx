@@ -17,6 +17,7 @@ import Cookies from "js-cookie";
 import Homepage from "../pages/Homepage";
 import "../styles/Global.css";
 import { BrowserRouter as Router, Switch, Route, useHistory } from "react-router-dom";
+import ConfirmationPage from '../pages/ConfirmationPage';
 
 const Navigation = () => {
     const [showSideBar, setShowSideBar] = useState(false);
@@ -66,6 +67,7 @@ const Navigation = () => {
                     </MediaQuery>
                     <div id="page-wrap">
                         <Switch>
+                            <Route exact path="/confirm-email/:token" component={ConfirmationPage} />
                             <Route exact path="/login" component={LoginPage} />
                             <Route exact path="/register" component={RegisterPage} />
                             <PrivateRoute exact path="/settings" component={SettingsPage} />

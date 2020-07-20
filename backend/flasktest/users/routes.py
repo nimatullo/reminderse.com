@@ -51,9 +51,9 @@ def confirm_email_token(token):
 
 def send_email_confirmation(email):
     token = ts.dumps(email, salt='email-confirm-key')
-    html_mid = '''
-                <p> <a href="{}">Confirm Email</a></p>
-                '''.format(url_for('users.confirm_email_token', token=token, _external=True))
+    html_mid = f'''
+                <p> <a href="https://reminderse.com/confirm-email/{token}">Confirm Email</a></p>
+                '''
     send(email, html_mid)
 
 
