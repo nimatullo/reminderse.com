@@ -6,9 +6,6 @@ import axios from "axios";
 import "../styles/AccountManagement.css";
 import { useAuth } from "../context/Auth";
 import { API_ROOT_URL } from "../constants";
-import Sidebar from "../components/Sidebar";
-
-
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
@@ -19,7 +16,7 @@ const LoginPage = () => {
 
   if (currentUser) {
     if (currentUser.isLoggedIn) {
-      history.push("/entries")
+      history.push("/entries");
     }
   }
 
@@ -44,8 +41,7 @@ const LoginPage = () => {
           if (err.response.status === 401) {
             setInvalidCreds(true);
           }
-        }
-        else {
+        } else {
           console.log(err);
         }
       });
@@ -71,7 +67,7 @@ const LoginPage = () => {
           label="Password"
         />
         <Button
-          label="Submit"
+          label="Log In"
           color="rgb(80, 40, 125)"
           onClick={handleSubmit}
         />

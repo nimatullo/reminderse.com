@@ -7,8 +7,6 @@ import Dialog from "../components/Dialog";
 import { useHistory } from "react-router-dom";
 import { API_ROOT_URL } from "../constants";
 
-
-
 const SettingsPage = () => {
   const [username, setUsername] = useState("");
   const [newUsername, setNewUsername] = useState("");
@@ -22,14 +20,36 @@ const SettingsPage = () => {
   const [passwordEdit, setPasswordEdit] = useState(false);
   const [passwordError, setPasswordError] = useState("");
   const [open, setOpen] = useState(false);
+  const [links, setLinks] = useState([]);
+  const [texts, setTexts] = useState([]);
 
   const history = useHistory();
-
+  const fetchEntries = async () => {
+    try {
+      const data = await Axios.all([
+        Axios.get(`${API_ROOT_URL}/api/link/list`),
+        Axios.get(`${API_ROOT_URL}/api/text/list`),
+      ]).then(
+        Axios.spread((links, texts) => {
+          setLinks(links.data);
+          setTexts(texts.data);
+        })
+      );
+    } catch (e) {
+      console.log(e);
+      if (e.response.status === 401) {
+        history.push("/logout");
+      }
+    }
+  };
   useEffect(() => {
-    Axios.get(`${API_ROOT_URL}/api/current+user`, { withCredentials: true }).then((res) => {
+    Axios.get(`${API_ROOT_URL}/api/current+user`, {
+      withCredentials: true,
+    }).then((res) => {
       setUsername(res.data.username);
       setEmail(res.data.email);
     });
+    fetchEntries();
   }, []);
 
   function changeEmail() {
@@ -37,7 +57,9 @@ const SettingsPage = () => {
       email: newEmail,
     };
 
-    Axios.put(`${API_ROOT_URL}/api/change/email`, data, { withCredentials: true }).then((res) => {
+    Axios.put(`${API_ROOT_URL}/api/change/email`, data, {
+      withCredentials: true,
+    }).then((res) => {
       setEmail(newEmail);
       setEmailEdit(false);
     });
@@ -48,7 +70,9 @@ const SettingsPage = () => {
       username: newUsername,
     };
 
-    Axios.put(`${API_ROOT_URL}/api/change/username`, data, { withCredentials: true }).then((res) => {
+    Axios.put(`${API_ROOT_URL}/api/change/username`, data, {
+      withCredentials: true,
+    }).then((res) => {
       setUsername(newUsername);
       setUsernameEdit(false);
     });
@@ -72,7 +96,9 @@ const SettingsPage = () => {
       new_password: newPassword,
     };
 
-    Axios.put(`${API_ROOT_URL}/api/change/password`, data, { withCredentials: true })
+    Axios.put(`${API_ROOT_URL}/api/change/password`, data, {
+      withCredentials: true,
+    })
       .then((res) => {
         if (res.status === 200) {
           setPassword(newPassword);
@@ -81,7 +107,9 @@ const SettingsPage = () => {
       })
       .catch((err) => {
         if (err.response.status === 401) {
-          setPasswordError("Wrong credentials");
+          setPasswordError(
+            "Current password is incorrect. Please make sure you've entered it correctly."
+          );
         }
       });
   }
@@ -112,16 +140,24 @@ const SettingsPage = () => {
                 />
               </div>
             ) : (
-                <>
-                  <div className="username-info">
-                    <small>Username</small>
-                    <p>{username}</p>
-                  </div>
-                  <div className="edit">
-                    <span onClick={() => setUsernameEdit(true)}>Edit</span>
-                  </div>
-                </>
-              )}
+              <>
+                <div className="username-info">
+                  <small>Username</small>
+                  <p>{username}</p>
+                </div>
+                <div className="edit">
+                  <span
+                    onClick={() => {
+                      setUsernameEdit(true);
+                      setEmailEdit(false);
+                      setPasswordEdit(false);
+                    }}
+                  >
+                    Edit
+                  </span>
+                </div>
+              </>
+            )}
           </div>
           <div className="row">
             {emailEdit ? (
@@ -141,16 +177,24 @@ const SettingsPage = () => {
                 />
               </div>
             ) : (
-                <>
-                  <div className="email-info">
-                    <small>Email</small>
-                    <p>{email}</p>
-                  </div>
-                  <div className="edit">
-                    <span onClick={() => setEmailEdit(true)}>Edit</span>
-                  </div>
-                </>
-              )}
+              <>
+                <div className="email-info">
+                  <small>Email</small>
+                  <p>{email}</p>
+                </div>
+                <div className="edit">
+                  <span
+                    onClick={() => {
+                      setUsernameEdit(false);
+                      setEmailEdit(true);
+                      setPasswordEdit(false);
+                    }}
+                  >
+                    Edit
+                  </span>
+                </div>
+              </>
+            )}
           </div>
           <div className="row">
             {passwordEdit ? (
@@ -161,12 +205,14 @@ const SettingsPage = () => {
                   onChange={(e) => setPassword(e.target.value)}
                   type="password"
                 />
+                <br />
                 <TextField
                   label="New Password"
                   value={newPassword}
                   onChange={(e) => setNewPassword(e.target.value)}
                   type="password"
                 />
+                <br />
                 <TextField
                   label="Confirm New Password"
                   value={passwordConfirmation}
@@ -187,15 +233,21 @@ const SettingsPage = () => {
                 />
               </div>
             ) : (
-                <div className="password-info">
-                  <small>Password</small>
-                  <div>
-                    <span onClick={() => setPasswordEdit(true)}>
-                      Change Password
+              <div className="password-info">
+                <small>Password</small>
+                <div>
+                  <span
+                    onClick={() => {
+                      setUsernameEdit(false);
+                      setEmailEdit(false);
+                      setPasswordEdit(true);
+                    }}
+                  >
+                    Change Password
                   </span>
-                  </div>
                 </div>
-              )}
+              </div>
+            )}
           </div>
           <div className="row">
             <div className="password-info">
@@ -204,6 +256,18 @@ const SettingsPage = () => {
                 <span onClick={() => setOpen(true)}>Unsubscribe</span>
               </div>
             </div>
+          </div>
+          <div className="row">
+            <small>
+              <a
+                href={`data:text/json;charset=utf-8,${encodeURIComponent(
+                  JSON.stringify(links.concat(texts), null, 4)
+                )}`}
+                download="entries.json"
+              >
+                Download Entries
+              </a>
+            </small>
           </div>
           <Dialog
             open={open}

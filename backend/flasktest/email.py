@@ -86,14 +86,14 @@ def send(email, html_mid):
                             <table border="0" cellpadding="0" cellspacing="0">
                                 <tr>
                                     <td>
-                                        <a href="http://www.twitter.com/">
+                                        <a href="https://www.twitter.com/sherzodnimatullo">
                                             <img src="https://img.icons8.com/android/24/88898c/twitter.png">
                                         </a>
                                     </td>
                                     <td style="font-size: 0; line-height: 0;" width="20">&nbsp;</td>
                                     <td>
-                                        <a href="http://www.twitter.com/">
-                                            <img src="https://img.icons8.com/android/24/88898c/facebook-new.png">
+                                        <a href="https://www.instagram.com/sherzodnimatullo">
+                                            <img src="https://img.icons8.com/android/24/88898c/instagram-new.png">
                                         </a>
                                     </td>
                                 </tr>

@@ -8,7 +8,6 @@ import Axios from "axios";
 import { API_ROOT_URL } from "../constants";
 import { useAuth } from "../context/Auth";
 
-
 const Register = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -22,7 +21,7 @@ const Register = () => {
 
   if (currentUser) {
     if (currentUser.isLoggedIn) {
-      history.push("/entries")
+      history.push("/entries");
     }
   }
 
@@ -106,6 +105,11 @@ const Register = () => {
           onChange={(e) => setPasswordConfirm(e.target.value)}
         />
         <Button label="Create your account" onClick={handleSubmit} />
+        <small style={{ color: "#dadada", marginTop: "1em" }}>
+          By signing up, you agree to our{" "}
+          <Link to="/terms">terms of service</Link> and{" "}
+          <Link to="/policy">privacy policy</Link>.
+        </small>
         <p>
           Already have an account?{" "}
           <Link className="optional-link" to="/login">

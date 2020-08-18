@@ -8,8 +8,6 @@ import EntryContext from "../context/EntryContext";
 import Dialog from "../components/Dialog";
 import Button from "../components/Button";
 import { API_ROOT_URL } from "../constants";
-import Cookies from "js-cookie";
-
 
 class DropdownTextMenu extends Component {
   static contextType = EntryContext;
@@ -46,19 +44,23 @@ class DropdownTextMenu extends Component {
   }
 
   pauseEntry() {
-    Axios.put(`${API_ROOT_URL}/api/text/${this.context.id}/pause`, {}, { withCredentials: true }).then(
-      (res) => {
-        this.setState({ showMenu: false });
-        this.context.pauseEntry();
-      }
-    );
+    Axios.put(
+      `${API_ROOT_URL}/api/text/${this.context.id}/pause`,
+      {},
+      { withCredentials: true }
+    ).then((res) => {
+      this.setState({ showMenu: false });
+      this.context.pauseEntry();
+    });
   }
 
   resumeEntry() {
-    Axios.put(`${API_ROOT_URL}/api/text/${this.context.id}/resume`, {}).then((res) => {
-      this.setState({ showMenu: false })
-      this.context.resumeEntry();
-    })
+    Axios.put(`${API_ROOT_URL}/api/text/${this.context.id}/resume`, {}).then(
+      (res) => {
+        this.setState({ showMenu: false });
+        this.context.resumeEntry();
+      }
+    );
   }
 
   render() {
@@ -76,23 +78,20 @@ class DropdownTextMenu extends Component {
             }}
           >
             {this.context.days < 0 ? (
-
               <button onClick={() => this.resumeEntry()}>
                 <div className="button-content">
                   <FaPlay />
                   <span>Resume</span>
                 </div>
               </button>
-            ) :
-              (
-                <button onClick={() => this.pauseEntry()}>
-                  <div className="button-content">
-                    <FaPause />
-                    <span>Pause</span>
-                  </div>
-                </button>
-              )
-            }
+            ) : (
+              <button onClick={() => this.pauseEntry()}>
+                <div className="button-content">
+                  <FaPause />
+                  <span>Pause</span>
+                </div>
+              </button>
+            )}
             <button
               onClick={() =>
                 this.props.history.push(`/edit/text/${this.context.id}`)
@@ -120,8 +119,8 @@ class DropdownTextMenu extends Component {
                       label="Delete"
                       onClick={() => {
                         Axios.delete(
-                          `${API_ROOT_URL}/api/text/${this.context.id}`)
-                          .then(window.location.reload(false));
+                          `${API_ROOT_URL}/api/text/${this.context.id}`
+                        ).then(window.location.reload(false));
                       }}
                     />
                     <Button

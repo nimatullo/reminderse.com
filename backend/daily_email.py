@@ -1,4 +1,6 @@
-import smtplib, time, sys
+import smtplib
+import time
+import sys
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from flasktest import app, db
@@ -19,15 +21,18 @@ def send_to_each_user():
 
     for user in list_of_users:
         print(f'Getting links for {user.email}')
-        links = Links.query.filter_by(user_id=user.id).filter_by(date_of_next_send=date.today()).all()
+        links = Links.query.filter_by(user_id=user.id).filter_by(
+            date_of_next_send=date.today()).all()
         print(f'Getting texts for {user.email}')
-        text = Text.query.filter_by(user_id=user.id).filter_by(date_of_next_send=date.today()).all()
+        text = Text.query.filter_by(user_id=user.id).filter_by(
+            date_of_next_send=date.today()).all()
         print(f'Found {len(links)} links and {len(text)} texts')
         if len(links) == 0 and len(text) == 0:
             continue
         move_date(links)
         move_date(text)
         build_email(user.email, links, text)
+
 
 def move_date(entries):
     for item in entries:
@@ -44,6 +49,7 @@ def build_email(email, list_of_links, list_of_texts):
     msg = build_html_body(email, html_mid)
     send(msg)
 
+
 def html_links(list_of_links):
     '''
     Returns HTML list (<li>) of Links whose date_of_next_send matches today's date.
@@ -55,17 +61,19 @@ def html_links(list_of_links):
                     </tr>'''.format(link.url, link.entry_title)
     return html_mid
 
+
 def html_texts(list_of_texts):
     '''
     Returns HTML list (<li>) of Links whose date_of_next_send matches today's date.
     '''
     html_mid = ""
     for text in list_of_texts:
-        url = f'https://reminderse.com/dashboard'
+        url = f'https://reminderse.com/entries'
         html_mid += '''<tr>
                         <td><a style="color: #e96d77;" href="{0}">{1}</a></td>
                     </tr>'''.format(url, text.entry_title)
     return html_mid
+
 
 def build_html_body(email, html_mid):
     '''
@@ -74,7 +82,7 @@ def build_html_body(email, html_mid):
     msg = MIMEMultipart()
     msg['From'] = MY_ADDRESS
     msg['To'] = email
-    msg['Subject'] = "Reminder from Remarkful"
+    msg['Subject'] = "Reminder from Reminderse"
     html = """ <html xmlns="https://www.w3.org/1999/xhtml">
 
 <head>
@@ -124,7 +132,7 @@ def build_html_body(email, html_mid):
                         <td>
                             <p>
                                 If you'd like to make changes to the intervals of any of these links,
-                                <a href="https://reminderse.com/list">click here.</a>
+                                <a href="https://reminderse.com/entries">click here.</a>
                             </p>
                         </td>
                     </tr>
@@ -136,8 +144,8 @@ def build_html_body(email, html_mid):
                 <table border="0" cellpadding="0" cellspacing="0" width="95%">
                     <tr>
                         <td width="75%">
-                            &copy; 20202 Reminderse by Turtle Enterprises<br />
-                            If you do not wish to receive any further emails from us, please <a href="https://reminderse.com/account/settings/">click here.</a>
+                            &copy; 2020 Reminderse by Turtle Enterprises<br />
+                            If you do not wish to receive any further emails from us, please <a href="https://reminderse.com/settings">click here.</a>
                         </td>
                         <td align="right">
                             <table border="0" cellpadding="0" cellspacing="0">
@@ -149,8 +157,8 @@ def build_html_body(email, html_mid):
                                     </td>
                                     <td style="font-size: 0; line-height: 0;" width="20">&nbsp;</td>
                                     <td>
-                                        <a href="http://www.facebook.com/">
-                                            <img src="https://img.icons8.com/android/24/88898c/facebook-new.png">
+                                        <a href="https://www.instagram.com/sherzodnimatullo">
+                                            <img src="https://img.icons8.com/android/24/88898c/instagram-new.png">
                                         </a>
                                     </td>
                                 </tr>
@@ -175,5 +183,6 @@ def send(message):
     '''
     s.send_message(message)
     print("Links and Text email sent to user.")
+
 
 send_to_each_user()

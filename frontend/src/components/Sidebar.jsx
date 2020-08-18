@@ -7,11 +7,12 @@ import MediaQuery from "react-responsive";
 import "../styles/Sidebar.css";
 import ReactTooltip from "react-tooltip";
 
-export default ({ handleClick }) => {
+export default ({ handleClick, isSideBarVisible }) => {
   return (
     <>
-      <div className="sidebar">
-        <MediaQuery maxWidth={1200}>
+      <div className="background" onClick={() => handleClick(false)} />
+      <div className={`sidebar${isSideBarVisible ? " full" : " hidden"}`}>
+        <MediaQuery maxWidth={1300}>
           <div className="closeButton">
             <button onClick={() => handleClick(false)}>
               <FaWindowClose />
@@ -54,25 +55,31 @@ export default ({ handleClick }) => {
             </NavLink>
           </li>
         </ul>
-        <NavLink
-          exact
-          activeClassName="menu-item-active"
-          className="menu-item"
-          to="/add"
-          onClick={() => handleClick(false)}
-        >
-          <FaPlusCircle data-tip="Add Entry" className="menu-item-icon" />
-          <span className="mobile-nav">Add Entry</span>
-        </NavLink>
-        <NavLink
-          onClick={() => handleClick(false)}
-          exact
-          className="menu-item"
-          to="/logout"
-        >
-          <RiLogoutBoxLine data-tip="Log Out" className="menu-item-icon" />
-          <span className="mobile-nav">Log Out</span>
-        </NavLink>
+        <ul className="main-navs">
+          <li>
+            <NavLink
+              exact
+              activeClassName="menu-item-active"
+              className="menu-item"
+              to="/add"
+              onClick={() => handleClick(false)}
+            >
+              <FaPlusCircle data-tip="Add Entry" className="menu-item-icon" />
+              <span className="mobile-nav">Add Entry</span>
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              onClick={() => handleClick(false)}
+              exact
+              className="menu-item"
+              to="/logout"
+            >
+              <RiLogoutBoxLine data-tip="Log Out" className="menu-item-icon" />
+              <span className="mobile-nav">Log Out</span>
+            </NavLink>
+          </li>
+        </ul>
       </div>
       <ReactTooltip place={"right"} delayShow={500} offset={{ right: 25 }} />
     </>

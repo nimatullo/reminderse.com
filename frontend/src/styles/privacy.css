@@ -1,0 +1,16 @@
+.policy p {
+  margin: 1em 0;
+}
+
+.policy table {
+  border: 1px solid black;
+  text-align: center;
+}
+
+.policy table th {
+  border: 1px solid black;
+}
+
+.policy table td {
+  border: 1px solid black;
+}

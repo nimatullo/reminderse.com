@@ -7,7 +7,6 @@ import { Link, useHistory } from "react-router-dom";
 import { API_ROOT_URL } from "../constants";
 import PulseLoader from "react-spinners/PulseLoader";
 
-
 const EntriesPage = () => {
   const [links, setLinks] = useState([]);
   const [texts, setTexts] = useState([]);
@@ -18,21 +17,23 @@ const EntriesPage = () => {
   const fetchEntries = async () => {
     setLoading(true);
     try {
-      const data = await Axios.all([Axios.get(`${API_ROOT_URL}/api/link/list`), Axios.get(`${API_ROOT_URL}/api/text/list`)]).then(
+      const data = await Axios.all([
+        Axios.get(`${API_ROOT_URL}/api/link/list`),
+        Axios.get(`${API_ROOT_URL}/api/text/list`),
+      ]).then(
         Axios.spread((links, texts) => {
           setLinks(links.data);
           setTexts(texts.data);
         })
       );
-    }
-    catch (e) {
+    } catch (e) {
       console.log(e);
-      if (e.response.status == 401) {
+      if (e.response.status === 401) {
         history.push("/logout");
       }
     }
     setLoading(false);
-  }
+  };
 
   useEffect(() => {
     fetchEntries();
@@ -46,20 +47,20 @@ const EntriesPage = () => {
           <div className="grid">
             {links.length > 0
               ? links.map((link) => (
-                <EntryProvider value={link}>
-                  <LinkCard />
-                </EntryProvider>
-              ))
+                  <EntryProvider key={link.id} value={link}>
+                    <LinkCard />
+                  </EntryProvider>
+                ))
               : null}
           </div>
           <h1>Texts</h1>
           <div className="grid">
             {texts.length > 0
               ? texts.map((text) => (
-                <EntryProvider value={text}>
-                  <TextCard />
-                </EntryProvider>
-              ))
+                  <EntryProvider key={text.id} value={text}>
+                    <TextCard />
+                  </EntryProvider>
+                ))
               : null}
           </div>
         </div>
@@ -71,10 +72,10 @@ const EntriesPage = () => {
           <div className="grid">
             {links.length > 0
               ? links.map((link) => (
-                <EntryProvider key={link.id} value={link}>
-                  <LinkCard />
-                </EntryProvider>
-              ))
+                  <EntryProvider key={link.id} value={link}>
+                    <LinkCard />
+                  </EntryProvider>
+                ))
               : null}
           </div>
         </>
@@ -86,39 +87,37 @@ const EntriesPage = () => {
           <div className="grid">
             {texts.length > 0
               ? texts.map((text) => (
-                <EntryProvider key={text.id} value={text}>
-                  <TextCard />
-                </EntryProvider>
-              ))
+                  <EntryProvider key={text.id} value={text}>
+                    <TextCard />
+                  </EntryProvider>
+                ))
               : null}
           </div>
         </>
       );
-    }
-  }
-
-
-  return (
-    <>
-      <div className="loader" style={{ "display": "flex", "justifyContent": "center" }}>
-        <PulseLoader
-          size={150}
-          color={"#50287d"}
-          loading={loading}
-        />
-      </div>
-      {!loading && (conditionalEntryRender())}
-      {links.length === 0 && texts.length === 0 ? (
+    } else {
+      return (
         <div>
           <h1>
             You currently don't have any entries. To add an entry,{" "}
             <Link to="/add">click here</Link> or use the sidebar.
-        </h1>
+          </h1>
         </div>
-      ) : null}
-    </>
-  )
+      );
+    }
+  }
 
+  return (
+    <>
+      <div
+        className="loader"
+        style={{ display: "flex", justifyContent: "center" }}
+      >
+        <PulseLoader size={150} color={"#50287d"} loading={loading} />
+      </div>
+      {!loading && conditionalEntryRender()}
+    </>
+  );
 };
 
 export default EntriesPage;
