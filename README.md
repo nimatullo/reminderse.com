@@ -1,7 +1,7 @@
 [![Reminderse](https://i.imgur.com/LmorpRy.png)](#)
 ---
 
-_Guys website is down because I ran out of Amazon credits. It is tough out here for you boy_
+_Guys website is down because I ran out of Amazon credits. It is tough out here for your boy_
 
 What is Reminderse?
 -----
