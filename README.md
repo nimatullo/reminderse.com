@@ -1,42 +1,68 @@
-[![Reminderse](https://i.imgur.com/LmorpRy.png)](#)
----
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-_Guys website is down because I ran out of Amazon credits. It is tough out here for your boy_
+## Available Scripts
 
-What is Reminderse?
------
-Reminderse reminds you about the links, articles and other media that you’ve consumed surfing the internet. Simply make an entry and get reminded about it in intervals.
+In the project directory, you can run:
 
+### `npm start`
 
-<!-- ## User Model
+Runs the app in the development mode.<br />
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-| Endpoints               | Endpoint URL                 | HTTP Method |
-| ----------------------- | ---------------------------- | ----------- |
-| Get Current User        | /api/current+user            | GET         |
-| Log In                  | /api/login                   | PUT         |
-| Register                | /api/register                | POST        |
-| Logout                  | /api/logout                  | PUT         |
-| Change Username         | /api/change/username         | PUT         |
-| Change Email            | /api/change/email            | PUT         |
-| Change Password         | /api/change/password         | PUT         |
-| Unsubscribe             | /api/unsubscribe             | DELETE      |
-| Send Email Confirmation | /api/send-email-confirmation | GET         |
-| Is Email Confirmed      | /api/confirmed               | GET         |
+The page will reload if you make edits.<br />
+You will also see any lint errors in the console.
 
-## Entries Model
+### `npm test`
 
-| Endpoints                           | Endpoint URL              | HTTP Method |
-| ----------------------------------- | ------------------------- | ----------- |
-| Add Link                            | /api/link/add             | POST        |
-| Add Text                            | /api/text/add             | POST        |
-| Get Links (all)                     | /api/link/list            | GET         |
-| Get Texts (all)                     | /api/text/list            | GET         |
-| Edit Link                           | /api/link/<link_id>       | PUT         |
-| Edit Text                           | /api/text/<text_id>       | PUT         |
-| Get Link (specific)                 | /api/link/<link_id>       | GET         |
-| Get Text (specific)                 | /api/text/<text_id>       | GET         |
-| Delete Link                         | /api/link/<link_id>       | DELETE      |
-| Delete Text                         | /api/text/<text_id>       | DELETE      |
-| Pause Text                          | /api/text/<text_id>/pause | PUT         |
-| Pause Link                          | /api/text/<link_id>/pause | PUT         |
-| Search (No frontend implementation) | /api/search/<query>       | GET         | -->
+Launches the test runner in the interactive watch mode.<br />
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+
+### `npm run build`
+
+Builds the app for production to the `build` folder.<br />
+It correctly bundles React in production mode and optimizes the build for the best performance.
+
+The build is minified and the filenames include the hashes.<br />
+Your app is ready to be deployed!
+
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+
+### `npm run eject`
+
+**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+
+If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+
+You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+
+## Learn More
+
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+
+To learn React, check out the [React documentation](https://reactjs.org/).
+
+### Code Splitting
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+
+### Analyzing the Bundle Size
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+
+### Making a Progressive Web App
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+
+### Advanced Configuration
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+
+### Deployment
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+
+### `npm run build` fails to minify
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
