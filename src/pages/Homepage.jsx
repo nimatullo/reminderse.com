@@ -188,23 +188,10 @@ const Homepage = () => {
                 </a>
               </li>
               <li>
-                A{" "}
-                <a
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  href="https://turtle.nyc"
-                >
-                  Turtle Enterprises
-                </a>{" "}
-                Service
+                <p>© {new Date().getFullYear()}  Reminderse, Inc.</p>
               </li>
             </ul>
           </div>
-        </div>
-        <div class="text">
-          <small>
-            &copy; {currentYear} Turtle Enterprises. All Rights Reserved
-          </small>
         </div>
       </footer>
     </div>

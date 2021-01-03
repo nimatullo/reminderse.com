@@ -5,7 +5,6 @@ import { MdSettings } from "react-icons/md";
 import { RiLogoutBoxLine } from "react-icons/ri";
 import MediaQuery from "react-responsive";
 import "../styles/Sidebar.css";
-import ReactTooltip from "react-tooltip";
 
 export default ({ handleClick, isSideBarVisible }) => {
   return (
@@ -81,7 +80,6 @@ export default ({ handleClick, isSideBarVisible }) => {
           </li>
         </ul>
       </div>
-      <ReactTooltip place={"right"} delayShow={500} offset={{ right: 25 }} />
     </>
   );
 };

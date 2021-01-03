@@ -169,3 +169,5 @@ packages/react-devtools-shell/dist
 
 ##### PSQL #####
 postgres-data/
+# Local Netlify folder
+.netlify
