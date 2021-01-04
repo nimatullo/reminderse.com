@@ -1,8 +1,5 @@
 [![Reminderse](https://i.imgur.com/LmorpRy.png)](#)
 ---
-
-_Guys website is down because I ran out of Amazon credits. It is tough out here for your boy_
-
 What is Reminderse?
 -----
 Reminderse reminds you about the links, articles and other media that you’ve consumed surfing the internet. Simply make an entry and get reminded about it in intervals.
