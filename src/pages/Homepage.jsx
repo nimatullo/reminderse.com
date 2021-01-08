@@ -84,21 +84,6 @@ const Homepage = () => {
           </div>
           <img src={frontpage} alt="Reminderse" />
         </div>
-        {isCookiesAccepted ? null : (
-          <div class="cookies">
-            <p>
-              This website uses cookies to function properly. By browsing our
-              site, you agree to our use of cookies. Check out our{" "}
-              <Link to="/policy">Privacy Policy.</Link>
-            </p>
-            <Button
-              label="Accept"
-              onClick={() => {
-                handleCookieAccept();
-              }}
-            />
-          </div>
-        )}
       </main>
       <div className="about" id="about">
         <header>
