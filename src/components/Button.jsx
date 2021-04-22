@@ -1,12 +1,13 @@
 import React from "react";
-const Button = ({ label, color, onClick, className }) => {
+const Button = ({ label, color, onClick, className, isLoading }) => {
   return (
     <button
+      disabled={isLoading}
       onClick={onClick}
       style={{ color: { color } }}
       className={`button ${className}`}
     >
-      {label}
+      {isLoading ? "Loading..." : label}
     </button>
   );
 };
