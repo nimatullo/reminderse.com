@@ -13,6 +13,7 @@ const LoginPage = () => {
   const { currentUser, setCurrentUser } = useAuth();
   const history = useHistory();
   const [invalidCreds, setInvalidCreds] = useState(false);
+  const [isFetching, setIsFetching] = useState(false);
 
   if (currentUser) {
     if (currentUser.isLoggedIn) {
@@ -25,6 +26,7 @@ const LoginPage = () => {
       email: email,
       password: password,
     };
+    setIsFetching(true);
     axios
       .post(`${API_ROOT_URL}/api/login`, data, { withCredentials: true })
       .then((res) => {
@@ -44,7 +46,8 @@ const LoginPage = () => {
         } else {
           console.log(err);
         }
-      });
+      })
+      .finally(() => setIsFetching(false));
   }
 
   return (
@@ -70,6 +73,7 @@ const LoginPage = () => {
           label="Log In"
           color="rgb(80, 40, 125)"
           onClick={handleSubmit}
+          isLoading={isFetching}
         />
         <p>
           Don't have an account?{" "}
