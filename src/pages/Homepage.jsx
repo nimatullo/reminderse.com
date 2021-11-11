@@ -6,6 +6,8 @@ import logo from "../styles/vectors/logo.svg";
 import add from "../styles/vectors/add.png";
 import mailbox from "../styles/vectors/mail.png";
 import Button from "../components/Button";
+import axios from "axios";
+import { API_ROOT_URL } from "../constants";
 
 const Homepage = () => {
   const [isCookiesAccepted, setCookiesAccepted] = useState(false);
@@ -17,6 +19,7 @@ const Homepage = () => {
   };
 
   useEffect(() => {
+    axios.get(`${API_ROOT_URL}`); // Wake up backend
     if (localStorage.getItem("cookieAgreement")) {
       setCookiesAccepted(true);
     }
@@ -173,7 +176,7 @@ const Homepage = () => {
                 </a>
               </li>
               <li>
-                <p>© {new Date().getFullYear()}  Reminderse, Inc.</p>
+                <p>© {new Date().getFullYear()} Reminderse, Inc.</p>
               </li>
             </ul>
           </div>

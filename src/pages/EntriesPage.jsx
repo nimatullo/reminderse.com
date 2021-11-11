@@ -22,8 +22,8 @@ const EntriesPage = () => {
         Axios.get(`${API_ROOT_URL}/api/text/list`),
       ]).then(
         Axios.spread((links, texts) => {
-          setLinks(links.data);
-          setTexts(texts.data);
+          setLinks(links.data.entries);
+          setTexts(texts.data.entries);
         })
       );
     } catch (e) {
