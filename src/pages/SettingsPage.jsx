@@ -275,6 +275,7 @@ const SettingsPage = () => {
             headerTitle={"Are you sure you want to unsubscribe?"}
             content={
               <div className="unsubscribe-dialog">
+                <p>This action will result in the deletion of your account.</p>
                 <Button
                   label="Yes"
                   className="negative-button"
