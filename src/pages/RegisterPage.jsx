@@ -54,7 +54,14 @@ const Register = () => {
         username: username,
         email: email,
         password: password,
-      }).then(history.push("/login"));
+      }).then((res) => {
+        if (res.status === 200) {
+          history.push("/login");
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
     }
   }
 
