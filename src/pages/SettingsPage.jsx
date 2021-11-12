@@ -22,6 +22,7 @@ const SettingsPage = () => {
   const [open, setOpen] = useState(false);
   const [links, setLinks] = useState([]);
   const [texts, setTexts] = useState([]);
+  const [version, setVersion] = useState("")
 
   const history = useHistory();
   const fetchEntries = async () => {
@@ -50,6 +51,7 @@ const SettingsPage = () => {
       setEmail(res.data.email);
     });
     fetchEntries();
+    getHerokuBuildVersion();
   }, []);
 
   function changeEmail() {
@@ -112,6 +114,18 @@ const SettingsPage = () => {
           );
         }
       });
+  }
+
+  function getHerokuBuildVersion() {
+    Axios.get(`${API_ROOT_URL}/api/version`)
+      .then((res) => {
+        if (res.status === 200) {
+          setVersion(res.data.build);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      })
   }
 
   return (
@@ -287,6 +301,7 @@ const SettingsPage = () => {
           />
         </div>
       </div>
+    <small>{version}</small>
     </div>
   );
 };
