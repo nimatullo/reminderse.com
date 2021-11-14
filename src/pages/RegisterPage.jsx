@@ -18,6 +18,7 @@ const Register = () => {
   const [isValidEmail, setIsValidEmail] = useState(true);
   const { currentUser } = useAuth();
   const history = useHistory();
+  const [errorMessage, setErrorMessage] = useState("")
 
   if (currentUser) {
     if (currentUser.isLoggedIn) {
@@ -55,12 +56,14 @@ const Register = () => {
         email: email,
         password: password,
       }).then((res) => {
+        console.log("is this running?");
         if (res.status === 200) {
           history.push("/login");
         }
       })
       .catch((err) => {
         console.log("Error: ", err);
+        setErrorMessage(err.response.data.message);
       });
     }
   }
@@ -73,6 +76,7 @@ const Register = () => {
     <div className="container">
       <div className="add-page" style={{ maxHeight: "620px" }}>
         <h1>Create your Reminderse account</h1>
+        <p>{errorMessage}</p>
         <TextField
           label="Username"
           value={username}
