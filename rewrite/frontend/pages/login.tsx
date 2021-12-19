@@ -35,7 +35,9 @@ export default function Login() {
 				if (err.response.status === 401) {
 					setError("Invalid email or password");
 				} else {
-					setError(err.response);
+					console.log(err);
+					
+					setError(err.response.data.message);
 				}
 			})
 			.finally(() => setIsLoading(false));

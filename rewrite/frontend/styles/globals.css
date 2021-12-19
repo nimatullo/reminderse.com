@@ -18,3 +18,9 @@ a {
 * {
   box-sizing: border-box;
 }
+
+.dropDownMenu {
+  position: absolute;
+  bottom: 1em;
+  right: 1em;
+}

@@ -3,4 +3,5 @@ export interface Entry {
 	title: string
 	content: string
 	dateOfNextSend: string
+	category?: string
 }
