@@ -1,24 +1,38 @@
-import React from "react"
-import Image from "next/image"
-import { Entry } from "../models/Entry"
-import DropdownLinkMenu from "./DropdownLinkMenu"
+import React, { useContext } from "react";
+import { Entry } from "../models/Entry";
+import DropdownLinkMenu from "./DropdownLinkMenu";
 
-export default function EntryCard(entry: Entry) {
-	return (
-		<>
-		<div style={{ "border": "1px solid #eee" }} className="rounded-box row-span-3 shadow-sm compact side bg-base-100 border hover:shadow-md transition">
-			<figure>
-				<Image src="/reminderse.png" height="100%" width="100%" alt="Reminderse" />
-			</figure>
-			<a target="_blank" href={entry.content}>
-				<div style={{ "textAlign": "center" }} className="card-body bg-primary-content">
-					<div className="font-bold text-lg">{entry.title}</div>
-					<div>{entry.category}</div>
-					<div style={{ "color": "#616060" }} className="text-gray">{entry.dateOfNextSend} days</div>
-				</div>
-			</a>
-			<DropdownLinkMenu/>
-		</div>
-		</>
-	)
-}
+const EntryCard = (entry: Entry) => {
+  function stripUrl(url: string) {
+    const pathArray = url.split("/");
+    return pathArray[0] + "//" + pathArray[2];
+  }
+  return (
+    <div className="card">
+      <a href={entry.content} target="_blank" rel="noopener noreferrer">
+        <div className="imgArea">
+          <img
+            width={200}
+            src={`https://logo.clearbit.com/${stripUrl(entry.content)}`}
+            alt={entry.title.charAt(0)}
+          />
+        </div>
+        <div className="cardInfo">
+          <div className="entryTitle">{entry.title}</div>
+          <div className="secondary">{entry.category ? entry.category : <p> </p>}</div>
+          {Number(entry.dateOfNextSend) < 0 ? (
+            <div className="secondary date">Paused</div>
+          ) : (
+              <div className="secondary date">
+                Next email goes out{" "}
+                {entry.dateOfNextSend === "Tomorrow" ? "Tomorrow" : `in ${entry.dateOfNextSend} days`}
+              </div>
+            )}
+        </div>
+      </a>
+      <DropdownLinkMenu />
+    </div>
+  );
+};
+
+export default EntryCard;

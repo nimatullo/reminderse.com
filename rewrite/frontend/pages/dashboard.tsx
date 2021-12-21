@@ -4,6 +4,7 @@ import EntryCard from "../components/EntryCard";
 import { useEffect, useState } from "react";
 import { entryService } from "../service/entry.service";
 import { Entry } from "../models/Entry";
+import Router from "next/router";
 
 export default function Dashboard() {
 	const [linkEntries, setLinkEntries] = useState<Entry[]>([]);
@@ -12,6 +13,12 @@ export default function Dashboard() {
 		entryService.getLinkEntries()
 		.then((data) => {
 			setLinkEntries(entryService.mapToEntry(data.entries));
+		})
+		.catch((error) => {
+			if (error.response.status === 401) {
+				localStorage.removeItem("user");
+				Router.push("/login");
+			}
 		})
 	}, []);
 
@@ -24,7 +31,7 @@ export default function Dashboard() {
 					{linkEntries.map((entry) => (
 						<EntryCard key={entry.id} {...entry} />
 					))}
-					{/* <EntryCard title="very hard!" content="very hard!" dateOfNextSend="2020-01-01" /> */}
+					<EntryCard title="very hard!" content="very hard!" dateOfNextSend="2020-01-01" />
 				</div>
 			</div>
 		</>
