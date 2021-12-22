@@ -35,14 +35,14 @@ const DropdownLinkMenu = () => {
   return (
     <div ref={container} className="dropdownMenu">
       <button
-        className="p-3 right-5 bottom-5 focus:outline-none focus:shadow-solid hover:bg-secondary-content"
+        className="p-3 btn-circle btn btn-ghost right-5 bottom-5 focus:outline-none focus:shadow-solid hover:bg-secondary-content"
         onClick={() => setShow(!show)}
       >
         <BsThreeDotsVertical />
       </button>
 
       {show && (
-        <ul className="menu">
+        <ul className="menu p-4 shadow-lg bg-base-100 rounded-box">
           <li>
             <a>
               <MdOpenInNew className='inline-block w-5 h-5 mr-2 stroke-current' />

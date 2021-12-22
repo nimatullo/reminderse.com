@@ -27,11 +27,12 @@ export default function Dashboard() {
 			<Navbar />
 			<div className="p-4 lg:p-10">
 				<h1 className="my-4 text-4xl font-bold">Links</h1>
-				<div className="grid grid-cols-1 gap-6 xl:grid-cols-3">
+				<div className="dashboard">
 					{linkEntries.map((entry) => (
 						<EntryCard key={entry.id} {...entry} />
 					))}
-					<EntryCard title="very hard!" content="very hard!" dateOfNextSend="2020-01-01" />
+					<EntryCard title="Nikolas's Nude Photos" category="Self Help" content="https://imgur.com" dateOfNextSend="1" />
+					<EntryCard title="How to go pro in valorant" category="Gaming" content="https://youtube.com" dateOfNextSend="2" />
 				</div>
 			</div>
 		</>

@@ -44,7 +44,13 @@ a {
   font-weight: bold;
 } */
 
-.card {
+.dashboard {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.main-card {
   position: relative;
   display: inline-block;
   border: 1px solid #dedede;
@@ -53,7 +59,7 @@ a {
   transition: 0.3s all;
 }
 
-.card a {
+.main-card>a {
   display: grid;
   grid-template-rows: 2fr 1fr;
   text-decoration: none;
@@ -61,7 +67,7 @@ a {
   height: 100%;
 }
 
-.card .imgArea {
+.main-card .imgArea {
   display: grid;
   place-content: center;
   width: 100%;
@@ -71,11 +77,11 @@ a {
   background-position: center;
 }
 
-.card .imgArea img {
+.main-card .imgArea img {
   position: relative;
 }
 
-.card .imgArea img[alt]::after {
+.main-card .imgArea img[alt]::after {
   display: block;
   position: absolute;
   top: 0;
@@ -87,15 +93,21 @@ a {
   font-size: 5rem;
   line-height: 2rem;
   font-weight: bold;
-  color: red;
 }
 
-.card .cardInfo {
+.main-card .cardInfo {
   text-align: center;
   padding: 1em;
+  overflow: hidden;
+  border-bottom-right-radius: 1rem;
+  border-bottom-left-radius: 1rem;
 }
 
-.card .cardInfo .date {
+.main-card .cardInfo .secondary {
+  color: #666;
+}
+
+.main-card .cardInfo .date {
   margin: 0.5em;
   font-size: 0.8rem;
 }
@@ -117,8 +129,6 @@ a {
   position: absolute;
   background-color: #fff;
   border: 1px solid #dedede;
-  pad: 1em;
-  width: 8em;
 }
 
 .dropDownMenu {
@@ -143,37 +153,3 @@ a {
   cursor: pointer;
 }
 
-.menu {
-  right: 0;
-  z-index: 2;
-  position: absolute;
-  background-color: #fff;
-  border: 1px solid var(--border-color);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  padding: 1em;
-  border-radius: 8px;
-  box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.2);
-  width: 8em;
-}
-
-.menu button {
-  width: 100%;
-  background-color: transparent;
-  border: none;
-  font-size: 1em;
-  padding: 10px;
-}
-
-.menu button:hover {
-  cursor: pointer;
-  background-color: var(--border-color);
-}
-
-.menu button .button-content {
-  width: 100%;
-  display: grid;
-  grid-template-columns: 1fr 2fr;
-}
