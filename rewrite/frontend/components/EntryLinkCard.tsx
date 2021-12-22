@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { Entry } from "../models/Entry";
 import DropdownLinkMenu from "./DropdownLinkMenu";
 
-const EntryCard = (entry: Entry) => {
+const EntryLinkCard = (entry: Entry) => {
   function stripUrl(url: string) {
     const pathArray = url.split("/");
     return pathArray[0] + "//" + pathArray[2];
@@ -36,4 +36,4 @@ const EntryCard = (entry: Entry) => {
   );
 };
 
-export default EntryCard;
+export default EntryLinkCard;
