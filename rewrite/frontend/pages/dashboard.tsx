@@ -6,6 +6,7 @@ import { entryService } from "../service/entry.service";
 import { Entry } from "../models/Entry";
 import Router from "next/router";
 import EntryTextCard from "../components/EntryTextCard";
+import { EntryProvider } from "../context/entry.context";
 
 export default function Dashboard() {
 	const [linkEntries, setLinkEntries] = useState<Entry[]>([]);
@@ -46,22 +47,18 @@ export default function Dashboard() {
 				<h1 className="my-4 text-4xl font-bold">Links</h1>
 				<div className="dashboard">
 					{linkEntries.map((entry) => (
-						<EntryLinkCard key={entry.id} {...entry} />
+						<EntryProvider key={entry.id} initialEntry={entry}>
+							<EntryLinkCard/>
+						</EntryProvider>
 					))}
-					<EntryLinkCard title="Nikolas's Nude Photos" category="Self Help" content="https://imgur.com" dateOfNextSend="1" />
-					<EntryLinkCard title="How to go pro in valorant" category="Gaming" content="https://youtube.com" dateOfNextSend="2" />
 				</div>
 				<h1 className="my-4 text-4xl font-bold">Texts</h1>
 				<div className="dashboard grid-cols-1">
 					{textEntries.map((entry) => (
-						<EntryTextCard key={entry.id} {...entry} />
+						<EntryProvider key={entry.id} initialEntry={entry}>
+							<EntryTextCard />
+						</EntryProvider>
 					))}
-					<EntryTextCard
-						title="Nikolas Kinalis Quotes"
-						category="Self Help"
-						content="With great cock, comes great cum. I'm not saying I'm a great cock, but I'm saying I'm a great cum."
-						dateOfNextSend="1"
-					/>
 				</div>
 			</div>
 		</>

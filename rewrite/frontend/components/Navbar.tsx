@@ -25,42 +25,41 @@ const Navbar = () => {
 				<div className="flex-none px-2 mx-2 lg:flex">
 					<div className="flex items-stretch">
 						<div data-tip="Home" className="tooltip tooltip-bottom">
-						<Link href="/">
-							<a className="btn btn-ghost btn-md rounded-btn ">
-								<AiFillHome style={{ "height": "1.5em", "width": "1.5em" }} />
-							</a>
-						</Link>
+							<Link href="/">
+								<a className="btn btn-ghost btn-md rounded-btn ">
+									<AiFillHome style={{ "height": "1.5em", "width": "1.5em" }} />
+								</a>
+							</Link>
 						</div>
 						<div data-tip="Dashboard" className="tooltip tooltip-bottom">
-						<Link href="/dashboard">
-							<a className="btn btn-ghost btn-md rounded-btn">
-								<BsFillGridFill style={{ "height": "1.5em", "width": "1.5em" }} />
-							</a>
-						</Link>
+							<Link href="/dashboard">
+								<a className="btn btn-ghost btn-md rounded-btn">
+									<BsFillGridFill style={{ "height": "1.5em", "width": "1.5em" }} />
+								</a>
+							</Link>
 						</div>
 						<div data-tip="Add Entry" className="tooltip tooltip-bottom">
-
-						<Link href="/add">
-							<a className="btn btn-ghost btn-md rounded-btn">
-								<AiFillPlusCircle style={{ "height": "1.5em", "width": "1.5em" }} />
-							</a>
-						</Link>
+							<Link href="/add">
+								<a className="btn btn-ghost btn-md rounded-btn">
+									<AiFillPlusCircle style={{ "height": "1.5em", "width": "1.5em" }} />
+								</a>
+							</Link>
 						</div>
 						<div data-tip="Settings" className="tooltip tooltip-bottom">
 
-						<Link href="/settings">
+							<Link href="/settings">
 
-							<a className="btn btn-ghost btn-md rounded-btn">
-								<IoMdSettings style={{ "height": "1.5em", "width": "1.5em" }} />
-							</a>
-						</Link>
+								<a className="btn btn-ghost btn-md rounded-btn">
+									<IoMdSettings style={{ "height": "1.5em", "width": "1.5em" }} />
+								</a>
+							</Link>
 						</div>
 						<div data-tip="Log Out" className="tooltip tooltip-bottom">
-						<Link href="/logout">
-							<a className="btn btn-ghost btn-md rounded-btn">
-								<BiLogOut style={{ "height": "1.5em", "width": "1.5em" }} />
-							</a>
-						</Link>
+							<Link href="/logout">
+								<a className="btn btn-ghost btn-md rounded-btn">
+									<BiLogOut style={{ "height": "1.5em", "width": "1.5em" }} />
+								</a>
+							</Link>
 						</div>
 					</div>
 				</div>
