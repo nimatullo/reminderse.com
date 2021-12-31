@@ -125,7 +125,7 @@ a {
 
 .dropdownMenu .menu {
   right: 0;
-  z-index: 2;
+  z-index: 10000;
   position: absolute;
   background-color: #fff;
   border: 1px solid #dedede;

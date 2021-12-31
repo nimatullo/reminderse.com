@@ -77,99 +77,100 @@ export default function AddLink() {
       )}
 
       <form className="space-y-5" onSubmit={handleLinkAdd}>
-        <div className="form-control">
-          <label
-            htmlFor="title"
-            className="input-group input-group-vertical input-group-md"
-          >
-            <span className="bg bg-secondary" style={{ color: "white" }}>
-              Entry Title
-            </span>
-            <input
-              type="text"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              required
-              placeholder="Title"
-              className="input input-bordered"
-            />
-          </label>
-        </div>
-        <div className="form-control">
-          <label
-            htmlFor="url"
-            className="input-group input-group-vertical input-group-md"
-          >
-            <span
-              className="bg bg-secondary flex justify-between"
-              style={{ color: "white" }}
-            >
-              <p>URL</p>
-            </span>
-            <input
-              type="url"
-              value={url}
-              onChange={(e) => setUrl(e.target.value)}
-              required
-              placeholder="https://reminderse.com"
-              className="input input-bordered"
-            />
-          </label>
-        </div>
-        <div className="grid grid-cols-1 gap-3 lg:grid-cols-3">
-          <div className="form-control lg:col-span-2">
+        <Fade duration={500}>
+          <div className="form-control">
             <label
-              htmlFor="category"
+              htmlFor="title"
               className="input-group input-group-vertical input-group-md"
             >
-              <span
-                className="bg bg-secondary flex justify-between"
-                style={{ color: "white" }}
-              >
-                <p>Category (optional)</p>
+              <span className="bg bg-secondary" style={{ color: "white" }}>
+                Entry Title
               </span>
               <input
                 type="text"
-                value={category}
-                onChange={(e) => setCategory(e.target.value)}
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
                 required
-                placeholder="Category for link"
+                placeholder="Title"
                 className="input input-bordered"
               />
             </label>
           </div>
           <div className="form-control">
             <label
-              htmlFor="date"
+              htmlFor="url"
               className="input-group input-group-vertical input-group-md"
             >
               <span
                 className="bg bg-secondary flex justify-between"
                 style={{ color: "white" }}
               >
-                <p>Next email date</p>
+                <p>URL</p>
               </span>
               <input
-                type="date"
-                value={nextEmailDate}
-                onChange={(e) => setNextEmailDate(e.target.value)}
+                type="url"
+                value={url}
+                onChange={(e) => setUrl(e.target.value)}
                 required
-                min={new Date().toISOString().split("T")[0]}
-                placeholder="Date of next send"
+                placeholder="https://reminderse.com"
                 className="input input-bordered"
               />
             </label>
           </div>
-        </div>
-        <button
-          type="submit"
-          className={`${
-            isLoading ? "loading" : ""
-          } btn btn-primary w-full shadow-primary/50 shadow-sm`}
-        >
-          <IoMdAddCircle className="mr-2" />
-          Add Link Entry
-        </button>
+          <div className="grid grid-cols-1 gap-3 lg:grid-cols-3">
+            <div className="form-control lg:col-span-2">
+              <label
+                htmlFor="category"
+                className="input-group input-group-vertical input-group-md"
+              >
+                <span
+                  className="bg bg-secondary flex justify-between"
+                  style={{ color: "white" }}
+                >
+                  <p>Category (optional)</p>
+                </span>
+                <input
+                  type="text"
+                  value={category}
+                  onChange={(e) => setCategory(e.target.value)}
+                  placeholder="Category for link"
+                  className="input input-bordered"
+                />
+              </label>
+            </div>
+            <div className="form-control">
+              <label
+                htmlFor="date"
+                className="input-group input-group-vertical input-group-md"
+              >
+                <span
+                  className="bg bg-secondary flex justify-between"
+                  style={{ color: "white" }}
+                >
+                  <p>Next email date</p>
+                </span>
+                <input
+                  type="date"
+                  value={nextEmailDate}
+                  onChange={(e) => setNextEmailDate(e.target.value)}
+                  required
+                  min={new Date().toISOString().split("T")[0]}
+                  placeholder="Date of next send"
+                  className="input input-bordered"
+                />
+              </label>
+            </div>
+          </div>
+          <button
+            type="submit"
+            className={`${
+              isLoading ? "loading" : ""
+            } btn btn-primary w-full shadow-primary/50 shadow-sm`}
+          >
+            <IoMdAddCircle className="mr-2" />
+            Add Link Entry
+          </button>
+        </Fade>
       </form>
     </>
   );
