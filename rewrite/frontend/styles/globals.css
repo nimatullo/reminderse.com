@@ -55,11 +55,11 @@ a {
   display: inline-block;
   border: 1px solid #dedede;
   border-radius: 1rem;
-  border-collapse:collapse;
+  border-collapse: collapse;
   transition: 0.3s all;
 }
 
-.main-card>a {
+.main-card > a {
   display: grid;
   grid-template-rows: 2fr 1fr;
   text-decoration: none;
@@ -115,7 +115,7 @@ a {
 .entryTitle {
   font-size: 1.1em;
   font-weight: bold;
-} 
+}
 
 .dropdownMenu {
   position: absolute;
@@ -137,7 +137,7 @@ a {
   right: 1em;
 }
 
-.dropDownMenu>button {
+.dropDownMenu > button {
   background-color: transparent;
   border: none;
   font-size: 24px;
@@ -148,8 +148,12 @@ a {
   outline: none;
 }
 
-.dropDownMenu>button:hover {
+.dropDownMenu > button:hover {
   background-color: var(--border-color);
   cursor: pointer;
 }
 
+.text-entry-area {
+  border: 1px solid rgba(31, 41, 55, 0.2);
+  padding: 1rem;
+}

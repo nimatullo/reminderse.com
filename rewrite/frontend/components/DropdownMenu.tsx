@@ -12,7 +12,7 @@ const DropdownMenu = () => {
 
   useEffect(() => {
     const handleOutsideClick = (event: MouseEvent) => {
-      if (!container.current.contains(event.target)) {
+      if (container.current && !container.current.contains(event.target)) {
         if (!show) return;
         setShow(false);
       }
@@ -101,7 +101,7 @@ const DropdownMenu = () => {
             </a>
           </li>
           <li>
-            <a>
+            <a onClick={handleDelete}>
               <MdOutlineDelete className='inline-block w-5 h-5 mr-2 stroke-current' />
               Delete
             </a>
