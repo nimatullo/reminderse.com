@@ -1,28 +1,37 @@
-import React, { useState } from "react";
-import { useContext } from "react";
+import { createContext, useState } from "react";
 
-export interface ErrorContext {
-	error?: string
-	pushError: (error?: string) => void;
+/**
+ * show: show or hide alert message
+ * type: type of alert message
+ * message: message of alert message
+ */
+interface Message {
+  show: boolean;
+  type: "success" | "error" | "warning";
+  message: string;
 }
 
-export const ErrorContextImpl = React.createContext<ErrorContext>(null!);
+const msgDefaults: Message = {
+  show: false,
+  type: "success",
+  message: "",
+};
 
-export function useError() {
-	return useContext(ErrorContextImpl);
-}
+export const CustomMessageContext = createContext({
+  message: msgDefaults,
+  setMessage: (_: Message) => {},
+});
 
-interface Props {
-	initialError?: string;
-}
+export const CustomMessageProvider = ({
+  children,
+}: {
+  children: React.ReactNode;
+}) => {
+  const [message, setMessage] = useState(msgDefaults);
 
-export const ErrorProvider: React.FC<Props> = ({ initialError, children }) => {
-	const [error, setError] = React.useState(initialError);
-
-	return (
-		<ErrorContextImpl.Provider value={{error, pushError: setError}}>
-			{children}
-			<p>{error}</p>
-		</ErrorContextImpl.Provider>
-	);
+  return (
+    <CustomMessageContext.Provider value={{ message, setMessage }}>
+      {children}
+    </CustomMessageContext.Provider>
+  );
 };

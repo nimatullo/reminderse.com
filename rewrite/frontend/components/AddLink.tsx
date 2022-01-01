@@ -4,6 +4,8 @@ import { IoMdAddCircle } from "react-icons/io";
 import { CreateLinkEntry } from "../models/CreateTextEntry";
 import { entryService } from "../service/entry.service";
 import Fade from "react-reveal/Fade";
+import Snackbar from "./Snackbar";
+import useMessage from "../context/customMessageHook";
 
 export default function AddLink() {
   const [url, setUrl] = useState("");
@@ -13,15 +15,9 @@ export default function AddLink() {
     new Date().toISOString().split("T")[0]
   );
   const [isLoading, setIsLoading] = useState(false);
-  const [errors, setErrors] = useState("");
-  const [successfulAdd, setSuccessfulAdd] = useState(false);
+  const [alert, setAlert] = useState(false);
 
-  function showSuccessfulAdd() {
-    setSuccessfulAdd(true);
-    setTimeout(() => {
-      setSuccessfulAdd(false);
-    }, 3000);
-  }
+  const { setMessage } = useMessage();
 
   function handleLinkAdd(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -37,17 +33,23 @@ export default function AddLink() {
       .addLink(entry)
       .then((res) => {
         if (res.status === 201) {
-          setIsLoading(false);
-          setErrors("");
           setUrl("");
           setTitle("");
           setCategory("");
           setNextEmailDate(new Date().toISOString().split("T")[0]);
-          showSuccessfulAdd();
+          setMessage({
+            show: true,
+            type: "success",
+            message: "Entry added successfully!",
+          });
         }
       })
       .catch(() => {
-        setErrors("Something went wrong. Please try again later.");
+        setMessage({
+          show: true,
+          type: "error",
+          message: "Something went wrong. Please try again.",
+        });
       })
       .finally(() => setIsLoading(false));
   }
@@ -57,25 +59,7 @@ export default function AddLink() {
       <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900 mb-10">
         New link entry
       </h2>
-      {successfulAdd && (
-        <Fade top>
-          <div className="alert alert-success">
-            <div className="flex-1">
-              <BiCheckCircle className="w-6 h-6 mx-2" />
-              <label>Entry successfully added!</label>
-            </div>
-          </div>
-        </Fade>
-      )}
-      {errors && (
-        <div className="alert alert-error">
-          <div className="flex-1">
-            <BiErrorCircle className="w-6 h-6 mx-2" />
-            <label>{errors}</label>
-          </div>
-        </div>
-      )}
-
+      <Snackbar />
       <form className="space-y-5" onSubmit={handleLinkAdd}>
         <Fade duration={500}>
           <div className="form-control">
