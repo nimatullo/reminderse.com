@@ -20,7 +20,7 @@ export function RouteGuard({children}: any) {
 		}
 	}, []);
 
-	function authCheck(url: string) {
+	function authCheck(url: string) {		
 		const publicPaths = ['/login', '/', '/register'];
 		const path = url.split("?")[0];
 		if (!userService.userValue && !publicPaths.includes(path)) {

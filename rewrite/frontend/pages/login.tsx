@@ -5,14 +5,15 @@ import Navbar from "../components/Navbar";
 import { userService } from "../service/user.service";
 import Image from "next/image";
 import Link from "next/link";
-import { BiErrorCircle } from "react-icons/bi";
+import useMessage from "../context/customMessageHook";
+import Snackbar from "../components/Snackbar";
 
 export default function Login() {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState("");
+  const { setMessage } = useMessage();
 
   useEffect(() => {
     if (userService.userValue) {
@@ -21,7 +22,7 @@ export default function Login() {
   }, []);
 
   function loginUser(e: React.FormEvent) {
-		e.preventDefault();
+    e.preventDefault();
     setIsLoading(true);
     console.log(email, password);
 
@@ -34,11 +35,17 @@ export default function Login() {
       })
       .catch((err) => {
         if (err.response.status === 401) {
-          setError("Invalid email or password");
+          setMessage({
+            message: "Invalid email or password",
+            type: "error",
+            show: true,
+          });
         } else {
-          console.log(err);
-
-          setError(err.response.data.message);
+          setMessage({
+            message: "Something went wrong. Please try again.",
+            type: "error",
+            show: true,
+          });
         }
       })
       .finally(() => setIsLoading(false));
@@ -71,14 +78,7 @@ export default function Login() {
               </Link>
             </p>
           </div>
-          {error && (
-            <div className="alert alert-error">
-              <div className="flex-1">
-                <BiErrorCircle className="w-6 h-6 mx-2" />
-                <label>{error}</label>
-              </div>
-            </div>
-          )}
+          <Snackbar />
           <form onSubmit={loginUser} className="space-y-5">
             <div className="form-control">
               <label
@@ -127,7 +127,7 @@ export default function Login() {
               </label>
             </div>
             <button
-							type="submit"
+              type="submit"
               className={`${
                 isLoading ? "loading" : ""
               } btn btn-primary w-full shadow-primary/50 shadow-sm`}

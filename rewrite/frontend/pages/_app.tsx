@@ -6,6 +6,7 @@ import Cookies from "js-cookie";
 import type { AppProps } from "next/app";
 import { UserProvider } from "../context/user.context";
 import { CustomMessageProvider } from "../context/error.context";
+import Snackbar from "../components/Snackbar";
 
 function MyApp({ Component, pageProps }: AppProps) {
   Axios.defaults.withCredentials = true;

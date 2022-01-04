@@ -1,5 +1,5 @@
 import { createContext, FC, useContext, useState } from "react";
-import { User } from "../auth/User";
+import { User } from "../models/User";
 
 export interface UserContext {
 	user?: User;

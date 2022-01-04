@@ -11,8 +11,10 @@ import { EntryContextImpl } from "../context/entry.context";
 import { EntryType } from "../models/Entry";
 import { entryService } from "../service/entry.service";
 import Fade from "react-reveal/Fade";
+import { useRouter } from "next/router";
 
 const DropdownMenu = () => {
+  const router = useRouter();
   const entryProvider = useContext(EntryContextImpl);
   const [show, setShow] = useState(false);
   const container = useRef(null);
@@ -68,6 +70,10 @@ const DropdownMenu = () => {
     }
   }
 
+  function handleEdit() {
+    entryProvider.entry.type === EntryType.Link ? router.push(`/link/${entryProvider.entry.id}/`) : router.push(`/text/${entryProvider.entry.id}/`);
+  }
+
   return (
     <div ref={container} className="dropdownMenu">
       <button
@@ -100,7 +106,7 @@ const DropdownMenu = () => {
               )}
             </li>
             <li>
-              <a>
+              <a onClick={handleEdit}>
                 <MdEditNote className="inline-block w-5 h-5 mr-2 stroke-current" />
                 Edit
               </a>
