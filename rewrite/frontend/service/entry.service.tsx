@@ -3,6 +3,7 @@ import { CreateLinkEntry, CreateTextEntry } from "../models/CreateTextEntry";
 import { Entry, EntryType } from "../models/Entry";
 import { EntryListReponse } from "../models/EntryListResponse";
 import { Link } from "../models/Link";
+import { Text } from "../models/Text";
 
 const API_URL = "http://localhost:5000";
 
@@ -17,6 +18,8 @@ export const entryService = {
   addText,
   getLink,
   getText,
+  editLink,
+  editText,
   mapToEntry,
 };
 
@@ -74,13 +77,25 @@ function getText(textId: string): Promise<Text> {
   return axios.get(`${API_URL}/api/text/${textId}`).then((res) => res.data);
 }
 
+function editLink(linkId: string, updatedLink: Link): Promise<number> {
+  return axios
+    .put(`${API_URL}/api/link/${linkId}`, updatedLink)
+    .then((res) => res.status);
+}
+
+function editText(textId: string, updatedText: Text): Promise<number> {
+  return axios
+    .put(`${API_URL}/api/text/${textId}`, updatedText)
+    .then((res) => res.status);
+}
+
 function mapToEntry(data: any[]): Entry[] {
   return data.map((data) => {
     return {
       id: data.id,
       title: data.entry_title,
       content: data.url ? data.url : data.text_content,
-      dateOfNextSend: data.date,
+      dateOfNextSend: data.days,
       category: data.category,
       type: data.url ? EntryType.Link : EntryType.Text,
     };

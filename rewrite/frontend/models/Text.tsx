@@ -1,6 +1,7 @@
 export interface Text {
 	id: string;
 	entry_title: string;
-	content: string;
+	text_content: string;
 	category: string;
+	date: string;
 }

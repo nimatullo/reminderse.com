@@ -20,6 +20,8 @@ export default function Dashboard() {
       entryService
         .getLinkEntries()
         .then((data) => {
+          console.log(data);
+          
           setLinkEntries(entryService.mapToEntry(data.entries));
         })
         .catch((error) => {

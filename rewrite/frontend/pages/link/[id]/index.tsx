@@ -12,7 +12,7 @@ export default function EditLink() {
   const router = useRouter();
   const { id } = router.query;
 
-  const {setMessage} = useMessage();
+  const { setMessage } = useMessage();
 
   const [title, setTitle] = useState("");
   const [url, setUrl] = useState("");
@@ -38,6 +38,32 @@ export default function EditLink() {
       });
   }, []);
 
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsLoading(true);
+    entryService
+      .editLink(id as string, {
+        id: id as string,
+        entry_title: title,
+        url: url,
+        category: category,
+        date: nextEmailDate.toISOString(),
+      })
+      .then((status) => {
+        if (status === 200) {
+          router.push("/dashboard");
+        }
+      })
+      .catch(() => {
+        setIsLoading(false);
+        setMessage({
+          message: "Something went wrong. Please try again.",
+          type: "error",
+          show: true,
+        });
+      });
+  };
+
   return (
     <>
       <Navbar />
@@ -46,8 +72,8 @@ export default function EditLink() {
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900 mb-10">
             Edit link entry
           </h2>
-          <Snackbar/>
-          <form className="space-y-5" onSubmit={() => {}}>
+          <Snackbar />
+          <form className="space-y-5" onSubmit={handleSubmit}>
             <Fade duration={500}>
               <div className="form-control">
                 <label
@@ -127,7 +153,6 @@ export default function EditLink() {
                         setNextEmailDate(new Date(e.target.value))
                       }
                       required
-                      min={new Date().toISOString().split("T")[0]}
                       placeholder="Date of next send"
                       className="input input-bordered"
                     />
@@ -141,7 +166,7 @@ export default function EditLink() {
                 } btn btn-primary w-full shadow-primary/50 shadow-sm`}
               >
                 <IoMdAddCircle className="mr-2" />
-                Add Link Entry
+                Update Link Entry
               </button>
             </Fade>
           </form>
