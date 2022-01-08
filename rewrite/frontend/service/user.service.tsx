@@ -9,10 +9,12 @@ export const userService = {
 	get userValue() {return userSubject.value},
 	login,
 	register,
+	updateUsername,
+	updateEmail,
 }
 
-interface LoginResponse {
-	message: string,
+export interface LoginResponse {
+	email: string,
 	username: string,
 	id: string
 }
@@ -31,4 +33,16 @@ function register(email: string, username: string, password: string): Promise<{m
 	return axios
 		.post<{message: string}>(`${API_URL}/api/register`, {email, username, password}, {withCredentials: true})
 		.then(res => res.data);
+}
+
+function updateUsername(username: string): Promise<number> {
+	return axios
+		.put(`${API_URL}/api/change/username`, {username}, {withCredentials: true})
+		.then(res => res.status);
+}
+
+function updateEmail(email: string): Promise<number> {
+	return axios
+		.put(`${API_URL}/api/change/email`, {email}, {withCredentials: true})
+		.then(res => res.status);
 }
