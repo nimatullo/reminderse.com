@@ -1,5 +1,6 @@
 import { useState } from "react";
 import MyDetails from "./settings/Details";
+import Password from "./settings/Password";
 
 export default function Tabs() {
   const tabLabels = ["My details", "Password", "Account", "Entries"];
@@ -14,7 +15,7 @@ export default function Tabs() {
       case 0:
         return <MyDetails />;
       case 1:
-        return <div>Password</div>;
+        return <Password />;
       case 2:
         return <div>Account</div>;
       case 3:
