@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import useMessage from "../../context/customMessageHook";
 import { LoginResponse, userService } from "../../service/user.service";
 import Snackbar from "../Snackbar";
+import Fade from "react-reveal/Fade";
 
 export default function MyDetails() {
   const [username, setUsername] = useState("");
@@ -87,70 +88,73 @@ export default function MyDetails() {
   };
 
   return (
-    <div className="my-5">
-      <Snackbar />
-      <div className="form-control">
-        <label className="label">
-          <span className="label-text">Username</span>
-        </label>
-        <div className="relative">
-          <input
-            type="text"
-            placeholder="Username"
-            className="w-full pr-16 input input-primary input-bordered"
-            disabled={isUsernameFieldDisabled}
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          />
-          {isUsernameFieldDisabled ? (
-            <button
-              className="absolute top-0 right-0 rounded-l-none btn btn-primary"
-              onClick={() =>
-                setIsUsernameFieldDisabled(!isUsernameFieldDisabled)
-              }
-            >
-              Edit
-            </button>
-          ) : (
-            <button
-              className="absolute top-0 right-0 rounded-l-none btn btn-primary"
-              onClick={handleUsernameUpdate}
-            >
-              Update
-            </button>
-          )}
-        </div>
+    <Fade>
+      <div className="my-5 space-y-5">
+        <h2 className="text-xl">Change account details</h2>
+        <Snackbar />
         <div className="form-control">
           <label className="label">
-            <span className="label-text">Email</span>
+            <span className="label-text">Username</span>
           </label>
           <div className="relative">
             <input
-              type="email"
-              placeholder="Email"
+              type="text"
+              placeholder="Username"
               className="w-full pr-16 input input-primary input-bordered"
-              disabled={isEmailFieldDisabled}
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              disabled={isUsernameFieldDisabled}
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
             />
-            {isEmailFieldDisabled ? (
+            {isUsernameFieldDisabled ? (
               <button
                 className="absolute top-0 right-0 rounded-l-none btn btn-primary"
-                onClick={() => setIsEmailFieldDisabled(!isEmailFieldDisabled)}
+                onClick={() =>
+                  setIsUsernameFieldDisabled(!isUsernameFieldDisabled)
+                }
               >
                 Edit
               </button>
             ) : (
               <button
                 className="absolute top-0 right-0 rounded-l-none btn btn-primary"
-                onClick={handleEmailUpdate}
+                onClick={handleUsernameUpdate}
               >
                 Update
               </button>
             )}
           </div>
+          <div className="form-control">
+            <label className="label">
+              <span className="label-text">Email</span>
+            </label>
+            <div className="relative">
+              <input
+                type="email"
+                placeholder="Email"
+                className="w-full pr-16 input input-primary input-bordered"
+                disabled={isEmailFieldDisabled}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              {isEmailFieldDisabled ? (
+                <button
+                  className="absolute top-0 right-0 rounded-l-none btn btn-primary"
+                  onClick={() => setIsEmailFieldDisabled(!isEmailFieldDisabled)}
+                >
+                  Edit
+                </button>
+              ) : (
+                <button
+                  className="absolute top-0 right-0 rounded-l-none btn btn-primary"
+                  onClick={handleEmailUpdate}
+                >
+                  Update
+                </button>
+              )}
+            </div>
+          </div>
         </div>
       </div>
-    </div>
+    </Fade>
   );
 }

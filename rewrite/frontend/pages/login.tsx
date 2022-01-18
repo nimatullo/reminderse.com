@@ -17,7 +17,7 @@ export default function Login() {
 
   useEffect(() => {
     if (userService.userValue) {
-      router.push("/");
+      router.push("/dashboard");
     }
   }, []);
 
@@ -36,7 +36,7 @@ export default function Login() {
       .catch((err) => {
         if (err.response.status === 401) {
           setMessage({
-            message: "Invalid email or password",
+            message: "Incorrect username or password.",
             type: "error",
             show: true,
           });

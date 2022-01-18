@@ -37,7 +37,7 @@ const EntryLinkCard = () => {
               )}
             </div>
             {Number(entryProvider.entry.dateOfNextSend) < 0 ? (
-              <div className="secondary">Paused</div>
+              <div className="secondary date">Paused</div>
             ) : (
               <div className="secondary date">
                 Next email goes out{" "}

@@ -16,9 +16,9 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <UserProvider>
       <CustomMessageProvider>
-        {/* <RouteGuard> */}
+        <RouteGuard>
         <Component {...pageProps} />
-        {/* </RouteGuard> */}
+        </RouteGuard>
       </CustomMessageProvider>
     </UserProvider>
   );

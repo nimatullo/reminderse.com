@@ -19,7 +19,7 @@ export default function Register() {
 
   useEffect(() => {
     if (userService.userValue) {
-      router.push("/");
+      router.push("/dashboard");
     }
   }, []);
 

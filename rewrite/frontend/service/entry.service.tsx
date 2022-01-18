@@ -23,15 +23,13 @@ export const entryService = {
   mapToEntry,
 };
 
-function getLinkEntries(): Promise<EntryListReponse> {
-  console.log(API_URL);
-  
+async function getLinkEntries(): Promise<EntryListReponse> {
   return axios
     .get<EntryListReponse>(`${API_URL}/api/link/list`)
     .then((res) => res.data);
 }
 
-function getTextEntries(): Promise<EntryListReponse> {
+async function getTextEntries(): Promise<EntryListReponse> {
   return axios
     .get<EntryListReponse>(`${API_URL}/api/text/list`)
     .then((res) => res.data);

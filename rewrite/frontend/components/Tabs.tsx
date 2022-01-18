@@ -1,6 +1,9 @@
 import { useState } from "react";
+import { Account } from "./settings/Account";
 import MyDetails from "./settings/Details";
+import { Entries } from "./settings/Entries";
 import Password from "./settings/Password";
+import Fade from "react-reveal/Fade";
 
 export default function Tabs() {
   const tabLabels = ["My details", "Password", "Account", "Entries"];
@@ -17,9 +20,9 @@ export default function Tabs() {
       case 1:
         return <Password />;
       case 2:
-        return <div>Account</div>;
+        return <Account/>
       case 3:
-        return <div>Entries</div>;
+        return <Entries/>
       default:
         return null;
     }
