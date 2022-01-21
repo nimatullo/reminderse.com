@@ -43,6 +43,7 @@ export default function Dashboard() {
       .catch((error) => {
         if (error.response.status === 401) {
           localStorage.removeItem("user");
+          userService.userValue.next(null);
           Router.push("/login");
         }
       });

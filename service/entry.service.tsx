@@ -6,6 +6,7 @@ import { Link } from "../models/Link";
 import { Text } from "../models/Text";
 
 const API_URL = "https://reminderse-testing.herokuapp.com";
+// const API_URL = "http://localhost:5000";
 
 export const entryService = {
   getLinkEntries,
