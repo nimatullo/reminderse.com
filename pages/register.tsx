@@ -3,9 +3,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import Navbar from "../components/Navbar";
 import { userService } from "../service/user.service";
-import Image from "next/image";
 import Link from "next/link";
-import { BiErrorCircle } from "react-icons/bi";
 import useMessage from "../context/customMessageHook";
 import Snackbar from "../components/Snackbar";
 
@@ -69,7 +67,7 @@ export default function Register() {
         <div className="p-4 max-w-md w-full space-y-5">
           <div>
             <div className="flex justify-center items-center">
-              <Image
+              <img
                 src="/reminderse.png"
                 height="100"
                 width="100"

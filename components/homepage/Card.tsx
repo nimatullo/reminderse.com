@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { BsThreeDotsVertical } from "react-icons/bs";
 
 export default function Card({ title, description, date, img }: any) {
@@ -6,7 +5,7 @@ export default function Card({ title, description, date, img }: any) {
     <div className="main-card rounded-box drop-shadow-xl">
       <a href="#">
         <div className="imgArea">
-          <Image
+          <img
             className="text-secondary"
             width={150}
             height={150}

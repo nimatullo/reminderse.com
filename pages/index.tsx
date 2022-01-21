@@ -1,6 +1,3 @@
-import Head from "next/head";
-import Navbar from "../components/Navbar";
-import Image from "next/image";
 import Card from "../components/homepage/Card";
 import Link from "next/link";
 
@@ -139,7 +136,7 @@ export default function Home() {
           </div>
         </div>
         <div>
-          <Image src="/reminderse-white.svg" width={150} height={50} />
+          <img src="/reminderse-white.svg" width={150} height={50} />
           <p>
             Made by{" "}
             <a href="https://nimatullo.com/" className="hover:underline">
