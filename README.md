@@ -1,4 +1,5 @@
-[![Reminderse](https://i.imgur.com/LmorpRy.png)](#)
+![Reminderse](https://user-images.githubusercontent.com/35201693/150656708-d0bdfb98-e0c7-433e-8ab5-e03904c434d5.png)
+
 ---
 💭 What is Reminderse?
 -----
