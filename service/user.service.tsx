@@ -25,6 +25,7 @@ export const userService = {
   updateEmail,
   updatePassword,
   unsubscribe,
+  getVersion,
 };
 
 export interface LoginResponse {
@@ -131,4 +132,10 @@ function logout() {
 function clearUserInformation() {
   localStorage.removeItem("user");
   userSubject.next(null);
+}
+
+function getVersion() {
+  return axios
+    .get(`${API_URL}/api/version`, { withCredentials: true })
+    .then((res) => res.data);
 }
