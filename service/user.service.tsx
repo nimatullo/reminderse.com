@@ -17,6 +17,7 @@ export const userService = {
   login,
   register,
   logout,
+  clearUserInformation,
   confirmEmail,
   isEmailConfirmed,
   updateUsername,
@@ -118,9 +119,15 @@ function unsubscribe(): Promise<number> {
 }
 
 function logout() {
-  axios.put(`${API_URL}/api/logout`, {}, { withCredentials: true }).then(() => {
-    localStorage.removeItem("user");
-    userSubject.next(null);
-    Router.push("/");
-  });
+  axios
+    .put(`${API_URL}/api/logout`, {}, { withCredentials: true })
+    .finally(() => {
+      clearUserInformation();
+      Router.push("/");
+    });
+}
+
+function clearUserInformation() {
+  localStorage.removeItem("user");
+  userSubject.next(null);
 }

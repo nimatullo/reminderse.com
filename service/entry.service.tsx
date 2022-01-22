@@ -1,12 +1,35 @@
 import axios from "axios";
+import Router from "next/router";
 import { CreateLinkEntry, CreateTextEntry } from "../models/CreateTextEntry";
 import { Entry, EntryType } from "../models/Entry";
 import { EntryListReponse } from "../models/EntryListResponse";
 import { Link } from "../models/Link";
 import { Text } from "../models/Text";
+import { userService } from "./user.service";
 
 const API_URL = "https://reminderse-testing.herokuapp.com";
 // const API_URL = "http://localhost:5000";
+
+axios.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response) {
+      // The request was made and the server responded with a status code
+      if (error.response.status === 401) {
+        userService.clearUserInformation();
+        Router.push("/login");
+      } else {
+        return Promise.reject(error);
+      }
+    } else if (error.request) {
+      // The request was made but no response was received
+      return Promise.reject(error);
+    } else {
+      // Something happened in setting up the request that triggered an Error
+      return Promise.reject(error);
+    }
+  }
+);
 
 export const entryService = {
   getLinkEntries,
