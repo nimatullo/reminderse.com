@@ -10,8 +10,8 @@ const EntryLinkCard = () => {
     return pathArray[0] + "//" + pathArray[2];
   }
   return (
-    <Fade>
       <div className="main-card rounded-box shadow-sm hover:shadow-md">
+        <DropdownMenu />
         <a
           href={entryProvider.entry.content}
           target="_blank"
@@ -48,9 +48,7 @@ const EntryLinkCard = () => {
             )}
           </div>
         </a>
-        <DropdownMenu />
       </div>
-    </Fade>
   );
 };
 

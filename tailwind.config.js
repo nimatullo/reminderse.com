@@ -1,9 +1,8 @@
 module.exports = {
+  mode: "jit",
   content: [    "./pages/**/*.{js,ts,jsx,tsx}",    "./components/**/*.{js,ts,jsx,tsx}",  ],
   theme: {
     colors: {
-      'reminderse-purple': '#50287d',
-      'secondary': '#e8525f'
     },
     extend: {},
   },
@@ -11,6 +10,7 @@ module.exports = {
     require("daisyui"),
   ],
   daisyui: {
+    styled: true,
     themes: [
       {
         "reminderse": {

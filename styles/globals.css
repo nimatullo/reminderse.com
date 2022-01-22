@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600;900&display=swap");
 
 html,
 body {
@@ -10,8 +9,6 @@ body {
   margin: 0;
   font-family: Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
     Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-  /* max-width: 100%;
-    overflow-x: hidden; */
 }
 
 a {
@@ -23,37 +20,11 @@ a {
   box-sizing: border-box;
 }
 
-/* .card-img {
-  height: 150px;
-  background-size: auto;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-
-.card-img img {
-  position: relative;
-}
-
-.card-img img[alt]::after {
-  display: block;
-  position: absolute;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background-color: #fff;
-  text-align: center;
-  content: attr(alt);
-  font-size: 5rem;
-  line-height: 2rem;
-  font-weight: bold;
-} */
-
 .dashboard {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 2rem;
   position: relative;
-  z-index: 1;
 }
 
 .main-card {
@@ -63,14 +34,12 @@ a {
   border-radius: 1rem;
   border-collapse: collapse;
   transition: 0.3s all;
-  z-index: 1;
 }
 
 .main-card > a {
   display: grid;
   grid-template-rows: 2fr 1fr;
   text-decoration: none;
-  color: #000;
   height: 100%;
 }
 
@@ -86,6 +55,7 @@ a {
 
 .main-card .imgArea img {
   position: relative;
+  z-index: 0;
 }
 
 .main-card .imgArea img[alt]::after {
@@ -100,6 +70,7 @@ a {
   font-size: 5rem;
   line-height: 2rem;
   font-weight: bold;
+  z-index: 0;
 }
 
 .main-card .cardInfo {
@@ -133,9 +104,9 @@ a {
 
 .dropdownMenu .menu {
   right: 0;
-  z-index: 999;
+  z-index: 999 !important;
   position: absolute;
-  background-color: #fff;
+  background-color: #fefefe;
   border: 1px solid #dedede;
 }
 
@@ -156,9 +127,8 @@ a {
   outline: none;
 }
 
-.dropDownMenu > button:hover {
-  background-color: var(--border-color);
-  cursor: pointer;
+.dropdownMenu ul li a:hover {
+  color: #000;
 }
 
 .text-entry-area {
@@ -166,20 +136,13 @@ a {
   padding: 1rem;
 }
 
-.homepage-container {
-  /* height: 100vh; */
-}
-
 .homepage-main {
   z-index: 3;
-  /* background: linear-gradient(to bottom, #e8525f 50%, #fefefe 50%); */
   background-color: #e8525f;
   border-bottom-left-radius: 100%;
   border-bottom-right-radius: 100%;
-  /* height: 80vh; */
   display: grid;
   grid-template-rows: 1fr 2fr 3fr 1fr;
-  /* box-shadow: inset 0px -10px 15px -9px #a23841; */
 }
 
 .homepage-main .main-card {

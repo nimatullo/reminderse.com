@@ -13,7 +13,7 @@ export default function EmailConfirmation() {
 
   return (
     <>
-      {isConfirmed ? (
+      {!isConfirmed ? (
         <div className="alert flex-col text-center space-y-5">
           <div className="flex-1">
             <label>
