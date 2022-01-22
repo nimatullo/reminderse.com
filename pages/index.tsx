@@ -1,7 +1,18 @@
 import Card from "../components/homepage/Card";
 import Link from "next/link";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { userService } from "../service/user.service";
 
 export default function Home() {
+  const [apiVersion, setApiVersion] = useState("");
+
+  useEffect(() => {
+    userService.getVersion().then((data) => {
+      setApiVersion(data.build);
+    });
+  }, [])
+
   return (
     <>
       <div className="homepage-container lg:h-screen">
@@ -144,6 +155,7 @@ export default function Home() {
             </a>
           </p>
           <p className="font-bold text-center">© 2022 Reminderse, Inc.</p>
+          <p className="text-center">{apiVersion}</p>
         </div>
       </footer>
     </>
