@@ -1,39 +1,26 @@
 [![Reminderse](https://i.imgur.com/LmorpRy.png)](#)
 ---
-What is Reminderse?
+💭 What is Reminderse?
 -----
 Reminderse reminds you about the links, articles and other media that you’ve consumed surfing the internet. Simply make an entry and get reminded about it in intervals.
 
+## 😁 Sign up today by clicking [here](https://reminderse.com/register).
 
-<!-- ## User Model
 
-| Endpoints               | Endpoint URL                 | HTTP Method |
-| ----------------------- | ---------------------------- | ----------- |
-| Get Current User        | /api/current+user            | GET         |
-| Log In                  | /api/login                   | PUT         |
-| Register                | /api/register                | POST        |
-| Logout                  | /api/logout                  | PUT         |
-| Change Username         | /api/change/username         | PUT         |
-| Change Email            | /api/change/email            | PUT         |
-| Change Password         | /api/change/password         | PUT         |
-| Unsubscribe             | /api/unsubscribe             | DELETE      |
-| Send Email Confirmation | /api/send-email-confirmation | GET         |
-| Is Email Confirmed      | /api/confirmed               | GET         |
+# (01/22/22) v2.0
+I spent all of winter break rewriting the entire frontend with TypeScript. Both the frontend and backend are in a good state so that future changes won't require large overhauls. Using TypeScript lets me better control the API requests because I can let it know what the schema will look like. It takes away the guesswork from making requests. I'm pretty happy with all the changes and it should make it easier to add the features that I want moving forward. Hope you enjoy!
 
-## Entries Model
+## 📨 Changelog
+- New homepage!
+- More consistent and unique design language
+- Added animations for content loads and dropdown click
+- Removed side bar. Just a top nav now
 
-| Endpoints                           | Endpoint URL              | HTTP Method |
-| ----------------------------------- | ------------------------- | ----------- |
-| Add Link                            | /api/link/add             | POST        |
-| Add Text                            | /api/text/add             | POST        |
-| Get Links (all)                     | /api/link/list            | GET         |
-| Get Texts (all)                     | /api/text/list            | GET         |
-| Edit Link                           | /api/link/<link_id>       | PUT         |
-| Edit Text                           | /api/text/<text_id>       | PUT         |
-| Get Link (specific)                 | /api/link/<link_id>       | GET         |
-| Get Text (specific)                 | /api/text/<text_id>       | GET         |
-| Delete Link                         | /api/link/<link_id>       | DELETE      |
-| Delete Text                         | /api/text/<text_id>       | DELETE      |
-| Pause Text                          | /api/text/<text_id>/pause | PUT         |
-| Pause Link                          | /api/text/<link_id>/pause | PUT         |
-| Search (No frontend implementation) | /api/search/<query>       | GET         | -->
+
+---
+# Todo List
+- [ ] 🌑 Dark mode
+- [ ] 🔙 Some backend logic is faulty, especially interacting with the database
+- [ ] ➕ Add page breaks on phone width
+- [ ] 📆 Update add entry endpoints to accept next email date
+- [ ] 🛣 Custom email intervals
