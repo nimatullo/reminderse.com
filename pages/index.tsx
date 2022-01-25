@@ -1,7 +1,7 @@
 import Card from "../components/homepage/Card";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import axios from "axios";
+import {version} from "../package.json";
 import { userService } from "../service/user.service";
 
 export default function Home() {
@@ -155,7 +155,7 @@ export default function Home() {
             </a>
           </p>
           <p className="font-bold text-center">© 2022 Reminderse, Inc.</p>
-          <p className="text-center">{apiVersion}</p>
+          <p className="text-center">{version}</p>
         </div>
       </footer>
     </>
