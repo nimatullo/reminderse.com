@@ -155,7 +155,7 @@ export default function Home() {
             </a>
           </p>
           <p className="font-bold text-center">© 2022 Reminderse, Inc.</p>
-          <p className="text-center">{version}</p>
+          <p className="text-center">v{version}</p>
         </div>
       </footer>
     </>
