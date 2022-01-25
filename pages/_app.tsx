@@ -6,6 +6,7 @@ import Cookies from "js-cookie";
 import type { AppProps } from "next/app";
 import { UserProvider } from "../context/user.context";
 import { CustomMessageProvider } from "../context/error.context";
+import Head from "next/head";
 
 function MyApp({ Component, pageProps }: AppProps) {
   Axios.defaults.withCredentials = true;
@@ -13,13 +14,18 @@ function MyApp({ Component, pageProps }: AppProps) {
     Cookies.get("csrf_access_token");
 
   return (
-    <UserProvider>
-      <CustomMessageProvider>
-        <RouteGuard>
-        <Component {...pageProps} />
-        </RouteGuard>
-      </CustomMessageProvider>
-    </UserProvider>
+    <>
+      <Head>
+        <title>Reminderse</title>
+      </Head>
+      <UserProvider>
+        <CustomMessageProvider>
+          <RouteGuard>
+            <Component {...pageProps} />
+          </RouteGuard>
+        </CustomMessageProvider>
+      </UserProvider>
+    </>
   );
 }
 

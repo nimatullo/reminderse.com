@@ -15,7 +15,6 @@ class MyDocument extends Document {
             rel="stylesheet"
           />
           <link rel="icon" href="/reminderse.png" />
-          <title>Reminderse</title>
         </Head>
         <body>
           <Main />

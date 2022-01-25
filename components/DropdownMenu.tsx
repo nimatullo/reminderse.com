@@ -67,11 +67,19 @@ const DropdownMenu = () => {
           window.location.reload();
         }
       });
+    } else if (entryProvider.entry.type === EntryType.Text) {
+      entryService.deleteText(entryProvider.entry.id).then((statusCode) => {
+        if (statusCode === 200) {
+          window.location.reload();
+        }
+      });
     }
   }
 
   function handleEdit() {
-    entryProvider.entry.type === EntryType.Link ? router.push(`/link/${entryProvider.entry.id}/`) : router.push(`/text/${entryProvider.entry.id}/`);
+    entryProvider.entry.type === EntryType.Link
+      ? router.push(`/link/${entryProvider.entry.id}/`)
+      : router.push(`/text/${entryProvider.entry.id}/`);
   }
 
   return (
