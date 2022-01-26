@@ -33,7 +33,7 @@ export default function Tabs() {
       <div className="tabs">
         {tabLabels.map((label, index) => (
           <div
-            className={`tab tab-bordered ${
+            className={`tab tab-bordered px-2 md:px-4 ${
               activeTab === index ? "tab-active" : ""
             }`}
             key={index}
