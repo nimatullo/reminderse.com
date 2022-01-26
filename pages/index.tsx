@@ -15,7 +15,7 @@ export default function Home() {
 
   return (
     <>
-      <div className="homepage-container h-full">
+      <div className="homepage-container min-h-screen">
         <div className="p-2 lg:p-10 homepage-main">
           <div className="flex justify-center align-items-center pt-5 z-10">
             <nav className="flex justify-between w-full max-w-screen-2xl">

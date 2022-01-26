@@ -198,6 +198,11 @@ a {
   width: 25vmax;
 }
 
+footer.footer {
+  position: relative;
+  z-index: 1;
+}
+
 footer p,
 footer a {
   color: #fefefe;
