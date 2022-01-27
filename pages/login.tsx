@@ -6,6 +6,7 @@ import { userService } from "../service/user.service";
 import Link from "next/link";
 import useMessage from "../context/customMessageHook";
 import Snackbar from "../components/Snackbar";
+import Head from "next/head";
 
 export default function Login() {
   const router = useRouter();
@@ -49,6 +50,10 @@ export default function Login() {
 
   return (
     <>
+    <Head>
+      <meta name="theme-color" content="#50287d"/>
+      <title>Sign into Reminderse</title>
+    </Head>
       <Navbar />
       <div className="min-h-full flex justify-center items-center py-12 px-4 sm:px-6 lg:px-8">
         <div className="p-4 max-w-md w-full space-y-5">
