@@ -21,7 +21,7 @@ I spent all of winter break rewriting the entire frontend with TypeScript. Both 
 ---
 # Todo List
 - [ ] 🌑 Dark mode
-- [ ] 🔙 Some backend logic is faulty, especially interacting with the database
+- [x] 🔙 Some backend logic is faulty, especially interacting with the database
 - [ ] ➕ Add page breaks on phone width
 - [ ] 📆 Update add entry endpoints to accept next email date
 - [ ] 🛣 Custom email intervals
