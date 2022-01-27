@@ -6,6 +6,7 @@ import { Entry } from "../models/Entry";
 import EntryTextCard from "../components/EntryTextCard";
 import { EntryProvider } from "../context/entry.context";
 import { SkeletonCard } from "../components/SkeletonCard";
+import Head from "next/head";
 
 export default function Dashboard() {
   const [linkEntries, setLinkEntries] = useState<Entry[]>([]);
@@ -33,6 +34,10 @@ export default function Dashboard() {
 
   return (
     <>
+    <Head>
+      <meta name="theme-color" content="#50287d"/>
+      <title>Reminderse Dashboard</title>
+    </Head>
       <Navbar />
       <div className="p-4 lg:p-10">
         <h1 className="my-4 text-4xl font-bold">Links</h1>

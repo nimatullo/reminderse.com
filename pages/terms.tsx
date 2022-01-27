@@ -1,8 +1,13 @@
+import Head from "next/head";
 import Navbar from "../components/Navbar";
 
 export default function Terms() {
   return (
     <>
+      <Head>
+        <meta name="theme-color" content="#50287d" />
+        <title>Reminderse Terms of Service</title>
+      </Head>
       <Navbar />
       <div className="p-10">
         <h1 className="text-2xl font-bold">Privacy Policy for Reminderse</h1>
