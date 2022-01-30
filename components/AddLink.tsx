@@ -15,7 +15,7 @@ export default function AddLink() {
     new Date().toISOString().split("T")[0]
   );
   const [isLoading, setIsLoading] = useState(false);
-  const [alert, setAlert] = useState(false);
+  const [customDate, setCustomDate] = useState(true);
 
   const { setMessage } = useMessage();
 
@@ -25,7 +25,7 @@ export default function AddLink() {
     const entry: CreateLinkEntry = {
       entry_title: title,
       category: category,
-      dateOfNextSend: nextEmailDate,
+      date_of_next_send: customDate ? nextEmailDate : undefined,
       url: url,
     };
 
@@ -44,12 +44,20 @@ export default function AddLink() {
           });
         }
       })
-      .catch(() => {
-        setMessage({
-          show: true,
-          type: "error",
-          message: "Something went wrong. Please try again.",
-        });
+      .catch((err) => {
+        if (err.response.status === 400) {
+          setMessage({
+            show: true,
+            type: "error",
+            message: "Dates cannot be in the past",
+          });
+        } else {
+          setMessage({
+            show: true,
+            type: "error",
+            message: "Something went wrong. Please try again.",
+          });
+        }
       })
       .finally(() => setIsLoading(false));
   }
@@ -134,6 +142,7 @@ export default function AddLink() {
                 </span>
                 <input
                   type="date"
+                  disabled={!customDate}
                   value={nextEmailDate}
                   onChange={(e) => setNextEmailDate(e.target.value)}
                   required
@@ -143,6 +152,17 @@ export default function AddLink() {
                 />
               </label>
             </div>
+          </div>
+          <div className="form-control bordered">
+            <label className="cursor-pointer label">
+              <span className="label-text">Custom Date</span>
+              <input
+                type="checkbox"
+                checked={customDate}
+                onChange={() => setCustomDate(!customDate)}
+                className="checkbox checkbox-secondary"
+              />
+            </label>
           </div>
           <button
             type="submit"
