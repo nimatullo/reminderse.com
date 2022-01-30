@@ -1,7 +1,7 @@
 interface CreateEntry {
 	entry_title: string
 	category?: string
-	dateOfNextSend: string
+	date_of_next_send?: string
 }
 
 export interface CreateLinkEntry extends CreateEntry {

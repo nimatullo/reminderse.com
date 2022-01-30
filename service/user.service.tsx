@@ -1,11 +1,10 @@
 import axios from "axios";
 import { BehaviorSubject } from "rxjs";
-import Cookies from "js-cookie";
 import Router from "next/router";
 
-const API_URL = "https://api.reminderse.com";
+// const API_URL = "https://api.reminderse.com";
 // const API_URL = "https://reminderse-testing.herokuapp.com";
-// const API_URL = "http://localhost:5000";
+const API_URL = "http://localhost:5000";
 
 const userSubject = new BehaviorSubject(
   process.browser && JSON.parse(localStorage.getItem("user") as string)
@@ -24,6 +23,7 @@ export const userService = {
   updateUsername,
   updateEmail,
   updatePassword,
+  updateInterval,
   unsubscribe,
   getVersion,
 };
@@ -32,6 +32,7 @@ export interface LoginResponse {
   email: string;
   username: string;
   id: string;
+  interval: number
 }
 
 function login(email: string, password: string): Promise<LoginResponse> {
@@ -45,8 +46,9 @@ function login(email: string, password: string): Promise<LoginResponse> {
       localStorage.setItem("user", JSON.stringify(user.data));
       userSubject.next(user.data);
       return user.data;
-    });
-}
+    })
+  }
+
 
 function register(
   email: string,
@@ -112,6 +114,16 @@ function updatePassword(
     .then((res) => {
       return res.status;
     });
+}
+
+function updateInterval(interval: number) {
+  return axios
+    .put(
+      `${API_URL}/api/change/interval`,
+      { interval },
+      { withCredentials: true }
+    )
+    .then((res) => res.status);
 }
 
 function unsubscribe(): Promise<number> {

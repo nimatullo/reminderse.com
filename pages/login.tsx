@@ -31,6 +31,7 @@ export default function Login() {
         router.push(returnUrl as string);
       })
       .catch((err) => {
+        console.log("Error: ", err);
         if (err.response.status === 401) {
           setMessage({
             message: "Incorrect username or password.",

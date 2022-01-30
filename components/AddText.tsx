@@ -15,6 +15,7 @@ export default function AddText() {
   const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState("");
   const [successfulAdd, setSuccessfulAdd] = useState(false);
+  const [customDate, setCustomDate] = useState(true);
 
   function showSuccessfulAdd() {
     setSuccessfulAdd(true);
@@ -29,7 +30,7 @@ export default function AddText() {
     const entry: CreateTextEntry = {
       entry_title: title,
       category: category,
-      dateOfNextSend: nextEmailDate,
+      date_of_next_send: customDate ? nextEmailDate : undefined,
       text_content: textContent,
     };
 
@@ -151,6 +152,7 @@ export default function AddText() {
                 <input
                   type="date"
                   value={nextEmailDate}
+                  disabled={!customDate}
                   onChange={(e) => setNextEmailDate(e.target.value)}
                   required
                   min={new Date().toISOString().split("T")[0]}
@@ -159,6 +161,17 @@ export default function AddText() {
                 />
               </label>
             </div>
+          </div>
+          <div className="form-control">
+            <label className="cursor-pointer label">
+              <span className="label-text">Custom Date</span>
+              <input
+                type="checkbox"
+                checked={customDate}
+                onChange={() => setCustomDate(!customDate)}
+                className="checkbox checkbox-secondary"
+              />
+            </label>
           </div>
           <button
             type="submit"
