@@ -31,19 +31,20 @@ export default function Login() {
         router.push(returnUrl as string);
       })
       .catch((err) => {
-        console.log("Error: ", err);
-        if (err.response.status === 401) {
-          setMessage({
-            message: "Incorrect username or password.",
-            type: "error",
-            show: true,
-          });
-        } else {
-          setMessage({
-            message: "Something went wrong. Please try again.",
-            type: "error",
-            show: true,
-          });
+        if (err.response) {
+          if (err.response.status === 401) {
+            setMessage({
+              message: "Incorrect username or password.",
+              type: "error",
+              show: true,
+            });
+          } else {
+            setMessage({
+              message: "Something went wrong. Please try again.",
+              type: "error",
+              show: true,
+            });
+          }
         }
       })
       .finally(() => setIsLoading(false));
@@ -51,10 +52,10 @@ export default function Login() {
 
   return (
     <>
-    <Head>
-      <meta name="theme-color" content="#50287d"/>
-      <title>Sign into Reminderse</title>
-    </Head>
+      <Head>
+        <meta name="theme-color" content="#50287d" />
+        <title>Sign into Reminderse</title>
+      </Head>
       <Navbar />
       <div className="min-h-full flex justify-center items-center py-12 px-4 sm:px-6 lg:px-8">
         <div className="p-4 max-w-md w-full space-y-5">
