@@ -6,6 +6,8 @@ import { EntryListReponse } from "../models/EntryListResponse";
 import { Link } from "../models/Link";
 import { Text } from "../models/Text";
 import { userService } from "./user.service";
+import Cookies from "js-cookie";
+
 
 
 const API_URL = "https://api.reminderse.com";
@@ -14,6 +16,9 @@ const API_URL = "https://api.reminderse.com";
 const entryApi = axios.create({
   baseURL: API_URL,
   withCredentials: true,
+  headers: {
+    "X-CSRF-TOKEN": Cookies.get("csrf_access_token"),
+  }
 })
 
 entryApi.interceptors.response.use(
