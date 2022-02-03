@@ -85,7 +85,7 @@ export function Entries() {
         <h2 className="text-xl">Interval</h2>
         <div className="form-control">
           <label className="label">
-            <span className="label-text">Username</span>
+            <span className="label-text">Email Interval</span>
           </label>
           <div className="relative">
             <input
