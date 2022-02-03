@@ -2,8 +2,8 @@ import axios from "axios";
 import { BehaviorSubject } from "rxjs";
 import Router from "next/router";
 
-// const API_URL = "https://api.reminderse.com";
-const API_URL = "https://reminderse-testing.herokuapp.com";
+const API_URL = "https://api.reminderse.com";
+// const API_URL = "https://reminderse-testing.herokuapp.com";
 // const API_URL = "http://localhost:5000";
 
 const userSubject = new BehaviorSubject(
