@@ -3,8 +3,8 @@ import { BehaviorSubject } from "rxjs";
 import Router from "next/router";
 
 // const API_URL = "https://api.reminderse.com";
-// const API_URL = "https://reminderse-testing.herokuapp.com";
-const API_URL = "http://localhost:5000";
+const API_URL = "https://reminderse-testing.herokuapp.com";
+// const API_URL = "http://localhost:5000";
 
 const userSubject = new BehaviorSubject(
   process.browser && JSON.parse(localStorage.getItem("user") as string)

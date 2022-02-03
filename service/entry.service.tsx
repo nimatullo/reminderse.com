@@ -8,10 +8,14 @@ import { Text } from "../models/Text";
 import { userService } from "./user.service";
 
 // const API_URL = "https://api.reminderse.com";
-// const API_URL = "https://reminderse-testing.herokuapp.com";
-const API_URL = "http://localhost:5000";
+const API_URL = "https://reminderse-testing.herokuapp.com";
+// const API_URL = "http://localhost:5000";
+const entryApi = axios.create({
+  baseURL: API_URL,
+  withCredentials: true,
+})
 
-axios.interceptors.response.use(
+entryApi.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response) {
@@ -24,10 +28,10 @@ axios.interceptors.response.use(
       }
     } else if (error.request) {
       // The request was made but no response was received
-      return (error);
+      return error.request;
     } else {
       // Something happened in setting up the request that triggered an Error
-      return (error);
+      return error;
     }
   }
 );
@@ -49,66 +53,66 @@ export const entryService = {
 };
 
 async function getLinkEntries(): Promise<EntryListReponse> {
-  return axios
-    .get<EntryListReponse>(`${API_URL}/api/link/list`)
+  return entryApi
+    .get<EntryListReponse>(`/api/link/list`)
     .then((res) => res.data);
 }
 
 async function getTextEntries(): Promise<EntryListReponse> {
-  return axios
-    .get<EntryListReponse>(`${API_URL}/api/text/list`)
+  return entryApi
+    .get<EntryListReponse>(`/api/text/list`)
     .then((res) => res.data);
 }
 
 function pauseLink(linkId: string): Promise<number> {
-  return axios
-    .put(`${API_URL}/api/link/${linkId}/pause`)
+  return entryApi
+    .put(`/api/link/${linkId}/pause`)
     .then((res) => res.status);
 }
 
 function resumeLink(linkId: string): Promise<number> {
-  return axios
-    .put(`${API_URL}/api/link/${linkId}/resume`)
+  return entryApi
+    .put(`/api/link/${linkId}/resume`)
     .then((res) => res.status);
 }
 
 function deleteLink(linkId: string): Promise<number> {
-  return axios
-    .delete(`${API_URL}/api/link/${linkId}`)
+  return entryApi
+    .delete(`/api/link/${linkId}`)
     .then((res) => res.status);
 }
 
 function deleteText(textId: string) {
-  return axios
-    .delete(`${API_URL}/api/text/${textId}`)
+  return entryApi
+    .delete(`/api/text/${textId}`)
     .then((res) => res.status);
 }
 
 function addText(textEntry: CreateTextEntry): Promise<any> {
-  return axios.post(`${API_URL}/api/text/add`, textEntry).then((res) => res);
+  return entryApi.post(`/api/text/add`, textEntry).then((res) => res);
 }
 
 function addLink(linkEntry: CreateLinkEntry): Promise<any> {
-  return axios.post(`${API_URL}/api/link/add`, linkEntry).then((res) => res);
+  return entryApi.post(`/api/link/add`, linkEntry).then((res) => res);
 }
 
 function getLink(linkId: string): Promise<Link> {
-  return axios.get(`${API_URL}/api/link/${linkId}`).then((res) => res.data);
+  return entryApi.get(`/api/link/${linkId}`).then((res) => res.data);
 }
 
 function getText(textId: string): Promise<Text> {
-  return axios.get(`${API_URL}/api/text/${textId}`).then((res) => res.data);
+  return entryApi.get(`/api/text/${textId}`).then((res) => res.data);
 }
 
 function editLink(linkId: string, updatedLink: Link): Promise<number> {
-  return axios
-    .put(`${API_URL}/api/link/${linkId}`, updatedLink)
+  return entryApi
+    .put(`/api/link/${linkId}`, updatedLink)
     .then((res) => res.status);
 }
 
 function editText(textId: string, updatedText: Text): Promise<number> {
-  return axios
-    .put(`${API_URL}/api/text/${textId}`, updatedText)
+  return entryApi
+    .put(`/api/text/${textId}`, updatedText)
     .then((res) => res.status);
 }
 

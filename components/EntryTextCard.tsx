@@ -16,13 +16,13 @@ const EntryTextCard = () => {
 						<div>
 							{entryProvider.entry.content}
 						</div>
-						<div className="secondary">{entryProvider.entry.category ? entryProvider.entry.category : <p> </p>}</div>
+						<div className="secondary">{entryProvider.entry.category ? entryProvider.entry.category : <p></p>}</div>
 						{Number(entryProvider.entry.dateOfNextSend) < 0 ? (
 							<div className="secondary date">Paused</div>
 						) : (
 							<div className="secondary date">
 								Next email goes out{" "}
-								{entryProvider.entry.dateOfNextSend === "Tomorrow" ? "Tomorrow" : `in ${entryProvider.entry.dateOfNextSend} days`}
+                {isNaN(entryProvider.entry.dateOfNextSend as any) ? entryProvider.entry.dateOfNextSend.toLowerCase() : `in ${entryProvider.entry.dateOfNextSend} days`}
 							</div>
 						)}
 					</div>

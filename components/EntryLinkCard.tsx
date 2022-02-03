@@ -1,7 +1,6 @@
 import React, { useContext } from "react";
 import { EntryContextImpl } from "../context/entry.context";
 import DropdownMenu from "./DropdownMenu";
-import Fade from "react-reveal/Fade";
 
 const EntryLinkCard = () => {
   const entryProvider = useContext(EntryContextImpl);
@@ -41,9 +40,7 @@ const EntryLinkCard = () => {
             ) : (
               <div className="secondary date">
                 Next email goes out{" "}
-                {entryProvider.entry.dateOfNextSend === "Tomorrow"
-                  ? "Tomorrow"
-                  : `in ${entryProvider.entry.dateOfNextSend} days`}
+                {isNaN(entryProvider.entry.dateOfNextSend as any) ? entryProvider.entry.dateOfNextSend.toLowerCase() : `in ${entryProvider.entry.dateOfNextSend} days`}
               </div>
             )}
           </div>
