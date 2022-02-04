@@ -6,13 +6,9 @@ import { EntryListReponse } from "../models/EntryListResponse";
 import { Link } from "../models/Link";
 import { Text } from "../models/Text";
 import { userService } from "./user.service";
+import { API_URL } from "../models/constants";
 import Cookies from "js-cookie";
 
-
-
-const API_URL = "https://api.reminderse.com";
-// const API_URL = "https://reminderse-testing.herokuapp.com";
-// const API_URL = "http://localhost:5000";
 const entryApi = axios.create({
   baseURL: API_URL,
   withCredentials: true,

@@ -1,10 +1,7 @@
 import axios from "axios";
 import { BehaviorSubject } from "rxjs";
 import Router from "next/router";
-
-const API_URL = "https://api.reminderse.com";
-// const API_URL = "https://reminderse-testing.herokuapp.com";
-// const API_URL = "http://localhost:5000";
+import { API_URL } from "../models/constants";
 
 const userSubject = new BehaviorSubject(
   process.browser && JSON.parse(localStorage.getItem("user") as string)
@@ -35,8 +32,8 @@ export interface LoginResponse {
   interval: number
 }
 
-function login(email: string, password: string): Promise<LoginResponse> {
-  return axios
+async function login(email: string, password: string): Promise<LoginResponse> {
+  return await axios
     .post<LoginResponse>(
       `${API_URL}/api/login`,
       { email, password },
@@ -50,12 +47,12 @@ function login(email: string, password: string): Promise<LoginResponse> {
   }
 
 
-function register(
+async function register(
   email: string,
   username: string,
   password: string
 ): Promise<{ message: string }> {
-  return axios
+  return await axios
     .post<{ message: string }>(
       `${API_URL}/api/register`,
       { email, username, password },
@@ -64,16 +61,16 @@ function register(
     .then((res) => res.data);
 }
 
-function confirmEmail(token: string): Promise<number> {
-  return axios
+async function confirmEmail(token: string): Promise<number> {
+  return await axios
     .post(`${API_URL}/api/confirm_email_token/${token}`, {
       withCredentials: true,
     })
     .then((res) => res.status);
 }
 
-function isEmailConfirmed(): Promise<boolean> {
-  return axios
+async function isEmailConfirmed(): Promise<boolean> {
+  return await axios
     .get(`${API_URL}/api/confirmed`, { withCredentials: true })
     .then((res) => {
       if (res.data.isConfirmed) {
@@ -82,8 +79,8 @@ function isEmailConfirmed(): Promise<boolean> {
     });
 }
 
-function updateUsername(username: string): Promise<number> {
-  return axios
+async function updateUsername(username: string): Promise<number> {
+  return await axios
     .put(
       `${API_URL}/api/change/username`,
       { username },
@@ -92,17 +89,17 @@ function updateUsername(username: string): Promise<number> {
     .then((res) => res.status);
 }
 
-function updateEmail(email: string): Promise<number> {
-  return axios
+async function updateEmail(email: string): Promise<number> {
+  return await axios
     .put(`${API_URL}/api/change/email`, { email }, { withCredentials: true })
     .then((res) => res.status);
 }
 
-function updatePassword(
+async function updatePassword(
   oldPassword: string,
   newPassword: string
 ): Promise<number> {
-  return axios
+  return await axios
     .put(
       `${API_URL}/api/change/password`,
       {
@@ -116,8 +113,8 @@ function updatePassword(
     });
 }
 
-function updateInterval(interval: number) {
-  return axios
+async function updateInterval(interval: number) {
+  return await axios
     .put(
       `${API_URL}/api/change/interval`,
       { interval },
@@ -126,8 +123,8 @@ function updateInterval(interval: number) {
     .then((res) => res.status);
 }
 
-function unsubscribe(): Promise<number> {
-  return axios
+async function unsubscribe(): Promise<number> {
+  return await axios
     .delete(`${API_URL}/api/unsubscribe`, { withCredentials: true })
     .then((res) => res.status);
 }
@@ -146,8 +143,8 @@ function clearUserInformation() {
   userSubject.next(null);
 }
 
-function getVersion() {
-  return axios
+async function getVersion() {
+  return await axios
     .get(`${API_URL}/api/version`, { withCredentials: true })
     .then((res) => res.data);
 }
