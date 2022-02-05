@@ -7,9 +7,6 @@ import Link from "next/link";
 import useMessage from "../context/customMessageHook";
 import Snackbar from "../components/Snackbar";
 import Head from "next/head";
-import Axios from "axios";
-import Cookies from "js-cookie";
-import { CSRF_TOKEN } from "../models/constants";
 
 export default function Login() {
   const router = useRouter();
