@@ -1,9 +1,7 @@
 import axios from "axios";
-import Axios from "axios";
 import { BehaviorSubject } from "rxjs";
 import Router from "next/router";
 import { API_URL } from "../models/constants";
-import Cookies from "js-cookie";
 
 const userSubject = new BehaviorSubject(
   process.browser && JSON.parse(localStorage.getItem("user") as string)
@@ -34,6 +32,7 @@ export interface LoginResponse {
   interval: number
 }
 
+<<<<<<< HEAD
 const userApi = axios.create({
   baseURL: API_URL,
   withCredentials: true,
@@ -50,6 +49,10 @@ userApi.interceptors.request.use(
 
 async function login(email: string, password: string): Promise<LoginResponse> {
   return await userApi
+=======
+async function login(email: string, password: string): Promise<LoginResponse> {
+  return await axios
+>>>>>>> 3fa8c5a167037f9604602107b6452efda101f66b
     .post<LoginResponse>(
       `${API_URL}/api/login`,
       { email, password },
@@ -68,7 +71,11 @@ async function register(
   username: string,
   password: string
 ): Promise<{ message: string }> {
+<<<<<<< HEAD
   return await userApi
+=======
+  return await axios
+>>>>>>> 3fa8c5a167037f9604602107b6452efda101f66b
     .post<{ message: string }>(
       `${API_URL}/api/register`,
       { email, username, password },
@@ -78,7 +85,11 @@ async function register(
 }
 
 async function confirmEmail(token: string): Promise<number> {
+<<<<<<< HEAD
   return await userApi
+=======
+  return await axios
+>>>>>>> 3fa8c5a167037f9604602107b6452efda101f66b
     .post(`${API_URL}/api/confirm_email_token/${token}`, {
       withCredentials: true,
     })
@@ -86,7 +97,11 @@ async function confirmEmail(token: string): Promise<number> {
 }
 
 async function isEmailConfirmed(): Promise<boolean> {
+<<<<<<< HEAD
   return await userApi
+=======
+  return await axios
+>>>>>>> 3fa8c5a167037f9604602107b6452efda101f66b
     .get(`${API_URL}/api/confirmed`, { withCredentials: true })
     .then((res) => {
       if (res.data.isConfirmed) {
@@ -96,7 +111,11 @@ async function isEmailConfirmed(): Promise<boolean> {
 }
 
 async function updateUsername(username: string): Promise<number> {
+<<<<<<< HEAD
   return await userApi
+=======
+  return await axios
+>>>>>>> 3fa8c5a167037f9604602107b6452efda101f66b
     .put(
       `${API_URL}/api/change/username`,
       { username },
@@ -106,7 +125,11 @@ async function updateUsername(username: string): Promise<number> {
 }
 
 async function updateEmail(email: string): Promise<number> {
+<<<<<<< HEAD
   return await userApi
+=======
+  return await axios
+>>>>>>> 3fa8c5a167037f9604602107b6452efda101f66b
     .put(`${API_URL}/api/change/email`, { email }, { withCredentials: true })
     .then((res) => res.status);
 }
@@ -115,7 +138,11 @@ async function updatePassword(
   oldPassword: string,
   newPassword: string
 ): Promise<number> {
+<<<<<<< HEAD
   return await userApi
+=======
+  return await axios
+>>>>>>> 3fa8c5a167037f9604602107b6452efda101f66b
     .put(
       `${API_URL}/api/change/password`,
       {
@@ -130,7 +157,11 @@ async function updatePassword(
 }
 
 async function updateInterval(interval: number) {
+<<<<<<< HEAD
   return await userApi
+=======
+  return await axios
+>>>>>>> 3fa8c5a167037f9604602107b6452efda101f66b
     .put(
       `${API_URL}/api/change/interval`,
       { interval },
@@ -140,7 +171,11 @@ async function updateInterval(interval: number) {
 }
 
 async function unsubscribe(): Promise<number> {
+<<<<<<< HEAD
   return await userApi
+=======
+  return await axios
+>>>>>>> 3fa8c5a167037f9604602107b6452efda101f66b
     .delete(`${API_URL}/api/unsubscribe`, { withCredentials: true })
     .then((res) => res.status);
 }
@@ -160,7 +195,11 @@ function clearUserInformation() {
 }
 
 async function getVersion() {
+<<<<<<< HEAD
   return await userApi
+=======
+  return await axios
+>>>>>>> 3fa8c5a167037f9604602107b6452efda101f66b
     .get(`${API_URL}/api/version`, { withCredentials: true })
     .then((res) => res.data);
 }

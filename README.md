@@ -17,11 +17,25 @@ I spent all of winter break rewriting the entire frontend with TypeScript. Both 
 - Added animations for content loads and dropdown click
 - Removed side bar. Just a top nav now
 
+# (01/26/22) v2.1
+Added better support for Safari combact tabs. The color should better match the contents of the page.
+
+## 📨 Changelog
+- Dynamic color changes depending on website page
+- Clearer page titles
+
+# (02/03/22) v2.2
+You can now set your own interval for how frequent entries can be sent out. The settings page now has a field that allows you to change the interval. The default is 3.
+
+## 📨 Changelog
+- Custom intervals
+- Fixed issue where setting date of next email would not work
+- Better JWT security
 
 ---
 # Todo List
 - [ ] 🌑 Dark mode
 - [x] 🔙 Some backend logic is faulty, especially interacting with the database
-- [ ] ➕ Add page breaks on phone width
-- [ ] 📆 Update add entry endpoints to accept next email date
-- [ ] 🛣 Custom email intervals
+- [x] ➕ Add page breaks on phone width
+- [x] 📆 Update add entry endpoints to accept next email date
+- [x] 🛣 Custom email intervals
