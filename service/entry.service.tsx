@@ -12,10 +12,15 @@ import Cookies from "js-cookie";
 const entryApi = axios.create({
   baseURL: API_URL,
   withCredentials: true,
-  headers: {
-    "X-CSRF-TOKEN": Cookies.get("csrf_access_token"),
-  }
 })
+
+entryApi.interceptors.request.use(
+  (config) => {
+    if (config.headers) {
+      config.headers.common["X-CSRF-TOKEN"] = Cookies.get("csrf_access_token");
+    }
+    return config;
+  });
 
 entryApi.interceptors.response.use(
   (response) => response,

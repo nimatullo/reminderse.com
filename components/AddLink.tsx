@@ -6,6 +6,7 @@ import { entryService } from "../service/entry.service";
 import Fade from "react-reveal/Fade";
 import Snackbar from "./Snackbar";
 import useMessage from "../context/customMessageHook";
+import { AiOutlineQuestionCircle } from "react-icons/ai";
 
 export default function AddLink() {
   const [url, setUrl] = useState("");
@@ -15,7 +16,7 @@ export default function AddLink() {
     new Date().toISOString().split("T")[0]
   );
   const [isLoading, setIsLoading] = useState(false);
-  const [customDate, setCustomDate] = useState(true);
+  const [customDate, setCustomDate] = useState(false);
 
   const { setMessage } = useMessage();
 
@@ -108,7 +109,7 @@ export default function AddLink() {
               />
             </label>
           </div>
-          <div className="grid grid-cols-1 gap-3 lg:grid-cols-3">
+          <div className={`grid grid-cols-1 gap-3 ${customDate ? "lg:grid-cols-3" : ""}`}>
             <div className="form-control lg:col-span-2">
               <label
                 htmlFor="category"
@@ -129,33 +130,43 @@ export default function AddLink() {
                 />
               </label>
             </div>
-            <div className="form-control">
-              <label
-                htmlFor="date"
-                className="input-group input-group-vertical input-group-md"
-              >
-                <span
-                  className="bg bg-secondary flex justify-between"
-                  style={{ color: "white" }}
+            {customDate && (
+              <div className="form-control">
+                <label
+                  htmlFor="date"
+                  className="input-group input-group-vertical input-group-md"
                 >
-                  <p>Next email date</p>
-                </span>
-                <input
-                  type="date"
-                  disabled={!customDate}
-                  value={nextEmailDate}
-                  onChange={(e) => setNextEmailDate(e.target.value)}
-                  required
-                  min={new Date().toISOString().split("T")[0]}
-                  placeholder="Date of next send"
-                  className="input input-bordered"
-                />
-              </label>
-            </div>
+                  <span
+                    className="bg bg-secondary flex justify-between"
+                    style={{ color: "white" }}
+                  >
+                    <p>Next email date</p>
+                  </span>
+                  <input
+                    type="date"
+                    disabled={!customDate}
+                    value={nextEmailDate}
+                    onChange={(e) => setNextEmailDate(e.target.value)}
+                    required
+                    min={new Date().toISOString().split("T")[0]}
+                    placeholder="Date of next send"
+                    className="input input-bordered"
+                  />
+                </label>
+              </div>
+            )}
           </div>
           <div className="form-control bordered">
             <label className="cursor-pointer label">
-              <span className="label-text">Custom Date</span>
+              <span className="label-text flex items-center">
+                Custom date
+                <div data-tip="Set your own email date" className="tooltip">
+                  <AiOutlineQuestionCircle
+                    className="text-xl mx-1 hover:fill-neutral"
+                    style={{ color: "#777676" }}
+                  />
+                </div>
+              </span>
               <input
                 type="checkbox"
                 checked={customDate}
