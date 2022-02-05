@@ -5,3 +5,14 @@
  * If 'NODE.ENV' is 'test', then the API URL is 'https://reminderse-testing.herokuapp.com'.
  */
 export const API_URL = process.env.NODE_ENV === "development" ? "http://localhost:5000" : process.env.NODE_ENV === "production" ? "https://api.reminderse.com" : "https://reminderse-testing.herokuapp.com";
+
+
+/**
+ * Object with CSRF_TOKEN and a function to set it.
+ */
+export const CSRF_TOKEN = {
+	token: "",
+	setCSRFToken: (token) => {
+		CSRF_TOKEN.token = token;
+	}
+};

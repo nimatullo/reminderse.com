@@ -9,6 +9,7 @@ import Snackbar from "../components/Snackbar";
 import Head from "next/head";
 import Axios from "axios";
 import Cookies from "js-cookie";
+import { CSRF_TOKEN } from "../models/constants";
 
 export default function Login() {
   const router = useRouter();
@@ -29,8 +30,6 @@ export default function Login() {
     return userService
       .login(email, password)
       .then((res) => {
-        Axios.defaults.headers.common["X-CSRF-TOKEN"] =
-          Cookies.get("csrf_access_token");
         const returnUrl = router.query.returnUrl || "/dashboard";
         router.push(returnUrl as string);
       })

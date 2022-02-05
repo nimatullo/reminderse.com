@@ -1,7 +1,9 @@
 import axios from "axios";
+import Axios from "axios";
 import { BehaviorSubject } from "rxjs";
 import Router from "next/router";
 import { API_URL } from "../models/constants";
+import Cookies from "js-cookie";
 
 const userSubject = new BehaviorSubject(
   process.browser && JSON.parse(localStorage.getItem("user") as string)
@@ -32,8 +34,22 @@ export interface LoginResponse {
   interval: number
 }
 
+const userApi = axios.create({
+  baseURL: API_URL,
+  withCredentials: true,
+})
+
+userApi.interceptors.request.use(
+  (config) => {
+    if (config.headers) {
+      config.headers.common["X-CSRF-TOKEN"] = Cookies.get("csrf_access_token");
+    }
+    return config;
+  });
+    
+
 async function login(email: string, password: string): Promise<LoginResponse> {
-  return await axios
+  return await userApi
     .post<LoginResponse>(
       `${API_URL}/api/login`,
       { email, password },
@@ -52,7 +68,7 @@ async function register(
   username: string,
   password: string
 ): Promise<{ message: string }> {
-  return await axios
+  return await userApi
     .post<{ message: string }>(
       `${API_URL}/api/register`,
       { email, username, password },
@@ -62,7 +78,7 @@ async function register(
 }
 
 async function confirmEmail(token: string): Promise<number> {
-  return await axios
+  return await userApi
     .post(`${API_URL}/api/confirm_email_token/${token}`, {
       withCredentials: true,
     })
@@ -70,7 +86,7 @@ async function confirmEmail(token: string): Promise<number> {
 }
 
 async function isEmailConfirmed(): Promise<boolean> {
-  return await axios
+  return await userApi
     .get(`${API_URL}/api/confirmed`, { withCredentials: true })
     .then((res) => {
       if (res.data.isConfirmed) {
@@ -80,7 +96,7 @@ async function isEmailConfirmed(): Promise<boolean> {
 }
 
 async function updateUsername(username: string): Promise<number> {
-  return await axios
+  return await userApi
     .put(
       `${API_URL}/api/change/username`,
       { username },
@@ -90,7 +106,7 @@ async function updateUsername(username: string): Promise<number> {
 }
 
 async function updateEmail(email: string): Promise<number> {
-  return await axios
+  return await userApi
     .put(`${API_URL}/api/change/email`, { email }, { withCredentials: true })
     .then((res) => res.status);
 }
@@ -99,7 +115,7 @@ async function updatePassword(
   oldPassword: string,
   newPassword: string
 ): Promise<number> {
-  return await axios
+  return await userApi
     .put(
       `${API_URL}/api/change/password`,
       {
@@ -114,7 +130,7 @@ async function updatePassword(
 }
 
 async function updateInterval(interval: number) {
-  return await axios
+  return await userApi
     .put(
       `${API_URL}/api/change/interval`,
       { interval },
@@ -124,13 +140,13 @@ async function updateInterval(interval: number) {
 }
 
 async function unsubscribe(): Promise<number> {
-  return await axios
+  return await userApi
     .delete(`${API_URL}/api/unsubscribe`, { withCredentials: true })
     .then((res) => res.status);
 }
 
 function logout() {
-  axios
+  userApi
     .put(`${API_URL}/api/logout`, {}, { withCredentials: true })
     .finally(() => {
       clearUserInformation();
@@ -144,7 +160,7 @@ function clearUserInformation() {
 }
 
 async function getVersion() {
-  return await axios
+  return await userApi
     .get(`${API_URL}/api/version`, { withCredentials: true })
     .then((res) => res.data);
 }
