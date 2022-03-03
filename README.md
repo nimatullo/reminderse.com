@@ -39,3 +39,4 @@ You can now set your own interval for how frequent entries can be sent out. The 
 - [x] ➕ Add page breaks on phone width
 - [x] 📆 Update add entry endpoints to accept next email date
 - [x] 🛣 Custom email intervals
+- [ ] 🍽 Add list view to dashboard
