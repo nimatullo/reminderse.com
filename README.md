@@ -1,41 +1,109 @@
-![Reminderse](https://user-images.githubusercontent.com/35201693/150656708-d0bdfb98-e0c7-433e-8ab5-e03904c434d5.png)
+<div align="center">
 
----
-💭 What is Reminderse?
------
-Reminderse reminds you about the links, articles and other media that you’ve consumed surfing the internet. Simply make an entry and get reminded about it in intervals.
+  <img src="https://user-images.githubusercontent.com/35201693/150656708-d0bdfb98-e0c7-433e-8ab5-e03904c434d5.png" alt="logo" width="200" height="auto" />
+  <h1>Reminderse</h1>
+  
+  <p>
+    Reminderse reminds you about the links, articles and other media that you’ve consumed surfing the internet. Simply make an entry and get reminded about it in intervals.
+  </p>
 
-## 😁 Sign up today by clicking [here](https://reminderse.com/register).
+   
+<h4>
+    <a href="https://reminderse.com/register">Create an account</a>
+  <span> · </span>
+    <a href="https://github.com/nimatullo/reminderse.com/issues/">Report Bug</a>
+  <span> · </span>
+    <a href="https://github.com/nimatullo/reminderse.com/issues/">Request a Feature</a>
+  </h4>
+</div>
+
+<br />
+
+<!-- Table of Contents -->
+# :notebook_with_decorative_cover: Table of Contents
+
+- [About the Project](#about-the-project)
+  * [Tech Stack](#tech-stack)
+  * [Features](#features)
+- [Roadmap](#roadmap)
+- [Contributing](#contributing)
+  * [Code of Conduct](#code-of-conduct)
+- [License](#license)
+- [Contact](#contact)
+  
+
+<!-- About the Project -->
+## :star2: About the Project
 
 
-# (01/22/22) v2.0
-I spent all of winter break rewriting the entire frontend with TypeScript. Both the frontend and backend are in a good state so that future changes won't require large overhauls. Using TypeScript lets me better control the API requests because I can let it know what the schema will look like. It takes away the guesswork from making requests. I'm pretty happy with all the changes and it should make it easier to add the features that I want moving forward. Hope you enjoy!
+<!-- TechStack -->
+### :space_invader: Tech Stack
 
-## 📨 Changelog
-- New homepage!
-- More consistent and unique design language
-- Added animations for content loads and dropdown click
-- Removed side bar. Just a top nav now
+<details>
+  <summary>Client</summary>
+  <ul>
+    <li><a href="https://www.typescriptlang.org/">Typescript</a></li>
+    <li><a href="https://nextjs.org/">Next.js</a></li>
+    <li><a href="https://reactjs.org/">React.js</a></li>
+    <li><a href="https://tailwindcss.com/">TailwindCSS</a></li>
+  </ul>
+</details>
 
-# (01/26/22) v2.1
-Added better support for Safari combact tabs. The color should better match the contents of the page.
+<details>
+  <summary>Server</summary>
+  <ul>
+    <li><a href="https://www.python.org/">Python</a></li>
+    <li><a href="https://flask.palletsprojects.com/en/2.1.x/">Flask</a></li>
+  </ul>
+</details>
 
-## 📨 Changelog
-- Dynamic color changes depending on website page
-- Clearer page titles
+<details>
+<summary>Database</summary>
+  <ul>
+    <li><a href="https://www.postgresql.org/">PostgreSQL</a></li>
+  </ul>
+</details>
 
-# (02/03/22) v2.2
-You can now set your own interval for how frequent entries can be sent out. The settings page now has a field that allows you to change the interval. The default is 3.
+<!-- Features -->
+### :dart: Features
 
-## 📨 Changelog
-- Custom intervals
-- Fixed issue where setting date of next email would not work
-- Better JWT security
+- Account creation
+- Email reminders
+- Making entries
 
----
-# Todo List
+<!-- Changelog -->
+### 📥 Changelog
+<p>View all the changes since version 2.0 (when I started making a changelog)</p>
+<a href="https://github.com/nimatullo/reminderse.com/CHANGELOG.md">
+  Changelog
+</a>
+
+<!-- Roadmap -->
+## :compass: Roadmap
 - [ ] 🌑 Dark mode
 - [x] 🔙 Some backend logic is faulty, especially interacting with the database
 - [x] ➕ Add page breaks on phone width
 - [x] 📆 Update add entry endpoints to accept next email date
 - [x] 🛣 Custom email intervals
+
+<!-- Contributing -->
+## :wave: Contributing
+
+<a href="https://github.com/nimatullo/reminderse.com/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=nimatullo/reminderse.com" />
+</a>
+
+
+Contributions are always welcome!
+
+
+<!-- License -->
+## :warning: License
+
+Distributed under the [MIT](https://choosealicense.com/licenses/mit/) License. See LICENSE.txt for more information.
+
+
+<!-- Contact -->
+## :handshake: Contact
+
+Your Name - [@mmvvpp123](https://twitter.com/mmvvpp123) - sherzodnimatullo@gmail.com
