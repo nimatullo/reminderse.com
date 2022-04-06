@@ -25,6 +25,7 @@
 - [About the Project](#about-the-project)
   * [Tech Stack](#tech-stack)
   * [Features](#features)
+  * [Changelog] (#changelog)
 - [Roadmap](#roadmap)
 - [Contributing](#contributing)
   * [Code of Conduct](#code-of-conduct)
@@ -74,7 +75,7 @@
 <!-- Changelog -->
 ### 📥 Changelog
 <p>View all the changes since version 2.0 (when I started making a changelog)</p>
-<a href="https://github.com/nimatullo/reminderse.com/CHANGELOG.md">
+<a href="https://github.com/nimatullo/reminderse.com/blob/master/CHANGELOG.md">
   Changelog
 </a>
 
