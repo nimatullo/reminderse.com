@@ -19,20 +19,6 @@
 
 <br />
 
-<!-- Table of Contents -->
-# :notebook_with_decorative_cover: Table of Contents
-
-- [About the Project](#about-the-project)
-  * [Tech Stack](#tech-stack)
-  * [Features](#features)
-  * [Changelog] (#changelog)
-- [Roadmap](#roadmap)
-- [Contributing](#contributing)
-  * [Code of Conduct](#code-of-conduct)
-- [License](#license)
-- [Contact](#contact)
-  
-
 <!-- About the Project -->
 ## :star2: About the Project
 
@@ -107,4 +93,4 @@ Distributed under the [MIT](https://choosealicense.com/licenses/mit/) License. S
 <!-- Contact -->
 ## :handshake: Contact
 
-Your Name - [@mmvvpp123](https://twitter.com/mmvvpp123) - sherzodnimatullo@gmail.com
+[@mmvvpp123](https://twitter.com/mmvvpp123) - sherzodnimatullo@gmail.com
