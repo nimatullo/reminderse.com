@@ -44,20 +44,44 @@ const DropdownMenu = () => {
     return () => document.removeEventListener("keyup", handleEscape);
   }, [show]);
 
-  function handlePause() {
-    entryService.pauseLink(entryProvider.entry.id).then((statusCode) => {
-      if (statusCode === 200) {
-        entryProvider.updatePausedEntry();
-      }
-    });
+  async function handlePause() {
+    if (entryProvider.entry.type === EntryType.Link) {
+      await entryService
+        .pauseLink(entryProvider.entry.id)
+        .then((statusCode) => {
+          if (statusCode === 200) {
+            entryProvider.updatePausedEntry();
+          }
+        });
+    } else {
+      await entryService
+        .pauseText(entryProvider.entry.id)
+        .then((statusCode) => {
+          if (statusCode === 200) {
+            entryProvider.updatePausedEntry();
+          }
+        });
+    }
   }
 
-  function handleResume() {
-    entryService.resumeLink(entryProvider.entry.id).then((statusCode) => {
-      if (statusCode === 200) {
-        entryProvider.updateResumedEntry();
-      }
-    });
+  async function handleResume() {
+    if (entryProvider.entry.type === EntryType.Link) {
+      await entryService
+        .resumeLink(entryProvider.entry.id)
+        .then((statusCode) => {
+          if (statusCode === 200) {
+            entryProvider.updateResumedEntry();
+          }
+        });
+    } else {
+      await entryService
+        .resumeText(entryProvider.entry.id)
+        .then((statusCode) => {
+          if (statusCode === 200) {
+            entryProvider.updateResumedEntry();
+          }
+        });
+    }
   }
 
   function handleDelete() {
@@ -101,7 +125,8 @@ const DropdownMenu = () => {
               </a>
             </li>
             <li>
-              {Number(entryProvider.entry.dateOfNextSend) > 0 ? (
+              {entryService.getDays(entryProvider.entry.date_of_next_send) >
+              0 ? (
                 <a onClick={handlePause}>
                   <MdPause className="inline-block w-5 h-5 mr-2 stroke-current" />
                   Pause

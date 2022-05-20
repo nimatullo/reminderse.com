@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import { EntryContextImpl } from "../context/entry.context";
+import { entryService } from "../service/entry.service";
 import DropdownMenu from "./DropdownMenu";
 
 const EntryLinkCard = () => {
@@ -9,43 +10,38 @@ const EntryLinkCard = () => {
     return pathArray[0] + "//" + pathArray[2];
   }
   return (
-      <div className="main-card rounded-box shadow-sm hover:shadow-md">
-        <DropdownMenu />
-        <a
-          href={entryProvider.entry.content}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <div className="imgArea">
-            <img
-              className="text-secondary"
-              width={200}
-              src={`https://logo.clearbit.com/${stripUrl(
-                entryProvider.entry.content
-              )}`}
-              alt={entryProvider.entry.title.charAt(0)}
-            />
-          </div>
-          <div className="cardInfo bg-primary-content">
-            <div className="entryTitle">{entryProvider.entry.title}</div>
-            <div className="secondary">
-              {entryProvider.entry.category ? (
-                entryProvider.entry.category
-              ) : (
-                <p> </p>
-              )}
-            </div>
-            {Number(entryProvider.entry.dateOfNextSend) < 0 ? (
-              <div className="secondary date">Paused</div>
+    <div className="main-card rounded-box shadow-sm hover:shadow-md">
+      <DropdownMenu />
+      <a
+        href={entryProvider.entry.content}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <div className="imgArea">
+          <img
+            className="text-secondary"
+            width={200}
+            src={`https://logo.clearbit.com/${stripUrl(
+              entryProvider.entry.content
+            )}`}
+            alt={entryProvider.entry.title.charAt(0)}
+          />
+        </div>
+        <div className="cardInfo bg-primary-content">
+          <div className="entryTitle">{entryProvider.entry.title}</div>
+          <div className="secondary">
+            {entryProvider.entry.category ? (
+              entryProvider.entry.category
             ) : (
-              <div className="secondary date">
-                Next email goes out{" "}
-                {isNaN(entryProvider.entry.dateOfNextSend as any) ? entryProvider.entry.dateOfNextSend.toLowerCase() : `in ${entryProvider.entry.dateOfNextSend} days`}
-              </div>
+              <p> </p>
             )}
           </div>
-        </a>
-      </div>
+          <div className="secondary date">
+            {entryService.formatDate(entryProvider.entry.date_of_next_send)}
+          </div>
+        </div>
+      </a>
+    </div>
   );
 };
 

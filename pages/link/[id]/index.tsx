@@ -27,7 +27,7 @@ export default function EditLink() {
         setTitle(entry.entry_title);
         setUrl(entry.url);
         setCategory(entry.category);
-        setNextEmailDate(new Date(Date.parse(entry.date)));
+        setNextEmailDate(new Date(entry.date_of_next_send));
       })
       .catch((err) => {
         setMessage({
@@ -43,11 +43,10 @@ export default function EditLink() {
     setIsLoading(true);
     entryService
       .editLink(id as string, {
-        id: id as string,
         entry_title: title,
-        url: url,
+        content: url,
         category: category,
-        date: nextEmailDate.toISOString(),
+        date_of_next_send: nextEmailDate.toISOString(),
       })
       .then((status) => {
         if (status === 200) {

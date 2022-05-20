@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { BiCheckCircle, BiErrorCircle } from "react-icons/bi";
 import { IoMdAddCircle } from "react-icons/io";
-import { CreateTextEntry } from "../models/CreateTextEntry";
+import { CreateEntry } from "../models/CreateEntry";
 import { entryService } from "../service/entry.service";
 import Fade from "react-reveal/Fade";
 import { AiOutlineQuestionCircle } from "react-icons/ai";
@@ -28,11 +28,11 @@ export default function AddText() {
   function handleTextAdd(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setIsLoading(true);
-    const entry: CreateTextEntry = {
+    const entry: CreateEntry = {
       entry_title: title,
       category: category,
       date_of_next_send: customDate ? nextEmailDate : undefined,
-      text_content: textContent,
+      content: textContent,
     };
 
     entryService

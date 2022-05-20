@@ -19,15 +19,19 @@ export default function Dashboard() {
   useEffect(() => {
     setLoading(true);
     const timer = setTimeout(() => {
-      entryService
-        .getLinkEntries()
-        .then((data) => {
-          setLinkEntries(entryService.mapToEntry(data.entries));
-        })
-        .finally(() => setLoading(false));
+      fetchLinks();
     }, 1000);
     return () => clearTimeout(timer);
   }, []);
+
+  const fetchLinks = async () => {
+    await entryService
+      .getLinkEntries()
+      .then((data) => {
+        setLinkEntries(entryService.mapToEntry(data.entries));
+      })
+      .finally(() => setLoading(false));
+  };
 
   useEffect(() => {
     entryService.getTextEntries().then((data) => {
@@ -44,10 +48,16 @@ export default function Dashboard() {
       <Navbar />
       <div className="p-4 lg:p-10">
         <div className="tabs tabs-boxed my-1 justify-end bg-transparent">
-          <a className={`tab ${showGrid ? "tab-active" : ""}`} onClick={() => setShowGrid(true)}>
+          <a
+            className={`tab ${showGrid ? "tab-active" : ""}`}
+            onClick={() => setShowGrid(true)}
+          >
             <BsFillGridFill />
           </a>
-          <a className={`tab ${!showGrid ? "tab-active" : ""}`} onClick={() => setShowGrid(false)}>
+          <a
+            className={`tab ${!showGrid ? "tab-active" : ""}`}
+            onClick={() => setShowGrid(false)}
+          >
             <BsList />
           </a>
         </div>
@@ -87,7 +97,7 @@ export default function Dashboard() {
             </div>
           </>
         ) : (
-          <EntryList linkEntries={linkEntries} textEntries={textEntries}/>
+          <EntryList linkEntries={linkEntries} textEntries={textEntries} />
         )}
       </div>
     </>

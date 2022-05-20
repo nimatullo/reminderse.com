@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { BiCheckCircle, BiErrorCircle } from "react-icons/bi";
 import { IoMdAddCircle } from "react-icons/io";
-import { CreateLinkEntry } from "../models/CreateTextEntry";
+import { CreateEntry } from "../models/CreateEntry";
 import { entryService } from "../service/entry.service";
 import Fade from "react-reveal/Fade";
 import Snackbar from "./Snackbar";
@@ -23,11 +23,11 @@ export default function AddLink() {
   function handleLinkAdd(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setIsLoading(true);
-    const entry: CreateLinkEntry = {
+    const entry: CreateEntry = {
       entry_title: title,
       category: category,
       date_of_next_send: customDate ? nextEmailDate : undefined,
-      url: url,
+      content: url,
     };
 
     entryService
@@ -109,7 +109,11 @@ export default function AddLink() {
               />
             </label>
           </div>
-          <div className={`grid grid-cols-1 gap-3 ${customDate ? "lg:grid-cols-3" : ""}`}>
+          <div
+            className={`grid grid-cols-1 gap-3 ${
+              customDate ? "lg:grid-cols-3" : ""
+            }`}
+          >
             <div className="form-control lg:col-span-2">
               <label
                 htmlFor="category"
