@@ -8,7 +8,8 @@ import { EntryProvider } from "../context/entry.context";
 import { SkeletonCard } from "../components/SkeletonCard";
 import Head from "next/head";
 import { BsFillGridFill, BsList } from "react-icons/bs";
-import EntryList from "../components/EntryList";
+import EntryList from "../components/DashboardList";
+import LayoutSwitch from "../components/LayoutSwitch";
 
 export default function Dashboard() {
   const [linkEntries, setLinkEntries] = useState<Entry[]>([]);
@@ -46,7 +47,10 @@ export default function Dashboard() {
         <title>Reminderse Dashboard</title>
       </Head>
       <Navbar />
-      <div className="p-4 lg:p-10">
+      <div className="pg-4 lg:p-10">
+        <LayoutSwitch />
+      </div>
+      {/* <div className="p-4 lg:p-10">
         <div className="tabs tabs-boxed my-1 justify-end bg-transparent">
           <a
             className={`tab ${showGrid ? "tab-active" : ""}`}
@@ -72,7 +76,7 @@ export default function Dashboard() {
               ) : linkEntries.length > 0 ? (
                 linkEntries.map((entry) => (
                   <EntryProvider key={entry.id} initialEntry={entry}>
-                    <EntryLinkCard />
+                    <EntryLinkCard key={entry.id} link={entry} />
                   </EntryProvider>
                 ))
               ) : (
@@ -99,7 +103,7 @@ export default function Dashboard() {
         ) : (
           <EntryList linkEntries={linkEntries} textEntries={textEntries} />
         )}
-      </div>
+      </div> */}
     </>
   );
 }

@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
 html,
 body {
   padding: 0;
@@ -58,7 +57,8 @@ a {
   z-index: 0;
 }
 
-.main-card .imgArea img[alt]::after, .table-img::after {
+.main-card .imgArea img[alt]::after,
+.table-img::after {
   display: block;
   position: absolute;
   top: 0;
@@ -109,12 +109,18 @@ a {
   right: 1em;
 }
 
-.dropdownMenu .menu {
+.dropdownMenu .menu,
+.table-dropdown {
   right: 0;
   z-index: 999 !important;
   position: absolute;
   background-color: #fefefe;
   border: 1px solid #dedede;
+}
+
+.table-dropdown {
+  position: fixed;
+  margin-right: 1em;
 }
 
 .dropDownMenu {

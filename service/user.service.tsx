@@ -24,7 +24,7 @@ export const userService = {
   updatePassword,
   updateInterval,
   unsubscribe,
-  getVersion,
+  healthCheck,
 };
 
 export interface LoginResponse {
@@ -145,8 +145,8 @@ async function unsubscribe(): Promise<number> {
 
 function logout() {
   userApi
-    .put(`${API_URL}/api/logout`, {}, { withCredentials: true })
-    .finally(() => {
+    .delete(`${API_URL}/auth/logout`, { withCredentials: true })
+    .then(() => {
       clearUserInformation();
       Router.push("/");
     });
@@ -157,8 +157,6 @@ function clearUserInformation() {
   userSubject.next(null);
 }
 
-async function getVersion() {
-  return await userApi
-    .get(`${API_URL}/api/version`, { withCredentials: true })
-    .then((res) => res.data);
+async function healthCheck() {
+  return await userApi.get(`${API_URL}/health`).then((res) => res.data);
 }

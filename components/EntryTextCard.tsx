@@ -1,35 +1,28 @@
-import { Router, useRouter } from "next/router";
-import React, { useContext } from "react";
-import { EntryContextImpl } from "../context/entry.context";
+import { useRouter } from "next/router";
+import React, { useState } from "react";
 import { entryService } from "../service/entry.service";
 import DropdownMenu from "./DropdownMenu";
 
-const EntryTextCard = () => {
-  const entryProvider = useContext(EntryContextImpl);
+const EntryTextCard = ({ text }) => {
   const router = useRouter();
+  const [date, setDate] = useState(text.date_of_next_send);
   const [isOpen, setIsOpen] = React.useState(false);
   return (
     <>
       <div className="main-card rounded-box shadow-sm hover:shadow-md cursor-pointer">
         <div className="clickable" onClick={() => setIsOpen(true)}>
-          <div className="entryTitle text-center my-2">
-            {entryProvider.entry.title}
-          </div>
+          <div className="entryTitle text-center my-2">{text.title}</div>
           <div className="cardInfo">
-            <div>{entryProvider.entry.content}</div>
+            <div>{text.content}</div>
             <div className="secondary">
-              {entryProvider.entry.category ? (
-                entryProvider.entry.category
-              ) : (
-                <p></p>
-              )}
+              {text.category ? text.category : <p></p>}
             </div>
             <div className="secondary date">
-              {entryService.formatDate(entryProvider.entry.date_of_next_send)}
+              {entryService.formatDate(date)}
             </div>
           </div>
         </div>
-        <DropdownMenu />
+        <DropdownMenu entry={text} date={date} setDate={setDate} />
       </div>
       <input
         type="checkbox"
@@ -39,14 +32,14 @@ const EntryTextCard = () => {
       />
       <div className="modal">
         <div className="modal-box">
-          <h1 className="text-2xl text-bold">{entryProvider.entry.title}</h1>
+          <h1 className="text-2xl text-bold">{text.title}</h1>
           <div className="divider" />
-          <p>{entryProvider.entry.content}</p>
+          <p>{text.content}</p>
           <div className="modal-action">
             <label
               htmlFor="my-modal-2"
               className="btn btn-primary"
-              onClick={() => router.push(`/text/${entryProvider.entry.id}`)}
+              onClick={() => router.push(`/text/${text.id}`)}
             >
               Edit
             </label>
