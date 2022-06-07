@@ -7,7 +7,6 @@
     Reminderse reminds you about the links, articles and other media that you’ve consumed surfing the internet. Simply make an entry and get reminded about it in intervals.
   </p>
 
-   
 <h4>
     <a href="https://reminderse.com/register">Create an account</a>
   <span> · </span>
@@ -22,10 +21,11 @@
 <br />
 
 <!-- About the Project -->
+
 ## :star2: About the Project
 
-
 <!-- TechStack -->
+
 ### :space_invader: Tech Stack
 
 <details>
@@ -54,6 +54,7 @@
 </details>
 
 <!-- Features -->
+
 ### :dart: Features
 
 - Account creation
@@ -61,14 +62,18 @@
 - Making entries
 
 <!-- Changelog -->
+
 ### 📥 Changelog
+
 <p>View all the changes since version 2.0 (when I started making a changelog)</p>
 <a href="https://github.com/nimatullo/reminderse.com/blob/master/CHANGELOG.md">
   Changelog
 </a>
 
 <!-- Roadmap -->
+
 ## :compass: Roadmap
+
 - [ ] 🌑 Dark mode
 - [x] 🔙 Some backend logic is faulty, especially interacting with the database
 - [x] ➕ Add page breaks on phone width
@@ -76,23 +81,23 @@
 - [x] 🛣 Custom email intervals
 
 <!-- Contributing -->
+
 ## :wave: Contributing
 
 <a href="https://github.com/nimatullo/reminderse.com/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=nimatullo/reminderse.com" />
 </a>
 
-
 Contributions are always welcome!
 
-
 <!-- License -->
+
 ## :warning: License
 
 Distributed under the [MIT](https://choosealicense.com/licenses/mit/) License. See LICENSE.txt for more information.
 
-
 <!-- Contact -->
+
 ## :handshake: Contact
 
 [@mmvvpp123](https://twitter.com/mmvvpp123) - sherzodnimatullo@gmail.com

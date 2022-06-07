@@ -5,13 +5,9 @@ import * as packageInfo from "../package.json";
 import { userService } from "../service/user.service";
 
 export default function Home() {
-  const [apiVersion, setApiVersion] = useState("");
-
   useEffect(() => {
-    userService.getVersion().then((data) => {
-      setApiVersion(data.build);
-    });
-  }, [])
+    userService.healthCheck().then((data) => {});
+  }, []);
 
   return (
     <>

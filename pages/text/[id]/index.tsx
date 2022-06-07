@@ -20,9 +20,9 @@ export default function EditText() {
   useEffect(() => {
     entryService.getText(id as string).then((entry) => {
       setTitle(entry.entry_title);
-      setTextContent(entry.text_content);
+      setTextContent(entry.content);
       setCategory(entry.category);
-      setNextEmailDate(new Date(Date.parse(entry.date)));
+      setNextEmailDate(new Date(Date.parse(entry.date_of_next_send)));
     });
   }, []);
 
@@ -33,9 +33,9 @@ export default function EditText() {
       .editText(id as string, {
         id: id as string,
         entry_title: title,
-        text_content: textContent,
+        content: textContent,
         category: category,
-        date: nextEmailDate.toISOString(),
+        date_of_next_send: nextEmailDate.toISOString(),
       })
       .then((status) => {
         if (status === 200) {

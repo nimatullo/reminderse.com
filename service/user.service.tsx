@@ -18,39 +18,38 @@ export const userService = {
   clearUserInformation,
   confirmEmail,
   isEmailConfirmed,
+  sendConfirmationEmail,
   updateUsername,
   updateEmail,
   updatePassword,
   updateInterval,
   unsubscribe,
-  getVersion,
+  healthCheck,
 };
 
 export interface LoginResponse {
   email: string;
   username: string;
   id: string;
-  interval: number
+  interval: number;
 }
 
 const userApi = axios.create({
   baseURL: API_URL,
   withCredentials: true,
-})
+});
 
-userApi.interceptors.request.use(
-  (config) => {
-    if (config.headers) {
-      config.headers.common["X-CSRF-TOKEN"] = Cookies.get("csrf_access_token");
-    }
-    return config;
-  });
-    
+userApi.interceptors.request.use((config) => {
+  if (config.headers) {
+    config.headers.common["X-CSRF-TOKEN"] = Cookies.get("csrf_access_token");
+  }
+  return config;
+});
 
 async function login(email: string, password: string): Promise<LoginResponse> {
   return await userApi
     .post<LoginResponse>(
-      `${API_URL}/api/login`,
+      `${API_URL}/auth/login`,
       { email, password },
       { withCredentials: true }
     )
@@ -58,9 +57,8 @@ async function login(email: string, password: string): Promise<LoginResponse> {
       localStorage.setItem("user", JSON.stringify(user.data));
       userSubject.next(user.data);
       return user.data;
-    })
-  }
-
+    });
+}
 
 async function register(
   email: string,
@@ -69,7 +67,7 @@ async function register(
 ): Promise<{ message: string }> {
   return await userApi
     .post<{ message: string }>(
-      `${API_URL}/api/register`,
+      `${API_URL}/auth/signup`,
       { email, username, password },
       { withCredentials: true }
     )
@@ -86,27 +84,26 @@ async function confirmEmail(token: string): Promise<number> {
 
 async function isEmailConfirmed(): Promise<boolean> {
   return await userApi
-    .get(`${API_URL}/api/confirmed`, { withCredentials: true })
+    .get(`${API_URL}/me/confirmed`, { withCredentials: true })
     .then((res) => {
-      if (res.data.isConfirmed) {
+      if (res.status === 200) {
         return true;
-      } else return false;
-    });
+      } else {
+        return false;
+      }
+    })
+    .catch(() => false);
 }
 
 async function updateUsername(username: string): Promise<number> {
   return await userApi
-    .put(
-      `${API_URL}/api/change/username`,
-      { username },
-      { withCredentials: true }
-    )
+    .put(`${API_URL}/me/username`, { username }, { withCredentials: true })
     .then((res) => res.status);
 }
 
 async function updateEmail(email: string): Promise<number> {
   return await userApi
-    .put(`${API_URL}/api/change/email`, { email }, { withCredentials: true })
+    .put(`${API_URL}/me/email`, { email }, { withCredentials: true })
     .then((res) => res.status);
 }
 
@@ -116,7 +113,7 @@ async function updatePassword(
 ): Promise<number> {
   return await userApi
     .put(
-      `${API_URL}/api/change/password`,
+      `${API_URL}/me/password`,
       {
         current_password: oldPassword,
         new_password: newPassword,
@@ -130,11 +127,13 @@ async function updatePassword(
 
 async function updateInterval(interval: number) {
   return await userApi
-    .put(
-      `${API_URL}/api/change/interval`,
-      { interval },
-      { withCredentials: true }
-    )
+    .put(`${API_URL}/me/interval`, { interval }, { withCredentials: true })
+    .then((res) => res.status);
+}
+
+async function sendConfirmationEmail() {
+  return await userApi
+    .get(`${API_URL}/me/send-confirmation-email`)
     .then((res) => res.status);
 }
 
@@ -146,8 +145,8 @@ async function unsubscribe(): Promise<number> {
 
 function logout() {
   userApi
-    .put(`${API_URL}/api/logout`, {}, { withCredentials: true })
-    .finally(() => {
+    .delete(`${API_URL}/auth/logout`, { withCredentials: true })
+    .then(() => {
       clearUserInformation();
       Router.push("/");
     });
@@ -158,8 +157,6 @@ function clearUserInformation() {
   userSubject.next(null);
 }
 
-async function getVersion() {
-  return await userApi
-    .get(`${API_URL}/api/version`, { withCredentials: true })
-    .then((res) => res.data);
+async function healthCheck() {
+  return await userApi.get(`${API_URL}/health`).then((res) => res.data);
 }

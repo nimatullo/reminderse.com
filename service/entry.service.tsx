@@ -1,6 +1,6 @@
 import axios from "axios";
 import Router from "next/router";
-import { CreateLinkEntry, CreateTextEntry } from "../models/CreateTextEntry";
+import { CreateEntry } from "../models/CreateEntry";
 import { Entry, EntryType } from "../models/Entry";
 import { EntryListReponse } from "../models/EntryListResponse";
 import { Link } from "../models/Link";
@@ -12,15 +12,14 @@ import Cookies from "js-cookie";
 const entryApi = axios.create({
   baseURL: API_URL,
   withCredentials: true,
-})
+});
 
-entryApi.interceptors.request.use(
-  (config) => {
-    if (config.headers) {
-      config.headers.common["X-CSRF-TOKEN"] = Cookies.get("csrf_access_token");
-    }
-    return config;
-  });
+entryApi.interceptors.request.use((config) => {
+  if (config.headers) {
+    config.headers.common["X-CSRF-TOKEN"] = Cookies.get("csrf_access_token");
+  }
+  return config;
+});
 
 entryApi.interceptors.response.use(
   (response) => response,
@@ -48,6 +47,8 @@ export const entryService = {
   getTextEntries,
   pauseLink,
   resumeLink,
+  pauseText,
+  resumeText,
   deleteLink,
   deleteText,
   addLink,
@@ -57,69 +58,70 @@ export const entryService = {
   editLink,
   editText,
   mapToEntry,
+  formatDate,
+  getDays,
 };
 
 async function getLinkEntries(): Promise<EntryListReponse> {
-  return entryApi
-    .get<EntryListReponse>(`/api/link/list`)
-    .then((res) => res.data);
+  return entryApi.get<EntryListReponse>(`/links/`).then((res) => res.data);
 }
 
 async function getTextEntries(): Promise<EntryListReponse> {
-  return entryApi
-    .get<EntryListReponse>(`/api/text/list`)
-    .then((res) => res.data);
+  return entryApi.get<EntryListReponse>(`/texts/`).then((res) => res.data);
 }
 
-function pauseLink(linkId: string): Promise<number> {
+async function pauseLink(linkId: string): Promise<number> {
+  return entryApi.put(`/links/${linkId}/pause`).then((res) => res.status);
+}
+
+async function resumeLink(linkId: string): Promise<number> {
+  return entryApi.put(`/links/${linkId}/resume`).then((res) => res.status);
+}
+
+async function pauseText(textId: string): Promise<number> {
+  return entryApi.put(`/texts/${textId}/pause`).then((res) => res.status);
+}
+
+async function resumeText(textId: string): Promise<number> {
+  return entryApi.put(`/texts/${textId}/resume`).then((res) => res.status);
+}
+
+async function deleteLink(linkId: string): Promise<number> {
+  return entryApi.delete(`/links/${linkId}`).then((res) => res.status);
+}
+
+async function deleteText(textId: string) {
+  return entryApi.delete(`/texts/${textId}`).then((res) => res.status);
+}
+
+async function addText(textEntry: CreateEntry): Promise<any> {
+  return entryApi.post(`/texts/`, textEntry).then((res) => res);
+}
+
+async function addLink(linkEntry: CreateEntry): Promise<any> {
+  return entryApi.post(`/links/`, linkEntry).then((res) => res);
+}
+
+async function getLink(linkId: string): Promise<Link> {
+  return entryApi.get(`/links/${linkId}`).then((res) => res.data);
+}
+
+async function getText(textId: string): Promise<Text> {
+  return entryApi.get(`/texts/${textId}`).then((res) => res.data);
+}
+
+async function editLink(
+  linkId: string,
+  updatedLink: CreateEntry
+): Promise<number> {
   return entryApi
-    .put(`/api/link/${linkId}/pause`)
+    .put(`/links/${linkId}`, updatedLink)
     .then((res) => res.status);
 }
 
-function resumeLink(linkId: string): Promise<number> {
+async function editText(textId: string, updatedText: Text): Promise<number> {
   return entryApi
-    .put(`/api/link/${linkId}/resume`)
-    .then((res) => res.status);
-}
-
-function deleteLink(linkId: string): Promise<number> {
-  return entryApi
-    .delete(`/api/link/${linkId}`)
-    .then((res) => res.status);
-}
-
-function deleteText(textId: string) {
-  return entryApi
-    .delete(`/api/text/${textId}`)
-    .then((res) => res.status);
-}
-
-function addText(textEntry: CreateTextEntry): Promise<any> {
-  return entryApi.post(`/api/text/add`, textEntry).then((res) => res);
-}
-
-function addLink(linkEntry: CreateLinkEntry): Promise<any> {
-  return entryApi.post(`/api/link/add`, linkEntry).then((res) => res);
-}
-
-function getLink(linkId: string): Promise<Link> {
-  return entryApi.get(`/api/link/${linkId}`).then((res) => res.data);
-}
-
-function getText(textId: string): Promise<Text> {
-  return entryApi.get(`/api/text/${textId}`).then((res) => res.data);
-}
-
-function editLink(linkId: string, updatedLink: Link): Promise<number> {
-  return entryApi
-    .put(`/api/link/${linkId}`, updatedLink)
-    .then((res) => res.status);
-}
-
-function editText(textId: string, updatedText: Text): Promise<number> {
-  return entryApi
-    .put(`/api/text/${textId}`, updatedText)
+    .put(`/texts/${textId}`, updatedText)
     .then((res) => res.status);
 }
 
@@ -128,10 +130,30 @@ function mapToEntry(data: any[]): Entry[] {
     return {
       id: data.id,
       title: data.entry_title,
-      content: data.url ? data.url : data.text_content,
-      dateOfNextSend: data.days,
+      content: data.url ? data.url : data.content,
+      date_of_next_send: data.date_of_next_send,
       category: data.category,
       type: data.url ? EntryType.Link : EntryType.Text,
     };
   });
+}
+
+function formatDate(date: string) {
+  const daysBetweenNow = getDays(date);
+  if (daysBetweenNow < 0) {
+    return "Paused";
+  } else if (daysBetweenNow === 0) {
+    return "Today";
+  } else if (daysBetweenNow === 1) {
+    return "Tomorrow";
+  } else {
+    return `Next email goes out in ${daysBetweenNow} days`;
+  }
+}
+
+function getDays(date: string): number {
+  const dateOfNextSend = new Date(date);
+  const today = new Date();
+  const diff = dateOfNextSend.getTime() - today.getTime();
+  return Math.ceil(diff / (1000 * 3600 * 24));
 }

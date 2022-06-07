@@ -7,15 +7,13 @@ import {
   MdOutlineDelete,
   MdPause,
 } from "react-icons/md";
-import { EntryContextImpl } from "../context/entry.context";
 import { EntryType } from "../models/Entry";
 import { entryService } from "../service/entry.service";
 import Fade from "react-reveal/Fade";
 import { useRouter } from "next/router";
 
-const DropdownMenu = () => {
+const DropdownMenu = ({ entry, date, setDate }) => {
   const router = useRouter();
-  const entryProvider = useContext(EntryContextImpl);
   const [show, setShow] = useState(false);
   const container = useRef<any>(null);
 
@@ -44,31 +42,53 @@ const DropdownMenu = () => {
     return () => document.removeEventListener("keyup", handleEscape);
   }, [show]);
 
-  function handlePause() {
-    entryService.pauseLink(entryProvider.entry.id).then((statusCode) => {
-      if (statusCode === 200) {
-        entryProvider.updatePausedEntry();
-      }
-    });
+  const get3DaysAhead = () => {
+    const date = new Date();
+    date.setDate(date.getDate() + 3);
+    return date.toDateString();
+  };
+
+  async function handlePause() {
+    if (entry.type === EntryType.Link) {
+      await entryService.pauseLink(entry.id).then((statusCode) => {
+        if (statusCode === 200) {
+          setDate(-1);
+        }
+      });
+    } else {
+      await entryService.pauseText(entry.id).then((statusCode) => {
+        if (statusCode === 200) {
+          setDate(-1);
+        }
+      });
+    }
   }
 
-  function handleResume() {
-    entryService.resumeLink(entryProvider.entry.id).then((statusCode) => {
-      if (statusCode === 200) {
-        entryProvider.updateResumedEntry();
-      }
-    });
+  async function handleResume() {
+    if (entry.type === EntryType.Link) {
+      await entryService.resumeLink(entry.id).then((statusCode) => {
+        if (statusCode === 200) {
+          setDate(get3DaysAhead());
+        }
+      });
+    } else {
+      await entryService.resumeText(entry.id).then((statusCode) => {
+        if (statusCode === 200) {
+          setDate(get3DaysAhead());
+        }
+      });
+    }
   }
 
   function handleDelete() {
-    if (entryProvider.entry.type === EntryType.Link) {
-      entryService.deleteLink(entryProvider.entry.id).then((statusCode) => {
+    if (entry.type === EntryType.Link) {
+      entryService.deleteLink(entry.id).then((statusCode) => {
         if (statusCode === 200) {
           window.location.reload();
         }
       });
-    } else if (entryProvider.entry.type === EntryType.Text) {
-      entryService.deleteText(entryProvider.entry.id).then((statusCode) => {
+    } else if (entry.type === EntryType.Text) {
+      entryService.deleteText(entry.id).then((statusCode) => {
         if (statusCode === 200) {
           window.location.reload();
         }
@@ -77,9 +97,9 @@ const DropdownMenu = () => {
   }
 
   function handleEdit() {
-    entryProvider.entry.type === EntryType.Link
-      ? router.push(`/link/${entryProvider.entry.id}/`)
-      : router.push(`/text/${entryProvider.entry.id}/`);
+    entry.type === EntryType.Link
+      ? router.push(`/link/${entry.id}/`)
+      : router.push(`/text/${entry.id}/`);
   }
 
   return (
@@ -94,14 +114,16 @@ const DropdownMenu = () => {
       {show && (
         <Fade top cascade duration={200}>
           <ul className="menu dropdown-content p-4 shadow-lg bg-base-100 rounded-box z-10">
+            {entry.type === EntryType.Link && (
+              <li>
+                <a href={entry.content} target={"_blank"}>
+                  <MdOpenInNew className="inline-block w-5 h-5 mr-2 stroke-current" />
+                  Open
+                </a>
+              </li>
+            )}
             <li>
-              <a href={entryProvider.entry.content} target={"_blank"}>
-                <MdOpenInNew className="inline-block w-5 h-5 mr-2 stroke-current" />
-                Open
-              </a>
-            </li>
-            <li>
-              {Number(entryProvider.entry.dateOfNextSend) > 0 ? (
+              {entryService.getDays(date) > 0 ? (
                 <a onClick={handlePause}>
                   <MdPause className="inline-block w-5 h-5 mr-2 stroke-current" />
                   Pause

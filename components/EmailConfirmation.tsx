@@ -11,6 +11,14 @@ export default function EmailConfirmation() {
     });
   }, []);
 
+  const handleSendConfirmationEmail = async () => {
+    await userService.sendConfirmationEmail().then((status) => {
+      if (status === 200) {
+        console.log("Email sent");
+      }
+    });
+  };
+
   return (
     <>
       {!isConfirmed ? (
@@ -27,7 +35,10 @@ export default function EmailConfirmation() {
             </label>
           </div>
           <div className="flex-none">
-            <button className="btn btn-sm lg:btn-md btn-info">
+            <button
+              className="btn btn-sm lg:btn-md btn-info"
+              onClick={handleSendConfirmationEmail}
+            >
               <MdMarkEmailRead className="inline-block w-6 h-6 mr-2" />
               Resend confirmation email
             </button>
