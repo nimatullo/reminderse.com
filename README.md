@@ -10,8 +10,11 @@
 <h4>
     <a href="https://reminderse.com/register">Create an account</a>
   <span> · </span>
-    <a href="https://github.com/nimatullo/reminderse.com/issues/">Report Bug</a>
+    <a href="https://api.reminderse.com/docs"> Documentation </a>
   <span> · </span>
+    <a href="https://github.com/nimatullo/reminderse.com/issues/">Report Bug</a>
+  </h4>
+ <h4>
     <a href="https://github.com/nimatullo/reminderse.com/issues/">Request a Feature</a>
   <span> · </span>
     <a href="https://nimatullo.notion.site/Reminderse-3c8c5d3130cd420fb25adca9084a4640">What's Being Worked On</a>
@@ -42,7 +45,7 @@
   <summary>Server</summary>
   <ul>
     <li><a href="https://www.python.org/">Python</a></li>
-    <li><a href="https://flask.palletsprojects.com/en/2.1.x/">Flask</a></li>
+    <li><a href="https://fastapi.tiangolo.com/">FastAPI</a></li>
   </ul>
 </details>
 
