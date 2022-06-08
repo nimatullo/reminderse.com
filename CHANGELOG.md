@@ -1,3 +1,11 @@
+# (06/08/22) v2.3
+For the longevity of the project and for my own sanity, I've moved the API layer from Flask to FastAPI. FastAPI had a lot of appealing features like automatic documentation, middleware and async support.
+
+## 📨 Changes
+- Dashboard entries can now be viewed in list format
+- New backend API (v2) after migrating to FastAPI
+- Backend API testing implementation, taking a TDD approach
+
 # (02/03/22) v2.2
 You can now set your own interval for how frequent entries can be sent out. The settings page now has a field that allows you to change the interval. The default is 3.
 
