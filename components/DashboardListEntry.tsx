@@ -31,10 +31,7 @@ const DashboardListEntry = () => {
 
   return (
     <>
-      <tr
-        className="hover:hover cursor-pointer entry-table-row"
-        onClick={handleClick}
-      >
+      <tr className="hover:hover cursor-pointer entry-table-row">
         <td>
           {entryProvider.entry.type === EntryType.Link ? (
             <AiOutlineLink />
@@ -42,7 +39,7 @@ const DashboardListEntry = () => {
             <AiOutlineFileText />
           )}
         </td>
-        <td>
+        <td onClick={handleClick}>
           <div className="avatar">
             <div className="w-12">
               <img
@@ -55,20 +52,20 @@ const DashboardListEntry = () => {
             </div>
           </div>
         </td>
-        <td>
+        <td onClick={handleClick}>
           <div className="flex items-center space-x-3">
             <div>
               <div className="font-bold">{entryProvider.entry.title}</div>
             </div>
           </div>
         </td>
-        <td>
+        <td onClick={handleClick}>
           {entryProvider.entry.type === EntryType.Link
             ? simplifyUrl(entryProvider.entry.content)
             : entryProvider.entry.content}
         </td>
-        <td>{entryProvider.entry.category}</td>
-        <td>
+        <td onClick={handleClick}>{entryProvider.entry.category}</td>
+        <td onClick={handleClick}>
           {entryService.formatDate(entryProvider.entry.date_of_next_send)}
         </td>
         <td>
