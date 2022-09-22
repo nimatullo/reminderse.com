@@ -97,7 +97,7 @@ Contributions are always welcome!
 
 ## :warning: License
 
-Distributed under the [MIT](https://choosealicense.com/licenses/mit/) License. See LICENSE.txt for more information.
+Distributed under the [GPL3.0](https://choosealicense.com/licenses/gpl-3.0/) License. See LICENSE.txt for more information.
 
 <!-- Contact -->
 
