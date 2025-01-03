@@ -27,14 +27,45 @@
 
 ## :star2: About the Project
 
-### 🌎 Pictures
 
 
-<img src="https://github.com/user-attachments/assets/78a1afdf-8427-40e7-827d-720326ca8ead" width="45%"></img> <img src="https://github.com/user-attachments/assets/b108e8d7-38ad-440f-9b31-4cdefa2a79e9" width="45%"></img> <img src="https://github.com/user-attachments/assets/02126cb6-7790-4509-a4e6-c7bf57712659" width="45%"></img> <img src="https://github.com/user-attachments/assets/1ed4ea68-3f08-4edd-8902-710e0077266f" width="45%"></img> <img src="https://github.com/user-attachments/assets/461aa8a6-1abe-4953-ae2b-4d51f93154e9" width="45%"></img> <img src="https://github.com/user-attachments/assets/f8876cc9-6bf9-4747-9e0e-fb48808331e2" width="45%"></img> 
+<details>
+  <summary>
+    <h3>✨ Screenshots</h3>
+  </summary>
+  <ul>
+      <h3>Homepage</h3>
+      <img src="https://github.com/user-attachments/assets/78a1afdf-8427-40e7-827d-720326ca8ead"/>
+<!-- dashboard -->
+      <h3>Dashboard</h3>
+      <img src="https://github.com/user-attachments/assets/1ed4ea68-3f08-4edd-8902-710e0077266f"/>
+      <img src="https://github.com/user-attachments/assets/b108e8d7-38ad-440f-9b31-4cdefa2a79e9"/>
+<!-- entries -->
+      <h3>Adding Entries</h3>
+      <img src="https://github.com/user-attachments/assets/461aa8a6-1abe-4953-ae2b-4d51f93154e9"/>
+      <img src="https://github.com/user-attachments/assets/02126cb6-7790-4509-a4e6-c7bf57712659"/>
+<!-- settings -->
+      <h3>Settings</h3>
+      <img src="https://github.com/user-attachments/assets/f8876cc9-6bf9-4747-9e0e-fb48808331e2"/>
+
+  </ul>
+</details>
 
 
+#### Dashboard
+![image](https://github.com/user-attachments/assets/1ed4ea68-3f08-4edd-8902-710e0077266f)
 
 
+![image](https://github.com/user-attachments/assets/b108e8d7-38ad-440f-9b31-4cdefa2a79e9)
+
+#### Adding Entries
+![image](https://github.com/user-attachments/assets/461aa8a6-1abe-4953-ae2b-4d51f93154e9)
+
+
+![image](https://github.com/user-attachments/assets/02126cb6-7790-4509-a4e6-c7bf57712659)
+
+#### Settings
+![image](https://github.com/user-attachments/assets/f8876cc9-6bf9-4747-9e0e-fb48808331e2)
 
 <!-- TechStack -->
 
